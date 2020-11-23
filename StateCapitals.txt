@@ -1,0 +1,50 @@
+Missouri-Jefferson City
+Arkansas-Little Rock
+Iowa-Des Moines
+Kansas-Topeka
+Illinois-Springfield
+Kentucky-Frankfort
+Tennessee-Nashville
+Minnesota-St. Paul
+Wisconsin-Madison
+Michigan-Lansing
+Ohio-Columbus
+West Virginia-Charleston
+Indiana-Indianapolis
+Pennsylvania-Harrisburg
+New York-Albany
+Vermont-Montpelier
+New Hampshire-Concord
+Maine-Augusta
+Connecticut-Hartford
+Rhode Island-Providence
+Massachusetts-Boston
+New Jersey-Trenton
+Delaware-Dover
+Virginia-Richmond
+North Carolina-Raleigh
+South Carolina-Columbia
+Georgia-Atlanta
+Florida-Tallahassee
+Alabama-Montgomery
+Mississippi-Jackson
+Louisiana-Baton Rouge
+Texas-Austin
+Oklahoma-Oklahoma City
+Nebraska-Lincoln
+South Dakota-Pierre
+North Dakota-Bismarck
+Montana-Helena
+Wyoming-Cheyenne
+Colorado-Denver
+New Mexico-Santa Fe
+Arizona-Phoenix
+Nevada-Carson City
+Idaho-Boise
+Washington-Olympia
+Oregon-Salem
+California-Sacramento
+Hawaii-Honolulu
+Alaska-Juneau
+Utah-Salt Lake City
+Maryland-Annapolis
