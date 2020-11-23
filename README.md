@@ -13,12 +13,13 @@ database.
 1 named 'state_capitals' and 1 named 'scores'.<br>
 SQL commands for creating those:<br>
 ```sql
-create database state_capitals_quiz;
-use state_capitals_quiz;
-create table state_capitals (state varchar(20), capital varchar(20), primary key (state));
-create table scores (name varchar(20), score tinyint);
+	create database state_capitals_quiz;
+	use state_capitals_quiz;
+	create table state_capitals (state varchar(20), capital varchar(20), primary key (state));
+	create table scores (name varchar(20), score tinyint);
 ```
-2. Modify FillDatabseScript.py and StateCapitalsQuiz.py so that the dictionaries named 'config' in each file contain your username and password 
-for your MySQL connection.
-3. Run FillDatabaseScript.py using Python
-4. Run StateCapitalsQuiz.py using Python and have fun!
+2. Have the MySQL connector for Python installed.
+3. Modify FillDatabseScript.py and StateCapitalsQuiz.py so that for the dictionaries named 'config' in each file, the values for the 'user' and 
+'password' keys are your username and password, respectively, for your MySQL connection.
+4. Run FillDatabaseScript.py using Python
+5. Run StateCapitalsQuiz.py using Python and have fun!
