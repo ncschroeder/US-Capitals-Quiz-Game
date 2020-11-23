@@ -10,8 +10,8 @@ database.
 
 ## Directions
 1. Have a MySQL database management system on your computer, a database named 'state_capitals_quiz', and 2 tables in that database: 
-1 named 'state_capitals' and 1 named 'scores'.
-SQL commands for creating those:
+1 named 'state_capitals' and 1 named 'scores'.<br>
+SQL commands for creating those:<br>
 		create database state_capitals_quiz;
 		use state_capitals_quiz;
 		create table state_capitals (state varchar(20), capital varchar(20), primary key (state));
