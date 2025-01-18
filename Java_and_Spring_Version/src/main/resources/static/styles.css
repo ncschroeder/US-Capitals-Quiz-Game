@@ -1,0 +1,51 @@
+body {
+    /*
+    Use the colors of the American flag; which are white, Old Glory Blue, and Old Glory Red.
+    These codes are from flagcolorcodes.com/usa.
+    */
+    background-color: #0A3161;
+    --old-glory-red: #B31942;
+    color: var(--old-glory-red);
+}
+
+a {
+    color: var(--old-glory-red);
+    display: block;
+}
+
+.largeText {
+    font-size: 50px;
+    -webkit-text-stroke: 0.5px white;
+}
+
+.mediumText {
+    font-size: 35px;
+    -webkit-text-stroke: 0.25px white;
+    text-decoration-thickness: 0.25px;
+}
+
+.smallText {
+    font-size: 20px;
+    -webkit-text-stroke: 0.15px white;
+    text-decoration-thickness: 0.15px;
+}
+
+table {
+    margin: 0 auto;
+    --thick-border-style: 2px solid white;
+    --thin-border-style: 1px solid white;
+    border: var(--thick-border-style);
+    border-collapse: collapse;
+}
+
+th {
+    border-bottom: var(--thick-border-style);
+}
+
+th:first-child {
+    border-right: var(--thin-border-style);
+}
+
+td {
+    border: var(--thin-border-style);
+}
