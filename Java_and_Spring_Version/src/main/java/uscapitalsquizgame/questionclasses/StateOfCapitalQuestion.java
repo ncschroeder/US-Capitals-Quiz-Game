@@ -2,13 +2,11 @@ package uscapitalsquizgame.questionclasses;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import uscapitalsquizgame.entities.State;
-import uscapitalsquizgame.repositories.StatesRepository;
+import uscapitalsquizgame.statetypes.NonEntityState;
 
 public final class StateOfCapitalQuestion extends Question {
     public final String capital;
     
-    public StateOfCapitalQuestion(State state, StatesRepository statesRepository) {
         capital = state.getCapital();
         
         boolean useNoneOfTheAbove = random.nextInt(5) == 0;

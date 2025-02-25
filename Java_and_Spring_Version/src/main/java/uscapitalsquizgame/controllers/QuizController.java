@@ -8,18 +8,13 @@ import java.util.List;
 import java.util.function.Function;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uscapitalsquizgame.entities.State;
 import uscapitalsquizgame.questionclasses.*;
-import uscapitalsquizgame.repositories.StatesRepository;
-import uscapitalsquizgame.repositories.NonCapitalCitiesRepository;
+import uscapitalsquizgame.statetypes.NonEntityState;
 
 @Controller
 public class QuizController {
-    @Autowired
-    private StatesRepository statesRepository;
     
     @Autowired
-    private NonCapitalCitiesRepository nonCapitalCitiesRepository;
     
     private final ObjectMapper jsonObjectMapper = new ObjectMapper();
     
