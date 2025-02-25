@@ -42,8 +42,8 @@ th {
     border-bottom: var(--thick-border-style);
 }
 
-th:first-child {
-    border-right: var(--thin-border-style);
+th:nth-child(n + 2) {
+    border-left: var(--thin-border-style);
 }
 
 td {

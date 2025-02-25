@@ -91,12 +91,14 @@ const
     scoreStatusP = getElementById('scoreStatusP');
 
 saveScoreBtn.onclick = () => {
-    const nameInputText = nameInput.value;
+    const nameInputText = nameInput.value.trim();
     if (nameInputText.length === 0) return;
 
     const
         request = new XMLHttpRequest(),
-        url = `add${isCapitalsOfStatesQuiz ? 'CapitalsOfStates' : 'StatesOfCapitals'}QuizScore?score=${score}&name=${nameInputText}`;
+        url =
+            (isCapitalsOfStatesQuiz ? 'capitalsOfStates' : 'statesOfCapitals') +
+            `QuizScore?score=${score}&name=${nameInputText}`;
 
     request.open('post', url);
 

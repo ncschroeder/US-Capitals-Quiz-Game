@@ -10,16 +10,27 @@
     <h1 class='largeText'>${titleAndHeading}</h1>
     
     <table>
-        <tr>
-            <th class='mediumText'>Name</th>
-            <th class='mediumText'>Score</th>
-        </tr>
-        <#list scores as score>
+        <thead>
             <tr>
-                <td class='smallText'>${score.name}</td>
-                <td class='smallText'>${score.score}</td>
+                <th class='mediumText'>Name</th>
+                <th class='mediumText'>Score</th>
+                <th class='mediumText'>Date and Time</th>
             </tr>
-        </#list>
+        </thead>
+        <tbody>
+            <#list scoreDataList as scoreData>
+                <tr>
+                    <td class='smallText'>${scoreData.name}</td>
+                    <td class='smallText'>${scoreData.score}</td>
+                    <td class='smallText dateTimeCell'></td>
+                </tr>
+            </#list>
+        </tbody>
     </table>
+
+    <script id='dateTimeStringsJsonScript' type='application/json'>
+        ${dateTimeStringsJson}
+    </script>
+    <script src='scores.js'></script>
 </body>
 </html>
