@@ -5,9 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import uscapitalsquizgame.RandomnessService;
 import uscapitalsquizgame.questionclasses.*;
 import uscapitalsquizgame.statetypes.NonEntityState;
 
@@ -15,17 +16,19 @@ import uscapitalsquizgame.statetypes.NonEntityState;
 public class QuizController {
     
     @Autowired
+    private RandomnessService randomnessService;
     
     private final ObjectMapper jsonObjectMapper = new ObjectMapper();
     
     private String updateModelAndGetView(
         Model model,
         String titleAndHeading,
-        Function<State, Question> createQuestion
     ) throws JsonProcessingException {
+        BiFunction<NonEntityState, RandomnessService, Question> createQuestion
         List<Question> questions =
-            getStreamOfRandomStates(statesRepository, 10)
-            .map(createQuestion)
+            randomnessService
+            .getStreamOfRandomStates(NUM_QUESTIONS)
+            .map(state -> createQuestion.apply(state, randomnessService))
             .toList();
         
         model
@@ -37,15 +40,11 @@ public class QuizController {
     
     @GetMapping("/capitalsOfStatesQuiz")
     public String capitalsOfStatesQuiz(Model model) throws JsonProcessingException {
-        Function<State, Question> createCapitalOfStateQuestion =
-            state -> new CapitalOfStateQuestion(state, statesRepository, nonCapitalCitiesRepository);
-        return updateModelAndGetView(model, "Capitals of States Quiz", createCapitalOfStateQuestion);
+        return updateModelAndGetView(model, "Capitals of States Quiz", CapitalOfStateQuestion::new);
     }
     
     @GetMapping("/statesOfCapitalsQuiz")
     public String statesOfCapitalsQuiz(Model model) throws JsonProcessingException {
-        Function<State, Question> createStateOfCapitalQuestion =
-            state -> new StateOfCapitalQuestion(state, statesRepository);
-        return updateModelAndGetView(model, "States of Capitals Quiz", createStateOfCapitalQuestion);
+        return updateModelAndGetView(model, "States of Capitals Quiz", StateOfCapitalQuestion::new);
     }
 }

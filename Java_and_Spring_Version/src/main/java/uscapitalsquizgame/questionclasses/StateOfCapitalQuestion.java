@@ -2,14 +2,16 @@ package uscapitalsquizgame.questionclasses;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import uscapitalsquizgame.RandomnessService;
 import uscapitalsquizgame.statetypes.NonEntityState;
 
 public final class StateOfCapitalQuestion extends Question {
     public final String capital;
     
+    public StateOfCapitalQuestion(NonEntityState state, RandomnessService randomnessService) {
         capital = state.getCapital();
         
-        boolean useNoneOfTheAbove = random.nextInt(5) == 0;
+        boolean useNoneOfTheAbove = randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
         int numRandomStatesToGet;
         
         if (useNoneOfTheAbove) {
@@ -17,12 +19,13 @@ public final class StateOfCapitalQuestion extends Question {
             correctIndex = 4;
         } else {
             numRandomStatesToGet = 3;
-            correctIndex = random.nextInt(4);
+            correctIndex = randomnessService.random.nextInt(4);
         }
         
         choices =
-            getStreamOfRandomStates(statesRepository, numRandomStatesToGet)
-            .map(State::getName)
+            randomnessService
+            .getStreamOfRandomStates(numRandomStatesToGet)
+            .map(NonEntityState::getName)
             .collect(Collectors.toCollection(ArrayList::new));
         
         if (!useNoneOfTheAbove) {
