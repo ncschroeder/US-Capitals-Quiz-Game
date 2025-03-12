@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Admin Dashboard</title>
+    <meta charset='UTF-8'>
+    <link rel='stylesheet' href='styles.css'>
+    <script src='admin.js' defer></script>
+    <style>
+        body > div {
+            margin-top: 20px;
+        }
+
+        #updateStatesDataDiv > :nth-child(n + 2) {
+            margin-top: 10px;
+        }
+
+        code {
+            background-color: #434343;
+            color: white;
+            display: block;
+            text-indent: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action='/logout' method='post'>
+        <input type='submit' value='Log Out' />
+    </form>
+
+    <h1>Admin Dashboard</h1>
+    
+    <div id='updateStatesDataDiv'>
+        <h2>Update States Data</h2>
+        <input type='file' id='fileInput' accept='text/csv' />
+        <div>
+            <label for='updateRsCheckbox'>Update Randomness Service</label>
+            <input type='checkbox' id='updateRsCheckbox' />
+        </div>
+        <button id='statesDataSubmitBtn'>Submit</button>
+        <p id='statesDataSubmitStatusP'></p>
+    </div>
+
+    <div>
+        <button id='getStatesDataBtn'>Get States Data</button>
+        <div id='statesDataOrErrorDiv'></div>
+    </div>
+
+    <div>
+        <button id='getStatesDataHtmlBtn'>Get States Data Table Rows HTML</button>
+        <div id='statesDataHtmlOrErrorDiv'></div>
+    </div>
+</body>

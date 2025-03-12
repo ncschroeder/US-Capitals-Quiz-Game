@@ -20,6 +20,13 @@ public class NonEntityState {
         return String.format("NonEntityState[name=%s, capital=%s, cities=%s]", name, capital, cities);
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        return
+            obj instanceof NonEntityState state && this.name.equals(state.name) &&
+            this.capital.equals(state.capital) && this.cities.equals(state.cities);
+    }
+    
     public String getName() {
         return name;
     }

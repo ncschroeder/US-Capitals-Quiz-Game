@@ -27,6 +27,8 @@ public class RandomnessService {
             .stream()
             .map(NonEntityState::new)
             .toList();
+    public List<NonEntityState> getStates() {
+        return states;
     }
     
     public final Random random = new Random();
