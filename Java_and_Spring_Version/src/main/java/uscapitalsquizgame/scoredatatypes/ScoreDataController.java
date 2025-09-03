@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import uscapitalsquizgame.QuizController;
 
 @Controller
 public class ScoreDataController {
@@ -16,10 +19,14 @@ public class ScoreDataController {
     @Autowired
     private ObjectMapper jsonObjectMapper;
     
-    private String updateModelAndGetView(Model model, boolean getCapitalsOfStatesQuizScores) {
+    @GetMapping("/quizScores")
+    public String quizScores(
+        Model model,
+        @RequestParam(name = "forCapitalsOfStatesQuizzes") boolean getCapitalsOfStatesQuizScores
+    ) throws JsonProcessingException {
         List<ScoreData> scoreDataList =
             scoreDataRepository
-            .findAllByIsForCapitalsOfStatesQuizOrderByScoreDescDateTimeAsc(getCapitalsOfStatesQuizScores);
+            .findByIsForCapitalsOfStatesQuizOrderByScoreDescDateTimeAsc(getCapitalsOfStatesQuizScores);
         
         List<String> dateTimeStrings =
             scoreDataList
@@ -27,15 +34,10 @@ public class ScoreDataController {
             .map(sd -> sd.getDateTime().toString())
             .toList();
         
-        String dateTimeStringsJson;
-        try {
-            dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);
-        } catch (JsonProcessingException ex) {
-            throw new RuntimeException(ex);
-        }
+        String dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);;
         
         var titleAndCaption =
-            (getCapitalsOfStatesQuizScores ? "Capitals of States" : "States of Capitals") + " Quiz Scores";
+            QuizController.getQuizType(getCapitalsOfStatesQuizScores) + " Quiz Scores";
         
         model
         .addAttribute("titleAndCaption", titleAndCaption)
@@ -45,23 +47,15 @@ public class ScoreDataController {
         return "scores";
     }
     
-    @GetMapping("/capitalsOfStatesQuizScores")
-    public String getCapitalsOfStatesQuizScores(Model model) {
-        return updateModelAndGetView(model, true);
-    }
-    
-    @GetMapping("/statesOfCapitalsQuizScores")
-    public String getStatesOfCapitalsQuizScores(Model model) {
-        return updateModelAndGetView(model, false);
-    }
-    
-    @PostMapping("/capitalsOfStatesQuizScore")
-    public void addCapitalsOfStatesQuizScore(@RequestParam int score, @RequestParam String name) {
-        scoreDataRepository.save(new ScoreData(score, name, true));
-    }
-    
-    @PostMapping("/statesOfCapitalsQuizScore")
-    public void addStatesOfCapitalsQuizScore(@RequestParam int score, @RequestParam String name) {
-        scoreDataRepository.save(new ScoreData(score, name, false));
+    @PostMapping("/quizScore")
+    public @ResponseBody String addQuizScore(
+        @RequestParam int score, @RequestParam String name, @RequestParam boolean isForCapitalsOfStatesQuiz
+    ) {
+        var dateTime = OffsetDateTime.now(ZoneOffset.UTC);
+        try {
+            scoreDataRepository.save(new ScoreData(score, name, isForCapitalsOfStatesQuiz, dateTime));
+        } catch (IllegalArgumentException ex) {
+        }
+        return dateTime.toString();
     }
 }

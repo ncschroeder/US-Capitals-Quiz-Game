@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-    <title>${titleAndHeading}</title>
+    <title>${titleAndCaption}</title>
     <meta charset='UTF-8'>
     <link rel='stylesheet' href='styles.css'>
 </head>
 <body>
     <a href='index.html' class='smallText'>Main Menu</a>
-    <h1 class='largeText'>${titleAndHeading}</h1>
     
     <table>
+        <caption class='largeText'>${titleAndCaption}</caption>
         <thead>
             <tr>
                 <th class='mediumText'>Name</th>
