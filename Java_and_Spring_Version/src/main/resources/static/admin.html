@@ -10,7 +10,7 @@
             margin-top: 20px;
         }
 
-        #updateStatesDataDiv > :nth-child(n + 2) {
+        #updateStatesDiv > :nth-child(n + 2) {
             margin-top: 10px;
         }
 
@@ -26,27 +26,43 @@
     <form action='/logout' method='post'>
         <input type='submit' value='Log Out' />
     </form>
+    
+    <a href='/'>Home Page</a>
 
     <h1>Admin Dashboard</h1>
     
-    <div id='updateStatesDataDiv'>
-        <h2>Update States Data</h2>
-        <input type='file' id='fileInput' accept='text/csv' />
-        <div>
-            <label for='updateRsCheckbox'>Update Randomness Service</label>
-            <input type='checkbox' id='updateRsCheckbox' />
-        </div>
-        <button id='statesDataSubmitBtn'>Submit</button>
-        <p id='statesDataSubmitStatusP'></p>
+    <div id='updateStatesDiv'>
+        <h2>Update States</h2>
+        <input type='file' id='statesFileInput' accept='text/csv' />
+        <br />
+        <button id='statesSubmitBtn'>Submit</button>
+        <p id='statesSubmitStatusP'></p>
+    </div>
+    
+    
+    <div id='getStatesFromDatabaseDiv'>
+        <button class='getStatesBtn'>Get States Data from Database</button>
+        <div class='statesOrErrorDiv'></div>
+    </div>
+    
+    <div id='getStatesFromRandomnessServiceDiv'>
+        <button class='getStatesBtn'>Get States Data from Randomness Service</button>
+        <div class='statesOrErrorDiv'></div>
     </div>
 
     <div>
-        <button id='getStatesDataBtn'>Get States Data</button>
-        <div id='statesDataOrErrorDiv'></div>
+        <button id='getStatesHtmlBtn'>Get States Data Table Rows HTML</button>
+        <div id='statesHtmlOrErrorDiv'></div>
     </div>
-
-    <div>
-        <button id='getStatesDataHtmlBtn'>Get States Data Table Rows HTML</button>
-        <div id='statesDataHtmlOrErrorDiv'></div>
+    
+    
+    <div id='deleteCapitalsOfStatesQuizScoresDiv'>
+        <button class='deleteScoresBtn'>Delete Capitals of States Quiz Scores</button>
+        <p class='deleteStatusP'></p>
+    </div>
+    
+    <div id='deleteStatesOfCapitalsQuizScoresDiv'>
+        <button class='deleteScoresBtn'>Delete States of Capitals Quiz Scores</button>
+        <p class='deleteStatusP'></p>
     </div>
 </body>

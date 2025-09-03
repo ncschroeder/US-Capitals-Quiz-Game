@@ -31,87 +31,90 @@ const createP = (textContent) => createElement('p', textContent);
  */
 const createH2 = (textContent) => createElement('h2', textContent);
 
+/**
+ * @param {string} [textContent]
+ * @returns {HTMLButtonElement}
+ */
+const createBtn = (textContent) => createElement('button', textContent);
 
-getElementById('statesDataSubmitBtn').onclick = () => {
+getElementById('statesSubmitBtn').onclick = () => {
     /**
      * @type {FileList}
      */
-    const files = getElementById('fileInput').files;
+    const files = getElementById('statesFileInput').files;
     if (files.length === 0) return;
-
+    
     const formData = new FormData();
     formData.set('file', files[0]);
-    formData.set('updateRandomnessService', getElementById('updateRsCheckbox').checked);
+    
+    const submitStatusP = getElementById('statesSubmitStatusP');
 
-    const
-        submitStatusP = getElementById('statesDataSubmitStatusP'),
-        errorMessage = 'Error with updating states data.';
-
-    fetch('/admin/statesData', { method: 'PUT', body: formData })
-    .then(response =>
-        submitStatusP.textContent =
-            response.ok ? 'States data successfully updated.' : errorMessage
-    )
+    fetch('/admin/states', { method: 'PUT', body: formData })
+    .then(response => response.text())
+    .then(text => submitStatusP.textContent = text)
     .catch(reason => {
-        submitStatusP.textContent = errorMessage;
-        console.error(errorMessage, reason);
+        submitStatusP.textContent = 'Error updating states. See console.';
+        console.error(reason);
     });
-}
+};
+
 
 /**
  * @typedef State
- * @type {object}
- * @property {string} name
- * @property {string} capital
- * @property {string[]} cities
+ * @type {{ name: string, capital: string, cities: string[] }}
  */
 
-getElementById('getStatesDataBtn').onclick = () => {
-    const 
-        statesDataOrErrorDiv = getElementById('statesDataOrErrorDiv'),
-        errorP = createP('Error with getting states data.');
-
-    fetch('admin/statesData')
-    .then(async (response) => {
-        const elementsToShow = [];
-
-        if (!response.ok) {
-            elementsToShow.push(errorP);
-            return elementsToShow;
-        }
+/**
+ * @param {boolean} getStatesFromDatabase
+ */
+function addOnclickForGetStatesBtn(getStatesFromDatabase) {
+    const divId = `getStatesFrom${getStatesFromDatabase ? 'Database' : 'RandomnessService'}Div`;
+    const div = getElementById(divId);
+    const statesOrErrorDiv = div.querySelector('.statesOrErrorDiv');
+    
+    div.querySelector('.getStatesBtn').onclick = () => {
+        const requestEndpoint = 'statesFrom' + (getStatesFromDatabase ? 'Database' : 'RandomnessService');
         
-        /**
-         * @type {{statesInDatabase: State[], statesInRandomnessService: State[] | undefined}}
-         */
-        const { statesInDatabase, statesInRandomnessService } = await response.json();
-        const databaseDataHeading = createH2('States Data in Database');
-        elementsToShow.push(databaseDataHeading, createStatesDataTable(statesInDatabase));
-
-        if (statesInRandomnessService) {
-            const rsDataHeading = createH2('States Data in Randomness Service');
-            elementsToShow.push(rsDataHeading, createStatesDataTable(statesInRandomnessService));
-        } else {
-            const pText = 'The randomness service has the same states data as the database.';
-            elementsToShow.push(createP(pText));
-        }
-
-        return elementsToShow;
-    })
-    .then(elementsToShow => statesDataOrErrorDiv.replaceChildren(...elementsToShow))
-    .catch(reason => {
-        statesDataOrErrorDiv.replaceChildren(errorP);
-        console.error(errorP.textContent, reason);
-    });
+        fetch('/admin/' + requestEndpoint)
+        .then(async (response) => {
+            let elementsToShow;
+            
+            if (!response.ok) {
+                elementsToShow = [createP(await response.text())];
+            } else {
+                /**
+                 * @type {State[]}
+                 */
+                const states = await response.json();
+                const table = createStatesTable(states, getStatesFromDatabase);
+                const removeBtn = createBtn('Remove');
+                removeBtn.onclick = () => statesOrErrorDiv.innerHTML = '';
+                elementsToShow = [table, removeBtn];
+            }
+            
+            statesOrErrorDiv.replaceChildren(...elementsToShow)
+        })
+        .catch(reason => {
+            statesOrErrorDiv.replaceChildren(createP('Error getting states data. See console.'));
+            console.error(reason);
+        });
+    };
 }
 
 /**
  * @param {State[]} states
+ * @param {boolean} statesAreFromDatabase 
  * @returns {HTMLTableElement}
  */
-function createStatesDataTable(states) {
-    const
-        table = createElement('table'),
-        tHead = createElement('thead');
+function createStatesTable(states, statesAreFromDatabase) {
+    const table = createElement('table');
+    
+    const captionText =
+        `There are ${states.length} states in the ${statesAreFromDatabase ? 'database' : 'randomness service'}`;
+    const caption = createElement('caption', captionText);
+    table.appendChild(caption);
+    
+    const tHead = createElement('thead');
     let tr = createElement('tr');
 
     for (const heading of ['State', 'Capital', 'Cities']) {
@@ -134,32 +137,62 @@ function createStatesDataTable(states) {
     return table;
 }
 
-getElementById('getStatesDataHtmlBtn').onclick = () => {
-    const
-        htmlOrErrorDiv = getElementById('statesDataHtmlOrErrorDiv'),
-        errorP = createP('Error with getting states data table rows HTML.');
+addOnclickForGetStatesBtn(true);
+addOnclickForGetStatesBtn(false);
 
-    fetch('admin/statesDataTableRowsHtml')
+getElementById('getStatesHtmlBtn').onclick = () => {
+    const htmlOrErrorDiv = getElementById('statesHtmlOrErrorDiv');
+
+    fetch('admin/statesTableRowsHtml')
     .then(async (response) => {
-        const elementsToShow = [];
+        let elementsToShow;
 
         if (!response.ok) {
-            elementsToShow.push(errorP);
-            return elementsToShow;
+            elementsToShow = [createP(await response.text())];
+        } else {
+            const heading = createH2('States Data Table Rows HTML');
+            
+            const pre = createElement('pre');
+            for (const codeLine of await response.json()) {
+                pre.appendChild(createElement('code', codeLine));
+            }
+            
+            const removeBtn = createBtn('Remove');
+            removeBtn.onclick = () => htmlOrErrorDiv.innerHTML = '';
+            
+            elementsToShow = [heading, pre, removeBtn];
         }
-
-        const pre = createElement('pre');
-        for (const codeLine of await response.json()) {
-            pre.appendChild(createElement('code', codeLine));
-        }
-        const heading = createH2('States Data Table Rows HTML');
-        elementsToShow.push(heading, pre);
-
-        return elementsToShow;
+        
+        htmlOrErrorDiv.replaceChildren(...elementsToShow);
     })
-    .then(elementsToShow => htmlOrErrorDiv.replaceChildren(...elementsToShow))
     .catch(reason => {
-        htmlOrErrorDiv.replaceChildren(errorP);
-        console.error(errorP.textContent, reason);
+        htmlOrErrorDiv.replaceChildren(createP('Error getting HTML. See console.'));
+        console.error(reason);
     });
+};
+
+
+/**
+ * @param {boolean} deleteCapitalsOfStatesQuizScores 
+ */
+function addOnclickForDeleteScoresBtn(deleteCapitalsOfStatesQuizScores) {
+    const divId =
+        `delete${deleteCapitalsOfStatesQuizScores ? 'CapitalsOfStates' : 'StatesOfCapitals'}QuizScoresDiv`;
+    const div = getElementById(divId);
+    const requestEndpoint =
+        (deleteCapitalsOfStatesQuizScores ? 'capitalsOfStates' : 'statesOfCapitals') + 'QuizScores';
+    const deleteStatusP = div.querySelector('.deleteStatusP');
+    
+    div.querySelector('.deleteScoresBtn').onclick = () => {
+        fetch('/admin/' + requestEndpoint, { method: 'DELETE' })
+        .then(response => response.text())
+        .then(text => deleteStatusP.textContent = text)
+        .catch(reason => {
+            deleteStatusP.textContent = 'Error deleting scores. See console.';
+            console.error(reason);
+        });
+    };
 }
+
+addOnclickForDeleteScoresBtn(true);
+addOnclickForDeleteScoresBtn(false);
