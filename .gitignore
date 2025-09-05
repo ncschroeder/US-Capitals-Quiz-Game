@@ -21,6 +21,3 @@ target/
 
 ### VS Code ###
 .vscode/
-
-### Ignore auto-generated test folder since there are no tests right now. ###
-Java_and_Spring_Version/src/test/
