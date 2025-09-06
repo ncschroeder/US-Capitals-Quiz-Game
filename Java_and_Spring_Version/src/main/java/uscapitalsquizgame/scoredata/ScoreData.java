@@ -1,10 +1,11 @@
-package uscapitalsquizgame.scoredatatypes;
+package uscapitalsquizgame.scoredata;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import uscapitalsquizgame.QuizController;
 
 @Entity
+@Table(name = "scoreData")
 public class ScoreData {
     public static final int MAX_NAME_LENGTH = 20;
     
@@ -12,24 +13,31 @@ public class ScoreData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
+    @Column(nullable = false, updatable = false)
     private int score;
     
-    @Column(length = MAX_NAME_LENGTH)
+    @Column(length = MAX_NAME_LENGTH, nullable = false, updatable = false)
     private String name;
     
+    @Column(nullable = false, updatable = false)
     private boolean isForCapitalsOfStatesQuiz;
     
+    @Column(nullable = false, updatable = false)
     private OffsetDateTime dateTime;
     
     protected ScoreData() {}
     
     public ScoreData(int score, String name, boolean isForCapitalsOfStatesQuiz, OffsetDateTime dateTime) {
-        if (score < 0 || score > QuizController.NUM_QUESTIONS || name.isBlank()) {
+        this.name = name.strip();
         
+        if (
+            score < 0 || score > QuizController.NUM_QUESTIONS ||
+            this.name.isEmpty() || this.name.length() > MAX_NAME_LENGTH
+        ) {
+            throw new IllegalArgumentException();
         }
         
         this.score = score;
-        this.name = name.strip();
         this.isForCapitalsOfStatesQuiz = isForCapitalsOfStatesQuiz;
         this.dateTime = dateTime;
     }
@@ -61,5 +69,4 @@ public class ScoreData {
     public OffsetDateTime getDateTime() {
         return dateTime;
     }
-    
-    }
+}

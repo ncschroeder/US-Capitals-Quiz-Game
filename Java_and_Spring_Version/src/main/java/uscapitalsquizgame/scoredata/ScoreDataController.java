@@ -1,9 +1,11 @@
-package uscapitalsquizgame.scoredatatypes;
+package uscapitalsquizgame.scoredata;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -24,7 +26,10 @@ public class ScoreDataController {
         Model model,
         @RequestParam(name = "forCapitalsOfStatesQuizzes") boolean getCapitalsOfStatesQuizScores
     ) throws JsonProcessingException {
-        List<ScoreData> scoreDataList =
+        String titleAndCaption =
+            QuizController.getQuizType(getCapitalsOfStatesQuizScores) + " Quiz Scores";
+        
+        var scoreDataList =
             scoreDataRepository
             .findByIsForCapitalsOfStatesQuizOrderByScoreDescDateTimeAsc(getCapitalsOfStatesQuizScores);
         
@@ -35,9 +40,6 @@ public class ScoreDataController {
             .toList();
         
         String dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);;
-        
-        var titleAndCaption =
-            QuizController.getQuizType(getCapitalsOfStatesQuizScores) + " Quiz Scores";
         
         model
         .addAttribute("titleAndCaption", titleAndCaption)
@@ -52,10 +54,15 @@ public class ScoreDataController {
         @RequestParam int score, @RequestParam String name, @RequestParam boolean isForCapitalsOfStatesQuiz
     ) {
         var dateTime = OffsetDateTime.now(ZoneOffset.UTC);
+        ScoreData scoreData;
+        
         try {
-            scoreDataRepository.save(new ScoreData(score, name, isForCapitalsOfStatesQuiz, dateTime));
+            scoreData = new ScoreData(score, name, isForCapitalsOfStatesQuiz, dateTime);
         } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, null, ex);
         }
+        
+        scoreDataRepository.save(scoreData);
         return dateTime.toString();
     }
 }

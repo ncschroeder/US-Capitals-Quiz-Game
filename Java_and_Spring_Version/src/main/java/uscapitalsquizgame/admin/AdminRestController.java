@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 import uscapitalsquizgame.RandomnessService;
-import uscapitalsquizgame.scoredatatypes.ScoreData;
-import uscapitalsquizgame.scoredatatypes.ScoreDataRepository;
+import uscapitalsquizgame.scoredata.ScoreData;
+import uscapitalsquizgame.scoredata.ScoreDataRepository;
 import uscapitalsquizgame.states.State;
 import uscapitalsquizgame.states.StateRepository;
 
@@ -65,9 +65,8 @@ public class AdminRestController {
     private String deleteScoresAndGetMessage(boolean isForCapitalsOfStatesQuiz) {
         List<ScoreData> scoreDatasToDelete =
             scoreDataRepository.findByIsForCapitalsOfStatesQuiz(isForCapitalsOfStatesQuiz);
-        int numScoreDatas = scoreDatasToDelete.size();
         scoreDataRepository.deleteAll(scoreDatasToDelete);
-        return String.format("Successfully deleted %d scores.", numScoreDatas);
+        return String.format("Successfully deleted %d scores.", scoreDatasToDelete.size());
     }
     
     @DeleteMapping("/capitalsOfStatesQuizScores")

@@ -1,4 +1,4 @@
-package uscapitalsquizgame.scoredatatypes;
+package uscapitalsquizgame.scoredata;
 
 import org.springframework.data.repository.CrudRepository;
 import java.util.List;
