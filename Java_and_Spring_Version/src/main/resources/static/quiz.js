@@ -24,19 +24,30 @@ for (let i = 1; i <= 5; i++) {
 
 getElementById('choiceBtnAndLabelDivsDiv').append(...choiceBtnAndLabelDivs);
 
+
+/**
+ * @typedef CapitalsOfStatesQuestion
+ * @type {{ stateName: string, choices: string[], correctIndex: number }}
+ * 
+ * @typedef StatesOfCapitalsQuestion
+ * @type {{ capital: string, choices: string[], correctIndex: number }}
+ */
+
+/**
+ * @type {CapitalsOfStatesQuestion[] | StatesOfCapitalsQuestion[]}
+ */
+const questions = JSON.parse(getElementById('questionsJsonScript').text);
 let questionIndex = 0;
-const
-    questions = JSON.parse(getElementById('questionsJsonScript').text),
-    isCapitalsOfStatesQuiz = questions[0].state !== undefined,
-    questionNumSpan = getElementById('questionNumSpan'),
-    questionSpan = getElementById('questionSpan');
+const isCapitalsOfStatesQuiz = questions[0].stateName !== undefined;
+const questionNumSpan = getElementById('questionNumSpan');
+const questionSpan = getElementById('questionSpan');
 
 function showQuestion() {
     questionNumSpan.innerText = `Question ${questionIndex + 1} of ${questions.length}`;
     const question = questions[questionIndex];
     questionSpan.innerText =
         isCapitalsOfStatesQuiz
-        ? `What's the capital of ${question.state}?`
+        ? `What's the capital of ${question.stateName}?`
         : `${question.capital} is the capital of what state?`;
 
     for (let i = 0; i <= 4; i++) {

@@ -1,24 +1,25 @@
-package uscapitalsquizgame.questionclasses;
+package uscapitalsquizgame.questions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import uscapitalsquizgame.RandomnessService;
 import uscapitalsquizgame.states.State;
 
-public final class CapitalOfStateQuestion extends Question {
-    public final String state;
+public final class CapitalsOfStatesQuestion extends Question {
+    private final String stateName;
     
-    public CapitalOfStateQuestion(State state, RandomnessService randomnessService) {
-        this.state = state.getName();
+    public CapitalsOfStatesQuestion(State state, RandomnessService randomnessService) {
+        stateName = state.getName();
         String paramStateCapital = state.getCapital();
         choices = new ArrayList<>(4);
         List<String> paramStateCities = state.getCities();
         String randomParamStateCity1 = randomnessService.getRandomElement(paramStateCities);
         choices.add(randomParamStateCity1);
         
-        boolean useNoneOfTheAbove = randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
-        if (useNoneOfTheAbove) {
+        boolean noneOfTheAboveIsCorrectAnswer =
+            randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
+        if (!noneOfTheAboveIsCorrectAnswer) {
+            choices.add(paramStateCapital);
+        } else {
             correctIndex = 4;
             
             String randomParamStateCity2;
@@ -26,8 +27,6 @@ public final class CapitalOfStateQuestion extends Question {
                 randomParamStateCity2 = randomnessService.getRandomElement(paramStateCities);
             } while (randomParamStateCity2 == randomParamStateCity1);
             choices.add(randomParamStateCity2);
-        } else {
-            choices.add(paramStateCapital);
         }
         
         String randomCityFromOtherState;
@@ -50,13 +49,20 @@ public final class CapitalOfStateQuestion extends Question {
         choices.add(otherStateCapital);
         
         Collections.shuffle(choices, randomnessService.random);
-        if (!useNoneOfTheAbove) {
+        if (!noneOfTheAboveIsCorrectAnswer) {
             correctIndex = choices.indexOf(paramStateCapital);
         }
     }
     
     @Override
     public String toString() {
-        return String.format("CapitalOfStateQuestion[state=%s, choices=%s, correctIndex=%d", state, choices, correctIndex);
+        return String.format(
+            "CapitalOfStateQuestion[stateName=%s, choices=%s, correctIndex=%d]",
+            stateName, choices, correctIndex
+        );
+    }
+    
+    public String getStateName() {
+        return stateName;
     }
 }

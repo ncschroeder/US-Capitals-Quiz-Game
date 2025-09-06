@@ -1,20 +1,21 @@
-package uscapitalsquizgame.questionclasses;
+package uscapitalsquizgame.questions;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import uscapitalsquizgame.RandomnessService;
 import uscapitalsquizgame.states.State;
 
-public final class StateOfCapitalQuestion extends Question {
-    public final String capital;
+public final class StatesOfCapitalsQuestion extends Question {
+    private final String capital;
     
-    public StateOfCapitalQuestion(State state, RandomnessService randomnessService) {
+    public StatesOfCapitalsQuestion(State state, RandomnessService randomnessService) {
         capital = state.getCapital();
         
-        boolean useNoneOfTheAbove = randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
+        boolean noneOfTheAboveIsCorrectAnswer =
+            randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
         int numRandomStatesToGet;
         
-        if (useNoneOfTheAbove) {
+        if (noneOfTheAboveIsCorrectAnswer) {
             numRandomStatesToGet = 4;
             correctIndex = 4;
         } else {
@@ -28,8 +29,20 @@ public final class StateOfCapitalQuestion extends Question {
             .map(State::getName)
             .collect(Collectors.toCollection(ArrayList::new));
         
-        if (!useNoneOfTheAbove) {
+        if (!noneOfTheAboveIsCorrectAnswer) {
             choices.add(correctIndex, state.getName());
         }
+    }
+    
+    @Override
+    public String toString() {
+        return String.format(
+            "StateOfCapitalQuestion[capital=%s, choices=%s, correctIndex=%d]",
+            capital, choices, correctIndex
+        );
+    }
+    
+    public String getCapital() {
+        return capital;
     }
 }
