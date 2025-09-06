@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import uscapitalsquizgame.RandomnessService;
-import uscapitalsquizgame.statetypes.NonEntityState;
+import uscapitalsquizgame.states.State;
 
 public final class CapitalOfStateQuestion extends Question {
     public final String state;
     
-    public CapitalOfStateQuestion(NonEntityState state, RandomnessService randomnessService) {
+    public CapitalOfStateQuestion(State state, RandomnessService randomnessService) {
         this.state = state.getName();
         String paramStateCapital = state.getCapital();
         choices = new ArrayList<>(4);

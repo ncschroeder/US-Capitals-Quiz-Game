@@ -10,25 +10,26 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.*;
-import uscapitalsquizgame.statetypes.*;
+import uscapitalsquizgame.states.State;
+import uscapitalsquizgame.states.StateRepository;
 
 @Service
 public class RandomnessService {
     @Autowired
-    private StatesRepository statesRepository;
+    private StateRepository stateRepository;
     
-    private List<NonEntityState> states;
+    /**
+     * This is an ArrayList since we're accessing random states from it.
+     */
+    private ArrayList<State> states;
     
     @PostConstruct
     public void updateStates() {
-        states =
-            statesRepository
-            .findAll()
-            .stream()
-            .map(NonEntityState::new)
-            .toList();
-    public List<NonEntityState> getStates() {
-        return states;
+        states = new ArrayList<>(stateRepository.findAll());
+    }
+    
+    public List<State> getStates() {
+        return List.copyOf(states);
     }
     
     public final Random random = new Random();
@@ -45,11 +46,11 @@ public class RandomnessService {
         return list.get(getRandomIndex(list));
     }
     
-    private NonEntityState getRandomState() {
+    private State getRandomState() {
         return getRandomElement(states);
     }
     
-    public Stream<NonEntityState> getStreamOfRandomStates(int numStates) {
+    public Stream<State> getStreamOfRandomStates(int numStates) {
         return
             IntStream.generate(() -> getRandomIndex(states))
             .distinct()

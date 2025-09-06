@@ -8,7 +8,8 @@ import java.util.*;
 import uscapitalsquizgame.RandomnessService;
 import uscapitalsquizgame.scoredatatypes.ScoreData;
 import uscapitalsquizgame.scoredatatypes.ScoreDataRepository;
-import uscapitalsquizgame.statetypes.*;
+import uscapitalsquizgame.states.State;
+import uscapitalsquizgame.states.StateRepository;
 
 @RestController
 @RequestMapping("/admin")
@@ -17,7 +18,7 @@ public class AdminRestController {
     private AdminService adminService;
     
     @Autowired
-    private StatesRepository statesRepository;
+    private StateRepository stateRepository;
     
     @Autowired
     private RandomnessService randomnessService;
@@ -35,9 +36,9 @@ public class AdminRestController {
     @PutMapping("/states")
     public String updateStates(@RequestParam MultipartFile file) {
         // Call createStates first since it might throw a CsvException.
-        List<EntityState> states = adminService.createStates(file);
-        statesRepository.deleteAll();
-        statesRepository.saveAll(states);
+        List<State> states = adminService.createStates(file);
+        stateRepository.deleteAll();
+        stateRepository.saveAll(states);
         randomnessService.updateStates();
         return String.format(
             "Update successful. There are now %d states in the database.", states.size()
@@ -46,16 +47,12 @@ public class AdminRestController {
     
     
     @GetMapping("/statesFromDatabase")
-    public List<NonEntityState> getStatesFromDatabase() {
-        return
-            statesRepository
-            .findAll()
-            .map(NonEntityState::new)
-            .toList();
+    public List<State> getStatesFromDatabase() {
+        return stateRepository.findAll();
     }
     
     @GetMapping("/statesFromRandomnessService")
-    public List<NonEntityState> getStatesFromRandomnessService() {
+    public List<State> getStatesFromRandomnessService() {
         return randomnessService.getStates();
     }
     

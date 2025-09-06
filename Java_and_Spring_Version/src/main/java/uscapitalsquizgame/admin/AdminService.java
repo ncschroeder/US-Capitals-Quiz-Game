@@ -7,16 +7,16 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import uscapitalsquizgame.statetypes.EntityState;
-import uscapitalsquizgame.statetypes.StatesRepository;
+import uscapitalsquizgame.states.State;
+import uscapitalsquizgame.states.StateRepository;
 
 @Service
 public class AdminService {
     @Autowired
-    private StatesRepository statesRepository;
+    private StateRepository stateRepository;
     
-    List<EntityState> createStates(MultipartFile file) {
-        var states = new ArrayList<EntityState>();
+    List<State> createStates(MultipartFile file) {
+        var states = new ArrayList<State>();
         
         try (
             var isr = new InputStreamReader(file.getInputStream());
@@ -43,7 +43,7 @@ public class AdminService {
                     throw new CsvException(curLine, exceptionMessageEnd);
                 }
                 
-                EntityState state = createState(curLine, curLineValues);
+                var state = createState(curLine, curLineValues);
                 if (!stateNames.add(state.getName())) {
                     throw new CsvException(
                         String.format("Duplicate state name: %s.", state.getName())
@@ -55,7 +55,7 @@ public class AdminService {
             throw new RuntimeException(e);
         }
         
-        states.sort(Comparator.comparing(EntityState::getName));
+        states.sort(Comparator.comparing(State::getName));
         return states;
     }
     
@@ -71,30 +71,28 @@ public class AdminService {
             .toList();
     }
     
-    private EntityState createState(String csvLine, List<String> csvLineValues) {
+    private State createState(String csvLine, List<String> csvLineValues) {
         String stateName = csvLineValues.get(0);
         String capital = csvLineValues.get(1);
         
-        List<String> citiesList = csvLineValues.subList(2, csvLineValues.size());
-        if (citiesList.stream().distinct().count() != citiesList.size()) {
+        List<String> cities = csvLineValues.subList(2, csvLineValues.size());
+        if (cities.stream().distinct().count() != cities.size()) {
             throw new CsvException(csvLine, "has duplicate city");
         }
-        String citiesString =
-            citiesList
-            .stream()
-            .sorted()
-            .collect(Collectors.joining(","));
+        cities = new ArrayList<>(cities);
+        Collections.sort(cities);
         
-        return new EntityState(stateName, capital, citiesString);
+        return new State(stateName, capital, cities);
     }
     
     
     List<String> getStatesTableRowsHtml() {
         return
-            statesRepository
+            stateRepository
             .findAll()
+            .stream()
             .flatMap(state -> {
-                var citiesString = state.getCities().replace(",", ", ");
+                var citiesString = String.join(", ", state.getCities());
                 return """
                     <tr>
                         <td>%s</td>

@@ -3,12 +3,12 @@ package uscapitalsquizgame.questionclasses;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import uscapitalsquizgame.RandomnessService;
-import uscapitalsquizgame.statetypes.NonEntityState;
+import uscapitalsquizgame.states.State;
 
 public final class StateOfCapitalQuestion extends Question {
     public final String capital;
     
-    public StateOfCapitalQuestion(NonEntityState state, RandomnessService randomnessService) {
+    public StateOfCapitalQuestion(State state, RandomnessService randomnessService) {
         capital = state.getCapital();
         
         boolean useNoneOfTheAbove = randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
@@ -25,7 +25,7 @@ public final class StateOfCapitalQuestion extends Question {
         choices =
             randomnessService
             .getStreamOfRandomStates(numRandomStatesToGet)
-            .map(NonEntityState::getName)
+            .map(State::getName)
             .collect(Collectors.toCollection(ArrayList::new));
         
         if (!useNoneOfTheAbove) {
