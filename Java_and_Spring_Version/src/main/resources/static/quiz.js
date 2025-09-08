@@ -1,8 +1,15 @@
 'use strict';
 
-const
-    getElementById = (id) => document.getElementById(id),
-    choiceBtnAndLabelDivs = [];
+/**
+ * @param {string} id 
+ * @returns {?HTMLElement}
+ */
+const getElementById = (id) => document.getElementById(id);
+    
+/**
+ * @type {HTMLDivElement[]}
+ */
+const choiceBtnAndLabelDivs = [];
 
 for (let i = 1; i <= 5; i++) {
     const radioBtn = document.createElement('input');
@@ -14,7 +21,7 @@ for (let i = 1; i <= 5; i++) {
     label.htmlFor = radioBtn.id;
     label.className = 'smallText';
     if (i === 5) {
-        label.innerText = 'None of the above';
+        label.textContent = 'None of the above';
     }
 
     const btnAndLabelDiv = document.createElement('div');
@@ -34,28 +41,35 @@ getElementById('choiceBtnAndLabelDivsDiv').append(...choiceBtnAndLabelDivs);
  */
 
 /**
- * @type {CapitalsOfStatesQuestion[] | StatesOfCapitalsQuestion[]}
+ * @type {{ 
+ *     questions: CapitalsOfStatesQuestion[] | StatesOfCapitalsQuestion[],
+ *     maxNameLength: number
+ * }}
  */
-const questions = JSON.parse(getElementById('questionsJsonScript').text);
+const { questions, maxNameLength } = JSON.parse(getElementById('serverDataJsonScript').text);
 let questionIndex = 0;
 const isCapitalsOfStatesQuiz = questions[0].stateName !== undefined;
 const questionNumSpan = getElementById('questionNumSpan');
 const questionSpan = getElementById('questionSpan');
 
 function showQuestion() {
-    questionNumSpan.innerText = `Question ${questionIndex + 1} of ${questions.length}`;
     const question = questions[questionIndex];
-    questionSpan.innerText =
+    questionNumSpan.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
+    questionSpan.textContent =
         isCapitalsOfStatesQuiz
         ? `What's the capital of ${question.stateName}?`
         : `${question.capital} is the capital of what state?`;
 
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i < choiceBtnAndLabelDivs.length; i++) {
         const choiceDiv = choiceBtnAndLabelDivs[i];
-        choiceDiv.firstChild.checked = false;
-        if (i < 4) {
-            // The 5th choice div is for "None of the above".
-            choiceDiv.lastChild.innerText = question.choices[i];
+        choiceDiv.querySelector('input[type="radio"]').checked = false;
+        
+        /*
+        The last choice div is for the "None of the above" choice.
+        That's the only one that doesn't need its label updated.
+        */
+        if (i < choiceBtnAndLabelDivs.length - 1) {
+            choiceDiv.querySelector('label').textContent = question.choices[i];
         }
     }
 }
@@ -63,64 +77,74 @@ function showQuestion() {
 showQuestion();
 
 let score = 0;
-const
-    show = (element) => element.style.display = 'block',
-    hide = (element) => element.style.display = 'none',
-    curScoreSpan = getElementById('curScoreSpan'),
-    choiceSubmitBtn = getElementById('choiceSubmitBtn'),
-    quizContentDiv = getElementById('quizContentDiv'),
-    gameOverDiv = getElementById('gameOverDiv'),
-    finalScoreP = getElementById('finalScoreP');
+const curScoreSpan = getElementById('curScoreSpan');
 
-hide(gameOverDiv);
-
-choiceSubmitBtn.onclick = () => {
+getElementById('choiceSubmitBtn').onclick = () => {
+    const isLastQuestion = questionIndex === questions.length - 1;
     const indexSelected = choiceBtnAndLabelDivs.findIndex(div => div.firstChild.checked);
+    
     switch (indexSelected) {
         case -1: return;
 
         case questions[questionIndex].correctIndex:
-            curScoreSpan.innerText = ++score;
-            break;
-
-        default:
+            score++;
+            if (!isLastQuestion) {
+                curScoreSpan.textContent = score;
+            }
     }
 
-    if (questionIndex === questions.length - 1) {
-        hide(quizContentDiv);
-        show(gameOverDiv);
-        finalScoreP.innerText = `Your score is ${score} of ${questions.length}`;
+    if (isLastQuestion) {
+        getElementById('finalScoreP').textContent = `Your score is ${score} of ${questions.length}.`;
+        getElementById('topMainMenuA').style.visibility = 'hidden';
+        getElementById('quizContentDiv').remove();
+        getElementById('quizOverDiv').style.display = 'block';
     } else {
         questionIndex++;
         showQuestion();
     }
-}
+};
 
-const
-    nameInput = getElementById('nameInput'),
-    saveScoreBtn = getElementById('saveScoreBtn'),
-    scoreStatusP = getElementById('scoreStatusP');
+const nameInput = getElementById('nameInput');
+const saveScoreBtn = getElementById('saveScoreBtn');
+const saveScoreStatusP = getElementById('saveScoreStatusP');
 
 saveScoreBtn.onclick = () => {
     const nameInputText = nameInput.value.trim();
-    if (nameInputText.length === 0) return;
-
-    const
-        request = new XMLHttpRequest(),
-        url =
-            (isCapitalsOfStatesQuiz ? 'capitalsOfStates' : 'statesOfCapitals') +
-            `QuizScore?score=${score}&name=${nameInputText}`;
-
-    request.open('post', url);
-
-    request.onload = () => {
-        hide(saveScoreBtn);
-        scoreStatusP.innerText = 'Score successfully saved';
+    if (nameInputText.length === 0) {
+        saveScoreStatusP.textContent = 'Must enter a name.';
+        return;
+    }
+    if (nameInputText.length > maxNameLength) {
+        saveScoreStatusP.textContent = 'Name is too long.';
+        return;
     }
 
-    request.onerror = () => {
-        scoreStatusP.innerText = 'Error';
-    }
+    const requestUrl =
+        `quizScore?score=${score}&name=${nameInputText}&isForCapitalsOfStatesQuiz=${isCapitalsOfStatesQuiz}`;
+    const errorMessage = 'Error saving score.';
+        
+    fetch(requestUrl, { method: 'POST' })
+    .then(async (response) => {
+        const responseText = await response.text();
+        let messageToShow;
+        
+        if (response.ok) {
+            const dateString =
+                new Date(responseText)
+                .toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' });
+            messageToShow = `Score successfully saved at: ${dateString}.`;
+            
+            getElementById('nameInputDiv').remove();
+            saveScoreBtn.remove();
+        } else {
+            messageToShow = errorMessage;
+            console.error(responseText);
+        }
 
-    request.send();
-}
+        saveScoreStatusP.textContent = messageToShow;
+    })
+    .catch(reason => {
+        saveScoreStatusP.textContent = errorMessage;
+        console.error(reason);
+    });
+};
