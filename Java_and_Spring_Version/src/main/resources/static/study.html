@@ -3,20 +3,17 @@
 <head>
     <title>Study</title>
     <meta charset='UTF-8'>
-    <link rel='stylesheet' href='styles.css'>
+    <link rel='stylesheet' href='common.css' />
 </head>
 <body>
-    <a href='index.html' class='smallText'>Main Menu</a>
-    <h1 class='largeText'>Study</h1>
+    <a href='/'>Main Menu</a>
+    <h1>Study</h1>
 
     <table>
         <tr>
             <th class='mediumText'>State</th>
             <th class='mediumText'>Capital</th>
         </tr>
-
-        <!-- All the tds will have their class be set to 'smallText' in the script at the bottom. -->
-
         <tr>
             <td>Alabama</td>
             <td>Montgomery</td>
@@ -218,11 +215,5 @@
             <td>Cheyenne</td>
         </tr>
     </table>
-	
-    <script>
-        for (const td of document.getElementsByTagName('td')) {
-            td.className = 'smallText';
-        }
-    </script>
 </body>
 </html>

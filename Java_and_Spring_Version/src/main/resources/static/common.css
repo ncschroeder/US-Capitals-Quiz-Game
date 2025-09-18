@@ -1,3 +1,5 @@
+/* This file has rules that apply to more than 1 HTML or FreeMarker template file. */
+
 body {
     /*
     Use the colors of the American flag; which are white, Old Glory Blue, and Old Glory Red.
@@ -6,6 +8,25 @@ body {
     background-color: #0A3161;
     --old-glory-red: #B31942;
     color: var(--old-glory-red);
+    margin: 10px 15px 30px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    -webkit-text-stroke: 0.5px white;
+}
+
+h2, caption, th, #mainMenuLinksDiv a, #questionLegend {
+    font-size: 2.3rem;
+    -webkit-text-stroke: 0.25px white;
+    text-decoration-thickness: 0.25px; /* Underlines for links. */
+}
+
+td, a, p, label, input[type='file'] {
+    font-size: 1.3rem;
+    -webkit-text-stroke: 0.15px white;
+    text-decoration-thickness: 0.15px;
 }
 
 a {
@@ -13,21 +34,8 @@ a {
     display: block;
 }
 
-.largeText {
-    font-size: 50px;
-    -webkit-text-stroke: 0.5px white;
-}
-
-.mediumText {
-    font-size: 35px;
-    -webkit-text-stroke: 0.25px white;
-    text-decoration-thickness: 0.25px;
-}
-
-.smallText {
-    font-size: 20px;
-    -webkit-text-stroke: 0.15px white;
-    text-decoration-thickness: 0.15px;
+p {
+    margin: 0;
 }
 
 table {
@@ -36,9 +44,11 @@ table {
     --thin-border-style: 1px solid white;
     border: var(--thick-border-style);
     border-collapse: collapse;
+    text-align: center;
 }
 
 th {
+    padding: 4px 7px;
     border-bottom: var(--thick-border-style);
 }
 
@@ -47,5 +57,6 @@ th:nth-child(n + 2) {
 }
 
 td {
+    padding: 2px 7px;
     border: var(--thin-border-style);
 }

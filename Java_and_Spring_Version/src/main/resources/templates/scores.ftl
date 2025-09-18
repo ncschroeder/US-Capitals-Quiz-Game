@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-    <title>${titleAndCaption}</title>
     <meta charset='UTF-8'>
-    <link rel='stylesheet' href='styles.css'>
+    <title>${titleAndHeading}</title>
+    <link rel='stylesheet' href='common.css'>
 </head>
 <body>
-    <a href='index.html' class='smallText'>Main Menu</a>
+    <a href='/'>Main Menu</a>
+    <h1>${titleAndHeading}</h1>
     
     <table>
-        <caption class='largeText'>${titleAndCaption}</caption>
         <thead>
             <tr>
-                <th class='mediumText'>Name</th>
-                <th class='mediumText'>Score</th>
-                <th class='mediumText'>Date and Time</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Date and Time</th>
             </tr>
         </thead>
         <tbody>
             <#list scoreDataList as scoreData>
                 <tr>
-                    <td class='smallText'>${scoreData.name}</td>
-                    <td class='smallText'>${scoreData.score}</td>
-                    <td class='smallText dateTimeCell'></td>
+                    <td>${scoreData.name}</td>
+                    <td>${scoreData.score}</td>
+                    <td class='dateTimeCell'></td>
                 </tr>
             </#list>
         </tbody>

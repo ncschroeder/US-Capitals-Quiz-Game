@@ -3,24 +3,9 @@
 <head>
     <title>Admin Dashboard</title>
     <meta charset='UTF-8'>
-    <link rel='stylesheet' href='styles.css'>
+    <link rel='stylesheet' href='common.css' />
+    <link rel='stylesheet' href='admin.css' />
     <script src='admin.js' defer></script>
-    <style>
-        body > div {
-            margin-top: 20px;
-        }
-
-        #updateStatesDiv > :nth-child(n + 2) {
-            margin-top: 10px;
-        }
-
-        code {
-            background-color: #434343;
-            color: white;
-            display: block;
-            text-indent: 10px;
-        }
-    </style>
 </head>
 <body>
     <form action='/logout' method='post'>
@@ -31,38 +16,41 @@
 
     <h1>Admin Dashboard</h1>
     
-    <div id='updateStatesDiv'>
-        <h2>Update States</h2>
-        <input type='file' id='statesFileInput' accept='text/csv' />
-        <br />
-        <button id='statesSubmitBtn'>Submit</button>
-        <p id='statesSubmitStatusP'></p>
-    </div>
-    
-    
-    <div id='getStatesFromDatabaseDiv'>
-        <button class='getStatesBtn'>Get States Data from Database</button>
-        <div class='statesOrErrorDiv'></div>
-    </div>
-    
-    <div id='getStatesFromRandomnessServiceDiv'>
-        <button class='getStatesBtn'>Get States Data from Randomness Service</button>
-        <div class='statesOrErrorDiv'></div>
-    </div>
+    <div id='interactionContentDiv'>
+        <div id='updateStatesDiv'>
+            <h2>Update States Data</h2>
+            <input type='file' id='statesFileInput' accept='.txt,.csv' />
+            <button id='statesSubmitBtn'>Submit</button>
+            <p id='statesSubmitStatusP'></p>
+        </div>
+        
+        
+        <div id='getStatesFromDatabaseDiv'>
+            <button class='getStatesBtn'>Get States Data from Database</button>
+            <div class='statesOrErrorDiv'></div>
+        </div>
+        
+        <div id='getStatesFromRandomnessServiceDiv'>
+            <button class='getStatesBtn'>Get States Data from Randomness Service</button>
+            <div class='statesOrErrorDiv'></div>
+        </div>
 
-    <div>
-        <button id='getStatesHtmlBtn'>Get States Data Table Rows HTML</button>
-        <div id='statesHtmlOrErrorDiv'></div>
-    </div>
-    
-    
-    <div id='deleteCapitalsOfStatesQuizScoresDiv'>
-        <button class='deleteScoresBtn'>Delete Capitals of States Quiz Scores</button>
-        <p class='deleteStatusP'></p>
-    </div>
-    
-    <div id='deleteStatesOfCapitalsQuizScoresDiv'>
-        <button class='deleteScoresBtn'>Delete States of Capitals Quiz Scores</button>
-        <p class='deleteStatusP'></p>
+        <div>
+            <button id='getStatesHtmlBtn'>Get States Data Table Rows HTML</button>
+            <div id='statesHtmlOrErrorDiv'></div>
+        </div>
+        
+        
+        <div id='deleteCapitalsOfStatesQuizScoresDiv'>
+            <button class='deleteScoresBtn'>Delete Capitals of States Quiz Scores</button>
+            <p class='deleteStatusP'></p>
+        </div>
+        
+        <div id='deleteStatesOfCapitalsQuizScoresDiv'>
+            <button class='deleteScoresBtn'>Delete States of Capitals Quiz Scores</button>
+            <p class='deleteStatusP'></p>
+        </div>
     </div>
 </body>
+    
+    

@@ -26,7 +26,7 @@ public class ScoreDataController {
         Model model,
         @RequestParam(name = "forCapitalsOfStatesQuizzes") boolean getCapitalsOfStatesQuizScores
     ) throws JsonProcessingException {
-        String titleAndCaption =
+        String titleAndHeading =
             QuizController.getQuizType(getCapitalsOfStatesQuizScores) + " Quiz Scores";
         
         var scoreDataList =
@@ -42,7 +42,7 @@ public class ScoreDataController {
         String dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);;
         
         model
-        .addAttribute("titleAndCaption", titleAndCaption)
+        .addAttribute("titleAndHeading", titleAndHeading)
         .addAttribute("scoreDataList", scoreDataList)
         .addAttribute("dateTimeStringsJson", dateTimeStringsJson);
         

@@ -1,0 +1,43 @@
+#quizContentDiv, #quizOverDiv, #saveScoreDiv {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+#quizContentDiv, #saveScoreDiv {
+    row-gap: 10px;
+}
+
+#quizOverDiv {
+    row-gap: 20px;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+#choiceBtnAndLabelDivsDiv {
+    text-align: left;
+    width: max-content;
+    margin: 5px auto 0;
+}
+
+#choiceSubmitBtn {
+    margin-top: 15px;
+}
+
+#nameInput {
+    text-align: center;
+    margin-top: 3px;
+}
+
+#saveScoreStatusP:empty {
+    display: none;
+}
+
+#quizOverLinksDiv > :last-child {
+    margin-top: 5px;
+}

@@ -19,7 +19,6 @@ for (let i = 1; i <= 5; i++) {
 
     const label = document.createElement('label');
     label.htmlFor = radioBtn.id;
-    label.className = 'smallText';
     if (i === 5) {
         label.textContent = 'None of the above';
     }
@@ -95,9 +94,9 @@ getElementById('choiceSubmitBtn').onclick = () => {
 
     if (isLastQuestion) {
         getElementById('finalScoreP').textContent = `Your score is ${score} of ${questions.length}.`;
-        getElementById('topMainMenuA').style.visibility = 'hidden';
+        getElementById('topMainMenuLink').style.visibility = 'hidden';
         getElementById('quizContentDiv').remove();
-        getElementById('quizOverDiv').style.display = 'block';
+        getElementById('quizOverDiv').style.display = 'flex';
     } else {
         questionIndex++;
         showQuestion();
@@ -126,22 +125,19 @@ saveScoreBtn.onclick = () => {
     fetch(requestUrl, { method: 'POST' })
     .then(async (response) => {
         const responseText = await response.text();
-        let messageToShow;
         
         if (response.ok) {
             const dateString =
                 new Date(responseText)
                 .toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' });
-            messageToShow = `Score successfully saved at: ${dateString}.`;
+            saveScoreStatusP.textContent = `Score successfully saved at: ${dateString}.`;
             
             getElementById('nameInputDiv').remove();
             saveScoreBtn.remove();
         } else {
-            messageToShow = errorMessage;
+            saveScoreStatusP.textContent = errorMessage;
             console.error(responseText);
         }
-
-        saveScoreStatusP.textContent = messageToShow;
     })
     .catch(reason => {
         saveScoreStatusP.textContent = errorMessage;
