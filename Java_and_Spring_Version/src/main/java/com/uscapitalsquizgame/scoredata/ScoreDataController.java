@@ -1,4 +1,4 @@
-package uscapitalsquizgame.scoredata;
+package com.uscapitalsquizgame.scoredata;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +11,17 @@ import java.time.ZoneOffset;
 import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uscapitalsquizgame.QuizController;
+import com.uscapitalsquizgame.QuizController;
+import com.uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.states.StateRepository;
 
 @Controller
 public class ScoreDataController {
     @Autowired
     private ScoreDataRepository scoreDataRepository;
+    
+    @Autowired
+    private StateRepository stateRepository;
     
     @Autowired
     private ObjectMapper jsonObjectMapper;
@@ -65,4 +70,42 @@ public class ScoreDataController {
         scoreDataRepository.save(scoreData);
         return dateTime.toString();
     }
+    
+    @GetMapping("/statetest")
+//    public @ResponseBody String test(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)ZonedDateTime dateTime) throws JsonProcessingException {
+    public @ResponseBody List<State> test() {
+//        testRepository.save(new TestClass());
+//        return testRepository;
+//        scoreDataRepository.save(new ScoreData(1, "n", true, OffsetDateTime.now()));
+//        System.out.println(dateTime);
+        
+        stateRepository.save(new State("name", "capital", List.of("city")));
+        return stateRepository.findAll();
+    }
 }
+
+
+//    @GetMapping("/capitalsOfStatesQuizScores")
+//    public String getCapitalsOfStatesQuizScores(Model model) {
+//        return updateModelAndGetView(model, true);
+//    }
+//
+//    @GetMapping("/statesOfCapitalsQuizScores")
+//    public String getStatesOfCapitalsQuizScores(Model model) {
+//        return updateModelAndGetView(model, false);
+//    }
+
+//    @PostMapping("/capitalsOfStatesQuizScore")
+//    public @ResponseBody String addCapitalsOfStatesQuizScore(@RequestParam int score, @RequestParam String name) {
+////        System.out.println("got score: " + score + ' ' + name);
+//        return saveScoreAndGetDateTime(score, name, true);
+//    }
+
+//        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime dateTime
+
+
+//    @PostMapping("/statesOfCapitalsQuizScore")
+//    public @ResponseBody String addStatesOfCapitalsQuizScore(@RequestParam int score, @RequestParam String name) {
+//        return saveScoreAndGetDateTime(score, name, false);
+////        scoreDataRepository.save(new ScoreData(score, name, false));
+//    }

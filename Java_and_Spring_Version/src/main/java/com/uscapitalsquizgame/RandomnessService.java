@@ -1,17 +1,13 @@
-package uscapitalsquizgame;
+package com.uscapitalsquizgame;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.stream.*;
-import uscapitalsquizgame.states.State;
-import uscapitalsquizgame.states.StateRepository;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import com.uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.states.StateRepository;
 
 @Service
 public class RandomnessService {
@@ -50,12 +46,11 @@ public class RandomnessService {
         return getRandomElement(states);
     }
     
-    public Stream<State> getStreamOfRandomStates(int numStates) {
+    public Stream<State> getStreamOfRandomStates() {
         return
             IntStream.generate(() -> getRandomIndex(states))
             .distinct()
-            .mapToObj(states::get)
-            .limit(numStates);
+            .mapToObj(states::get);
     }
     
     public String getRandomCapital() {

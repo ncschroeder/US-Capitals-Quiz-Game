@@ -1,14 +1,13 @@
-package uscapitalsquizgame.states;
+package com.uscapitalsquizgame.states;
 
 import jakarta.persistence.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "state")
 public class State {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(length = 30, unique = true, nullable = false, updatable = false)
@@ -18,7 +17,7 @@ public class State {
     private String capital;
     
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "city", joinColumns = @JoinColumn(name = "stateId", nullable = false))
+    @CollectionTable(name = "city", joinColumns = @JoinColumn(name = "state_id", nullable = false))
     @Column(name = "name", length = 30, nullable = false)
     private List<String> cities;
     

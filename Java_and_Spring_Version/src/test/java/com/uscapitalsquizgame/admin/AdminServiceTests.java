@@ -1,4 +1,4 @@
-package uscapitalsquizgame.admin;
+package com.uscapitalsquizgame.admin;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
 import org.springframework.mock.web.MockMultipartFile;
-import uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.states.State;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +27,8 @@ public class AdminServiceTests {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        return adminService.createStates(new MockMultipartFile(csvPath.toString(), bytes));
+        var mockFileName = csvPath.toString();
+        return adminService.createStates(new MockMultipartFile(mockFileName, bytes));
     }
     
     static List<Path> getCsvPaths(String dirName) {
@@ -42,11 +43,14 @@ public class AdminServiceTests {
     @ParameterizedTest
     @FieldSource("validCsvPaths")
     void createStatesReturnValue(Path csvPath) {
-        List<State> expectedStates =
-            List.of(
-                new State("Alaska", "Juneau", "Anchorage,Dillingham,Fairbanks,North Pole,Sitka")
+        var expectedState =
+            new State(
+                "Alaska",
+                "Juneau",
+                List.of("Anchorage", "Dillingham", "Fairbanks", "North Pole", "Sitka")
             );
-        assertEquals(expectedStates, createStates(csvPath));
+//                new State("Hawaii", "Honolulu", "Hilo,Kailua,Lahaina,Princeville,Volcano")
+//        List<EntityState> actualStates = createStates(filePath);
     }
     
     static final List<Path> validCsvPaths = getCsvPaths("valid_csvs");

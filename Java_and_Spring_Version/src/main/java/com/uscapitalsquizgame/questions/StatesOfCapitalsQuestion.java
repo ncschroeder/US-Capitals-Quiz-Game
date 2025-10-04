@@ -1,9 +1,9 @@
-package uscapitalsquizgame.questions;
+package com.uscapitalsquizgame.questions;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import uscapitalsquizgame.RandomnessService;
-import uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.RandomnessService;
+import com.uscapitalsquizgame.states.State;
 
 public final class StatesOfCapitalsQuestion extends Question {
     private final String capital;
@@ -25,7 +25,9 @@ public final class StatesOfCapitalsQuestion extends Question {
         
         choices =
             randomnessService
-            .getStreamOfRandomStates(numRandomStatesToGet)
+            .getStreamOfRandomStates()
+            .filter(s -> !s.getId().equals(state.getId()))
+            .limit(numRandomStatesToGet)
             .map(State::getName)
             .collect(Collectors.toCollection(ArrayList::new));
         

@@ -1,28 +1,28 @@
-package uscapitalsquizgame.scoredata;
+package com.uscapitalsquizgame.scoredata;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
-import uscapitalsquizgame.QuizController;
+import com.uscapitalsquizgame.QuizController;
 
 @Entity
-@Table(name = "scoreData")
+//@Table(name = "scoreData")
 public class ScoreData {
     public static final int MAX_NAME_LENGTH = 20;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(nullable = false, updatable = false)
+//    @Column(nullable = false, updatable = false)
     private int score;
     
-    @Column(length = MAX_NAME_LENGTH, nullable = false, updatable = false)
+//    @Column(length = MAX_NAME_LENGTH, nullable = false, updatable = false)
     private String name;
     
-    @Column(nullable = false, updatable = false)
+//    @Column(nullable = false, updatable = false)
     private boolean isForCapitalsOfStatesQuiz;
     
-    @Column(nullable = false, updatable = false)
+//    @Column(nullable = false, updatable = false)
     private OffsetDateTime dateTime;
     
     protected ScoreData() {}
@@ -46,13 +46,13 @@ public class ScoreData {
     public String toString() {
         return String.format(
             "ScoreData[id=%d, score=%d, name=%s, isForCapitalsOfStatesQuiz=%s, dateTime=%s]",
-            id, score, name, isForCapitalsOfStatesQuiz, dateTime
+            0, score, name, isForCapitalsOfStatesQuiz, dateTime
         );
     }
     
-    public Integer getId() {
-        return id;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
     
     public int getScore() {
         return score;

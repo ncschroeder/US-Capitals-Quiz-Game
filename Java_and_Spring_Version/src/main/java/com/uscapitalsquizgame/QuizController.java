@@ -1,4 +1,4 @@
-package uscapitalsquizgame;
+package com.uscapitalsquizgame;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uscapitalsquizgame.questions.*;
-import uscapitalsquizgame.scoredata.ScoreData;
-import uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.questions.*;
+import com.uscapitalsquizgame.scoredata.ScoreData;
+import com.uscapitalsquizgame.states.State;
 
 @Controller
 public class QuizController {
@@ -36,7 +36,8 @@ public class QuizController {
         
         List<Question> questions =
             randomnessService
-            .getStreamOfRandomStates(NUM_QUESTIONS)
+            .getStreamOfRandomStates()
+            .limit(NUM_QUESTIONS)
             .map(state -> createQuestion.apply(state, randomnessService))
             .toList();
         
@@ -57,6 +58,7 @@ public class QuizController {
             )
         );
         
+//        var a = CapitalOfStateQuestion.class.getConstructor(NonEntityState.class, RandomnessService.class).newInstance();
         return "quiz";
     }
     
@@ -70,3 +72,17 @@ public class QuizController {
         return updateModelAndGetView(model, false, StatesOfCapitalsQuestion::new);
     }
 }
+
+//    @PostMapping("/test")
+//    public void test(@RequestParam int i) {
+//        System.out.println(i);
+//        System.out.println("test request received");
+//        return "test request received";
+//jsonObjectMapper.writeValueAsString(List.of(1));
+//    }
+
+//    private final Function<State, Question> createCapitalOfStateQuestion =
+//        state -> new CapitalOfStateQuestion(state, statesRepository, nonCapitalCitiesRepository);
+
+//    private final Function<State, Question> createStateOfCapitalQuestion =
+//        state -> new StateOfCapitalQuestion(state, statesRepository);

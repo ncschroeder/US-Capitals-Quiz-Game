@@ -1,15 +1,15 @@
-package uscapitalsquizgame.admin;
+package com.uscapitalsquizgame.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.*;
-import uscapitalsquizgame.RandomnessService;
-import uscapitalsquizgame.scoredata.ScoreData;
-import uscapitalsquizgame.scoredata.ScoreDataRepository;
-import uscapitalsquizgame.states.State;
-import uscapitalsquizgame.states.StateRepository;
+import java.util.List;
+import com.uscapitalsquizgame.RandomnessService;
+import com.uscapitalsquizgame.scoredata.ScoreData;
+import com.uscapitalsquizgame.scoredata.ScoreDataRepository;
+import com.uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.states.StateRepository;
 
 @RestController
 @RequestMapping("/admin")
@@ -43,7 +43,6 @@ public class AdminRestController {
         return String.format(
             "Update successful. There are now %d states in the database.", states.size()
         );
-    }
     
     
     @GetMapping("/statesFromDatabase")

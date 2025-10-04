@@ -1,14 +1,12 @@
-package uscapitalsquizgame.admin;
+package com.uscapitalsquizgame.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import uscapitalsquizgame.states.State;
-import uscapitalsquizgame.states.StateRepository;
+import com.uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.states.StateRepository;
 
 @Service
 public class AdminService {
@@ -93,6 +91,7 @@ public class AdminService {
             .stream()
             .flatMap(state -> {
                 var citiesString = String.join(", ", state.getCities());
+                //state.getCities().replace(",", ", ");
                 return """
                     <tr>
                         <td>%s</td>

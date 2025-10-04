@@ -1,8 +1,8 @@
-package uscapitalsquizgame.questions;
+package com.uscapitalsquizgame.questions;
 
 import java.util.*;
-import uscapitalsquizgame.RandomnessService;
-import uscapitalsquizgame.states.State;
+import com.uscapitalsquizgame.RandomnessService;
+import com.uscapitalsquizgame.states.State;
 
 public final class CapitalsOfStatesQuestion extends Question {
     private final String stateName;
@@ -29,21 +29,29 @@ public final class CapitalsOfStatesQuestion extends Question {
             choices.add(randomParamStateCity2);
         }
         
-        String randomCityFromOtherState;
+        /*
+        There are 2 duplicate cities:
+        - Columbia, the capital of South Carolina and a populous city in central Missouri.
+        - Portland, the most populous city, but not the capital, in Maine and Oregon.
+        
+        The conditions to check in the loops below ensure that there won't be duplicate choices.
+         */
+        
+        String randomCityFromAnotherState;
         do {
-            randomCityFromOtherState = randomnessService.getRandomCity();
+            randomCityFromAnotherState = randomnessService.getRandomCity();
         } while (
-            randomCityFromOtherState.equals(paramStateCapital) ||
-            paramStateCities.contains(randomCityFromOtherState)
+            randomCityFromAnotherState.equals(paramStateCapital) ||
+            paramStateCities.contains(randomCityFromAnotherState)
         );
-        choices.add(randomCityFromOtherState);
+        choices.add(randomCityFromAnotherState);
         
         String otherStateCapital;
         do {
             otherStateCapital = randomnessService.getRandomCapital();
         } while (
             otherStateCapital.equals(paramStateCapital) ||
-            otherStateCapital.equals(randomCityFromOtherState) ||
+            otherStateCapital.equals(randomCityFromAnotherState) ||
             paramStateCities.contains(otherStateCapital)
         );
         choices.add(otherStateCapital);

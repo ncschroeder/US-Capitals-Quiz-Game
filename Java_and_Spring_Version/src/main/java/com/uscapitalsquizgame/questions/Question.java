@@ -1,4 +1,4 @@
-package uscapitalsquizgame.questions;
+package com.uscapitalsquizgame.questions;
 
 import java.util.List;
 

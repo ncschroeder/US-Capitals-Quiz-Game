@@ -1,4 +1,4 @@
-package uscapitalsquizgame.admin;
+package com.uscapitalsquizgame.admin;
 
 class CsvException extends RuntimeException {
     CsvException(String line, String messageEnd) {

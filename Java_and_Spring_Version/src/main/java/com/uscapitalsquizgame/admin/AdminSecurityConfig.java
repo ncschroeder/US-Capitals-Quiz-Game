@@ -1,4 +1,4 @@
-package uscapitalsquizgame;
+package com.uscapitalsquizgame.admin;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class AdminSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -19,6 +19,7 @@ public class WebSecurityConfig {
             .requestMatchers("/admin.html", "/admin/**").hasRole("ADMIN")
             .anyRequest().permitAll()
         )
+        // If i have the login page be "/login.html", the whitelabel error page gets shown after trying to log in.
         .formLogin(form -> form.loginPage("/login").permitAll())
         .logout(logout -> logout.permitAll())
         .csrf(csrf -> csrf.disable());
