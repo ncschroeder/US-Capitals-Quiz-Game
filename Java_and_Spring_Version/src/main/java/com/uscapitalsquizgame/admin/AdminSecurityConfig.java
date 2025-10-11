@@ -29,13 +29,12 @@ public class AdminSecurityConfig {
     
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user =
-            User.withDefaultPasswordEncoder()
-            .username("admin")
-            .password("password")
+        UserDetails admin =
+            User.withUsername("admin")
+            .password("{bcrypt}$2a$10$ZJ9pQ1bTRzNhuWQ2UwxxL.lirdtUfS/8krzVHeS9UrmSxfvEPFN5K")
             .roles("ADMIN")
             .build();
         
-        return new InMemoryUserDetailsManager(user);
+        return new InMemoryUserDetailsManager(admin);
     }
 }

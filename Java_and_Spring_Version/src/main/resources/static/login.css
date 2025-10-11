@@ -1,3 +1,12 @@
+#error-or-logout-message-div {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#error-or-logout-message-div:empty {
+    display: none;
+}
+
 form {
     display: flex;
     flex-direction: column;

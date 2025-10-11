@@ -8,12 +8,13 @@
     <script src='admin.js' defer></script>
 </head>
 <body>
-    <form action='/logout' method='post'>
-        <input type='submit' value='Log Out' />
-    </form>
+    <div id="top-left-content-div">
+        <form action="/logout" method="post">
+            <input type="submit" value="Log out" />
+        </form>
+        <a href="/" class="small-text">Home</a>
+    </div>
     
-    <a href='/'>Home Page</a>
-
     <h1>Admin Dashboard</h1>
     
     <div id='interactionContentDiv'>
@@ -34,7 +35,7 @@
             <button class='getStatesBtn'>Get States Data from Randomness Service</button>
             <div class='statesOrErrorDiv'></div>
         </div>
-
+        
         <div>
             <button id='getStatesHtmlBtn'>Get States Data Table Rows HTML</button>
             <div id='statesHtmlOrErrorDiv'></div>

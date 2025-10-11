@@ -61,20 +61,13 @@ public class AdminRestController {
     }
     
     
-    private String deleteScoresAndGetMessage(boolean isForCapitalsOfStatesQuiz) {
+    @DeleteMapping("/scores")
+    public String deleteScores(
+        @RequestParam(name = "forCapitalsOfStatesQuizzes") boolean deleteCapitalsOfStatesScores
+    ) {
         List<ScoreData> scoreDatasToDelete =
-            scoreDataRepository.findByIsForCapitalsOfStatesQuiz(isForCapitalsOfStatesQuiz);
+            scoreDataRepository.findByIsForCapitalsOfStatesQuiz(deleteCapitalsOfStatesScores);
         scoreDataRepository.deleteAll(scoreDatasToDelete);
         return String.format("Successfully deleted %d scores.", scoreDatasToDelete.size());
-    }
-    
-    @DeleteMapping("/capitalsOfStatesQuizScores")
-    public String deleteCapitalsOfStatesQuizScores() {
-        return deleteScoresAndGetMessage(true);
-    }
-    
-    @DeleteMapping("/statesOfCapitalsQuizScores")
-    public String deleteStatesOfCapitalsQuizScores() {
-        return deleteScoresAndGetMessage(false);
     }
 }

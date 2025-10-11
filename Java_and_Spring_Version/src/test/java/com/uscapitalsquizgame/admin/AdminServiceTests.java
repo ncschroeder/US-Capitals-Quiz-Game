@@ -49,8 +49,8 @@ public class AdminServiceTests {
                 "Juneau",
                 List.of("Anchorage", "Dillingham", "Fairbanks", "North Pole", "Sitka")
             );
-//                new State("Hawaii", "Honolulu", "Hilo,Kailua,Lahaina,Princeville,Volcano")
-//        List<EntityState> actualStates = createStates(filePath);
+        
+        assertEquals(List.of(expectedState), createStates(csvPath));
     }
     
     static final List<Path> validCsvPaths = getCsvPaths("valid_csvs");

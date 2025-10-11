@@ -1,4 +1,10 @@
 #interactionContentDiv {
+#top-left-content-div {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
     display: flex;
     flex-direction: column;
     text-align: center;

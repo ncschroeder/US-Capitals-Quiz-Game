@@ -25,11 +25,6 @@ function createElement(elementType, textContent) {
  */
 const createP = (textContent) => createElement('p', textContent);
 
-/**
- * @param {string} [textContent] 
- * @returns {HTMLHeadingElement}
- */
-const createH2 = (textContent) => createElement('h2', textContent);
 
 /**
  * @param {string} [textContent]
@@ -38,6 +33,7 @@ const createH2 = (textContent) => createElement('h2', textContent);
 const createBtn = (textContent) => createElement('button', textContent);
 
 getElementById('statesSubmitBtn').onclick = () => {
+
     /**
      * @type {FileList}
      */
@@ -87,7 +83,7 @@ function addOnclickForGetStatesBtn(getStatesFromDatabase) {
                  */
                 const states = await response.json();
                 const table = createStatesTable(states, getStatesFromDatabase);
-                const removeBtn = createBtn('Remove');
+                const removeBtn = createBtn('Remove Table');
                 removeBtn.onclick = () => statesOrErrorDiv.innerHTML = '';
                 elementsToShow = [table, removeBtn];
             }
@@ -150,14 +146,14 @@ getElementById('getStatesHtmlBtn').onclick = () => {
         if (!response.ok) {
             elementsToShow = [createP(await response.text())];
         } else {
-            const heading = createH2('States Data Table Rows HTML');
+            const heading = createElement('h2', 'States Data Table Rows HTML');
             
             const pre = createElement('pre');
             for (const codeLine of await response.json()) {
                 pre.appendChild(createElement('code', codeLine));
             }
             
-            const removeBtn = createBtn('Remove');
+            const removeBtn = createBtn('Remove HTML');
             removeBtn.onclick = () => htmlOrErrorDiv.innerHTML = '';
             
             elementsToShow = [heading, pre, removeBtn];
@@ -173,18 +169,16 @@ getElementById('getStatesHtmlBtn').onclick = () => {
 
 
 /**
- * @param {boolean} deleteCapitalsOfStatesQuizScores 
+ * @param {boolean} deleteCapitalsOfStatesScores 
  */
-function addOnclickForDeleteScoresBtn(deleteCapitalsOfStatesQuizScores) {
+function addOnclickForDeleteScoresBtn(deleteCapitalsOfStatesScores) {
     const divId =
         `delete${deleteCapitalsOfStatesQuizScores ? 'CapitalsOfStates' : 'StatesOfCapitals'}QuizScoresDiv`;
     const div = getElementById(divId);
-    const requestEndpoint =
-        (deleteCapitalsOfStatesQuizScores ? 'capitalsOfStates' : 'statesOfCapitals') + 'QuizScores';
     const deleteStatusP = div.querySelector('.deleteStatusP');
     
     div.querySelector('.deleteScoresBtn').onclick = () => {
-        fetch('/admin/' + requestEndpoint, { method: 'DELETE' })
+        fetch(`/admin/scores?forCapitalsOfStatesQuizzes=${deleteCapitalsOfStatesScores}`, { method: 'DELETE' })
         .then(response => response.text())
         .then(text => deleteStatusP.textContent = text)
         .catch(reason => {
