@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en-US">
 <head>
+    <meta charset="utf-8" />
     <title>Admin Dashboard</title>
-    <meta charset='UTF-8'>
-    <link rel='stylesheet' href='common.css' />
-    <link rel='stylesheet' href='admin.css' />
-    <script src='admin.js' defer></script>
+    <link rel="icon" href="us-favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="admin.js" defer></script>
 </head>
 <body>
     <div id="top-left-content-div">
@@ -17,39 +18,39 @@
     
     <h1>Admin Dashboard</h1>
     
-    <div id='interactionContentDiv'>
-        <div id='updateStatesDiv'>
+    <div id="interaction-content-div" class="small-text">
+        <div id="update-states-div">
             <h2>Update States Data</h2>
-            <input type='file' id='statesFileInput' accept='.txt,.csv' />
-            <button id='statesSubmitBtn'>Submit</button>
-            <p id='statesSubmitStatusP'></p>
+            <input type="file" id="states-file-input" class="small-text" accept="text/plain" />
+            <button id="states-submit-btn">Submit</button>
+            <div id="states-submit-status-div"></div>
         </div>
         
         
-        <div id='getStatesFromDatabaseDiv'>
-            <button class='getStatesBtn'>Get States Data from Database</button>
-            <div class='statesOrErrorDiv'></div>
+        <div id="get-states-from-database-div">
+            <button class="get-states-btn">Get States Data from Database</button>
+            <div class="states-or-error-div"></div>
         </div>
         
-        <div id='getStatesFromRandomnessServiceDiv'>
-            <button class='getStatesBtn'>Get States Data from Randomness Service</button>
-            <div class='statesOrErrorDiv'></div>
+        <div id="get-states-from-randomness-service-div">
+            <button class="get-states-btn">Get States Data from Randomness Service</button>
+            <div class="states-or-error-div"></div>
         </div>
         
         <div>
-            <button id='getStatesHtmlBtn'>Get States Data Table Rows HTML</button>
-            <div id='statesHtmlOrErrorDiv'></div>
+            <button id="get-states-html-btn">Get States Data Table Rows HTML</button>
+            <div id="states-html-or-error-div"></div>
         </div>
         
         
-        <div id='deleteCapitalsOfStatesQuizScoresDiv'>
-            <button class='deleteScoresBtn'>Delete Capitals of States Quiz Scores</button>
-            <p class='deleteStatusP'></p>
+        <div id="delete-capitals-of-states-quiz-scores-div">
+            <button class="delete-scores-btn">Delete Capitals of States Quiz Scores</button>
+            <div class="delete-status-div"></div>
         </div>
         
-        <div id='deleteStatesOfCapitalsQuizScoresDiv'>
-            <button class='deleteScoresBtn'>Delete States of Capitals Quiz Scores</button>
-            <p class='deleteStatusP'></p>
+        <div id="delete-states-of-capitals-quiz-scores-div">
+            <button class="delete-scores-btn">Delete States of Capitals Quiz Scores</button>
+            <div class="delete-status-div"></div>
         </div>
     </div>
 </body>

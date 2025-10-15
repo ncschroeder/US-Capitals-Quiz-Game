@@ -1,16 +1,28 @@
-#quizContentDiv, #quizOverDiv, #saveScoreDiv {
+h1 {
+    margin-bottom: 15px;
+}
+
+#quiz-content-div, #quiz-over-div, #save-score-div, #quiz-over-links-div {
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
 }
 
-#quizContentDiv, #saveScoreDiv {
+#quiz-content-div {
     row-gap: 10px;
 }
 
-#quizOverDiv {
-    row-gap: 20px;
+#quiz-over-div {
+    row-gap: 15px;
+}
+
+#save-score-div {
+    row-gap: 6px;
+}
+
+#quiz-over-links-div {
+    row-gap: 7px;
 }
 
 fieldset {
@@ -19,25 +31,30 @@ fieldset {
     border: none;
 }
 
-#choiceBtnAndLabelDivsDiv {
-    text-align: left;
+#choice-btn-and-label-divs-div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
     width: max-content;
-    margin: 5px auto 0;
+    margin: 10px auto 0;
+    text-align: left;
 }
 
-#choiceSubmitBtn {
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+#choice-submit-btn {
     margin-top: 15px;
 }
 
-#nameInput {
+#name-input {
     text-align: center;
     margin-top: 3px;
+    width: 165px;
 }
 
-#saveScoreStatusP:empty {
+#save-score-status-div:empty {
     display: none;
 }
-
-#quizOverLinksDiv > :last-child {
     margin-top: 5px;
-}

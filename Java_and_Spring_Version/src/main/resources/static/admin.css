@@ -1,10 +1,10 @@
-#interactionContentDiv {
 #top-left-content-div {
     position: absolute;
     top: 15px;
     left: 15px;
 }
 
+#interaction-content-div {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -15,7 +15,7 @@ h2 {
     margin: 0;
 }
 
-#updateStatesDiv {
+#update-states-div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +26,7 @@ table {
     margin: 10px auto;
 }
  
-#statesHtmlOrErrorDiv > h2 {
+#states-html-or-error-div > h2 {
     margin-top: 10px;
 }
 

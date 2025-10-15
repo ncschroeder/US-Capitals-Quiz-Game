@@ -1,54 +1,55 @@
 /* This file has rules that apply to more than 1 HTML or FreeMarker template file. */
 
 body {
-    /*
-    Use the colors of the American flag; which are white, Old Glory Blue, and Old Glory Red.
-    These codes are from flagcolorcodes.com/usa.
-    */
+    /* This is Old Glory Blue, the blue on the American flag. */
     background-color: #0A3161;
-    --old-glory-red: #B31942;
-    color: var(--old-glory-red);
-    margin: 10px 15px 30px;
+    --custom-silver: #CBCBCB;
+    margin: 35px;
+}
+
+body, a {
+    color: var(--custom-silver);
+}
+
+body, button, input {
 }
 
 h1 {
     text-align: center;
-    font-size: 3rem;
-    -webkit-text-stroke: 0.5px white;
+    font-size: 2.7rem;
+    /* Default margin. */
+    margin: 0 0 25px;
 }
 
-h2, caption, th, #mainMenuLinksDiv a, #questionLegend {
-    font-size: 2.3rem;
-    -webkit-text-stroke: 0.25px white;
-    text-decoration-thickness: 0.25px; /* Underlines for links. */
+.medium-text, th {
+    font-size: 2rem;
 }
 
-td, a, p, label, input[type='file'] {
-    font-size: 1.3rem;
-    -webkit-text-stroke: 0.15px white;
-    text-decoration-thickness: 0.15px;
+.small-text, #top-left-home-link, td, label {
+    font-size: 1.1rem;
 }
 
-a {
-    color: var(--old-glory-red);
-    display: block;
+button {
+    font-size: 0.9rem;
 }
 
-p {
-    margin: 0;
+#top-left-home-link {
+    position: absolute;
+    left: 15px;
+    top: 15px;
 }
 
 table {
     margin: 0 auto;
-    --thick-border-style: 2px solid white;
-    --thin-border-style: 1px solid white;
+    text-align: center;
+    --thick-border-style: 2px solid var(--custom-silver);
+    --thin-border-style: 1px solid var(--custom-silver);
     border: var(--thick-border-style);
     border-collapse: collapse;
-    text-align: center;
 }
 
 th {
-    padding: 4px 7px;
+    padding: 8px 15px;
     border-bottom: var(--thick-border-style);
 }
 
@@ -57,6 +58,6 @@ th:nth-child(n + 2) {
 }
 
 td {
-    padding: 2px 7px;
+    padding: 7px 14px;
     border: var(--thin-border-style);
 }

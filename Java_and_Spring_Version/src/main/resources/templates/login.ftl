@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Admin Login</title>
-    <link rel="icon" href="us_favicon.png" type="image/x-icon" />
+    <link rel="icon" href="us-favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="common.css" />
     <link rel="stylesheet" href="login.css" />
 </head>
@@ -20,7 +20,7 @@
     </div>
     
     <form action="/login" method="post">
-        <div id="inputs-div">
+        <div id="credentials-div">
             <label for="username-input">Username</label>
             <input type="text" id="username-input" name="username" />
             
