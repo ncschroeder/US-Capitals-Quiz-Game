@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import com.uscapitalsquizgame.RandomnessService;
+import com.uscapitalsquizgame.quizzes.*;
 import com.uscapitalsquizgame.scoredata.ScoreData;
 import com.uscapitalsquizgame.scoredata.ScoreDataRepository;
 import com.uscapitalsquizgame.states.State;
@@ -61,12 +62,19 @@ public class AdminRestController {
     }
     
     
-    @DeleteMapping("/scores")
-    public String deleteScores(
-        @RequestParam(name = "forCapitalsOfStatesQuizzes") boolean deleteCapitalsOfStatesScores
-    ) {
+    @DeleteMapping("/capitals-of-states-quiz-scores")
+    public @ResponseBody String deleteCapitalsOfStatesScores() {
+        return deleteScores(CapitalsOfStatesQuizManager.getInstance());
+    }
+    
+    @DeleteMapping("/states-of-capitals-quiz-scores")
+    public @ResponseBody String deleteStatesOfCapitalsScores() {
+        return deleteScores(StatesOfCapitalsQuizManager.getInstance());
+    }
+    
+    private String deleteScores(QuizManager quizManager) {
         List<ScoreData> scoreDatasToDelete =
-            scoreDataRepository.findByIsForCapitalsOfStatesQuiz(deleteCapitalsOfStatesScores);
+            scoreDataRepository.findByQuizType(quizManager.getQuizTypeDbColValue());
         scoreDataRepository.deleteAll(scoreDatasToDelete);
         return String.format("Successfully deleted %d scores.", scoreDatasToDelete.size());
     }

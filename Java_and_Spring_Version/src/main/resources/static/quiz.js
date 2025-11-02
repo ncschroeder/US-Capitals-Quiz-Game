@@ -32,26 +32,24 @@ getElementById('choice-btn-and-label-divs-div').append(...choiceBtnAndLabelDivs)
 
 
 /**
- * @typedef CapitalsOfStatesQuestion
- * @type {{ stateName: string, choices: string[], correctIndex: number }}
- * 
- * @typedef StatesOfCapitalsQuestion
- * @type {{ capital: string, choices: string[], correctIndex: number }}
+ * @typedef QuestionData
+ * @type {{ question: string, choices: string[], correctIndex: number }}
  */
 
 const serverDataJsonScript = getElementById('server-data-json-script');
 /**
  * @type {{ 
- *     questions: CapitalsOfStatesQuestion[] | StatesOfCapitalsQuestion[],
- *     maxNameLength: number
+ *     questionDataArr: QuestionData[],
+ *     maxNameLength: number,
+ *     addScoreUrl: string
  * }}
  */
-const { questions, maxNameLength } = JSON.parse(serverDataJsonScript.text);
+const serverData = JSON.parse(serverDataJsonScript.text);
 // Remove script so people can't look at the HTML to see the answers.
 serverDataJsonScript.remove();
 
+const { questionDataArr } = serverData;
 let questionIndex = 0;
-const isCapitalsOfStatesQuiz = questions[0].stateName !== undefined;
 const questionNumSpan = getElementById('question-num-span');
 const questionSpan = getElementById('question-span');
 
@@ -62,12 +60,9 @@ const questionSpan = getElementById('question-span');
 const getRadioBtnIn = (div) => div.querySelector('input[type="radio"]');
 
 function showQuestion() {
-    const question = questions[questionIndex];
-    questionNumSpan.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
-    questionSpan.textContent =
-        isCapitalsOfStatesQuiz
-        ? `What's the capital of ${question.stateName}?`
-        : `${question.capital} is the capital of what state?`;
+    const questionData = questionDataArr[questionIndex];
+    questionNumSpan.textContent = `Question ${questionIndex + 1} of ${questionDataArr.length}`;
+    questionSpan.textContent = questionData.question;
 
     for (let i = 0; i < choiceBtnAndLabelDivs.length; i++) {
         const choiceDiv = choiceBtnAndLabelDivs[i];
@@ -78,7 +73,7 @@ function showQuestion() {
         That's the only one that doesn't need its label updated.
         */
         if (i < choiceBtnAndLabelDivs.length - 1) {
-            choiceDiv.querySelector('label').textContent = question.choices[i];
+            choiceDiv.querySelector('label').textContent = questionData.choices[i];
         }
     }
 }
@@ -89,13 +84,13 @@ let score = 0;
 const curScoreSpan = getElementById('cur-score-span');
 
 getElementById('choice-submit-btn').onclick = () => {
-    const isLastQuestion = questionIndex === questions.length - 1;
+    const isLastQuestion = questionIndex === questionDataArr.length - 1;
     const indexSelected = choiceBtnAndLabelDivs.findIndex(div => getRadioBtnIn(div).checked);
     
     switch (indexSelected) {
         case -1: return;
 
-        case questions[questionIndex].correctIndex:
+        case questionDataArr[questionIndex].correctIndex:
             score++;
             if (!isLastQuestion) {
                 curScoreSpan.textContent = score;
@@ -104,7 +99,7 @@ getElementById('choice-submit-btn').onclick = () => {
 
     if (isLastQuestion) {
         getElementById('top-left-home-link').remove();
-        getElementById('final-score-div').textContent = `Your score is ${score} of ${questions.length}.`;
+        getElementById('final-score-div').textContent = `Your score is ${score} of ${questionDataArr.length}.`;
         getElementById('quiz-content-div').remove();
         getElementById('quiz-over-div').style.display = 'flex';
     } else {
@@ -116,6 +111,7 @@ getElementById('choice-submit-btn').onclick = () => {
 const nameInput = getElementById('name-input');
 const saveScoreBtn = getElementById('save-score-btn');
 const saveScoreStatusDiv = getElementById('save-score-status-div');
+const { maxNameLength, addScoreUrl } = serverData;
 
 saveScoreBtn.onclick = () => {
     const nameInputText = nameInput.value.trim();
@@ -128,8 +124,7 @@ saveScoreBtn.onclick = () => {
         return;
     }
     
-    const requestUrl =
-        `quizScore?score=${score}&name=${nameInputText}&isForCapitalsOfStatesQuiz=${isCapitalsOfStatesQuiz}`;
+    const requestUrl = `${addScoreUrl}?score=${score}&name=${nameInputText}`;
     const errorMessage = 'Error saving score.';
         
     fetch(requestUrl, { method: 'POST' })

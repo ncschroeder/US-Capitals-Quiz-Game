@@ -170,16 +170,15 @@ getElementById('get-states-html-btn').onclick = () => {
 
 
 /**
- * @param {boolean} deleteCapitalsOfStatesScores 
+ * @param {string} quizTypeWithHyphens 
  */
-function addOnclickForDeleteScoresBtn(deleteCapitalsOfStatesScores) {
-    const divId =
-        `delete-${deleteCapitalsOfStatesScores ? 'capitals-of-states' : 'states-of-capitals'}-quiz-scores-div`;
+function addOnclickForDeleteScoresBtn(quizTypeWithHyphens) {
+    const divId = `delete-${quizTypeWithHyphens}-quiz-scores-div`;
     const div = getElementById(divId);
     const deleteStatusDiv = div.querySelector('.delete-status-div');
     
     div.querySelector('.delete-scores-btn').onclick = () => {
-        fetch(`/admin/scores?forCapitalsOfStatesQuizzes=${deleteCapitalsOfStatesScores}`, { method: 'DELETE' })
+        fetch(`/admin/${quizTypeWithHyphens}-quiz-scores`, { method: 'DELETE' })
         .then(response => response.text())
         .then(text => deleteStatusDiv.textContent = text)
         .catch(reason => {
@@ -189,5 +188,5 @@ function addOnclickForDeleteScoresBtn(deleteCapitalsOfStatesScores) {
     };
 }
 
-addOnclickForDeleteScoresBtn(true);
-addOnclickForDeleteScoresBtn(false);
+addOnclickForDeleteScoresBtn('capitals-of-states');
+addOnclickForDeleteScoresBtn('states-of-capitals');

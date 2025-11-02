@@ -2,7 +2,7 @@ package com.uscapitalsquizgame.scoredata;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
-import com.uscapitalsquizgame.QuizController;
+import com.uscapitalsquizgame.quizzes.QuizManager;
 
 @Entity
 //@Table(name = "scoreData")
@@ -19,34 +19,33 @@ public class ScoreData {
 //    @Column(length = MAX_NAME_LENGTH, nullable = false, updatable = false)
     private String name;
     
-//    @Column(nullable = false, updatable = false)
-    private boolean isForCapitalsOfStatesQuiz;
+    private String quizType;
     
 //    @Column(nullable = false, updatable = false)
     private OffsetDateTime dateTime;
     
     protected ScoreData() {}
     
-    public ScoreData(int score, String name, boolean isForCapitalsOfStatesQuiz, OffsetDateTime dateTime) {
+    public ScoreData(int score, String name, QuizManager quizManager, OffsetDateTime dateTime) {
         this.name = name.strip();
         
         if (
-            score < 0 || score > QuizController.NUM_QUESTIONS ||
+            score < 0 || score > QuizManager.NUM_QUESTIONS ||
             this.name.isEmpty() || this.name.length() > MAX_NAME_LENGTH
         ) {
             throw new IllegalArgumentException();
         }
         
         this.score = score;
-        this.isForCapitalsOfStatesQuiz = isForCapitalsOfStatesQuiz;
+        this.quizType = quizManager.getQuizTypeDbColValue();
         this.dateTime = dateTime;
     }
     
     @Override
     public String toString() {
         return String.format(
-            "ScoreData[id=%d, score=%d, name=%s, isForCapitalsOfStatesQuiz=%s, dateTime=%s]",
-            0, score, name, isForCapitalsOfStatesQuiz, dateTime
+            "ScoreData[id=%d, score=%d, name=%s, quizType=%s, dateTime=%s]",
+            id, score, name, quizType, dateTime
         );
     }
     
@@ -62,8 +61,8 @@ public class ScoreData {
         return name;
     }
     
-    public boolean isForCapitalsOfStatesQuiz() {
-        return isForCapitalsOfStatesQuiz;
+    public String getQuizType() {
+        return quizType;
     }
     
     public OffsetDateTime getDateTime() {

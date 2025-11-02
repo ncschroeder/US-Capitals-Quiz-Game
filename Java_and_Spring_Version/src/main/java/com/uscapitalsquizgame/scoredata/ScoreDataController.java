@@ -11,9 +11,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uscapitalsquizgame.QuizController;
-import com.uscapitalsquizgame.states.State;
-import com.uscapitalsquizgame.states.StateRepository;
+import com.uscapitalsquizgame.quizzes.*;
 
 @Controller
 public class ScoreDataController {
@@ -21,48 +19,31 @@ public class ScoreDataController {
     private ScoreDataRepository scoreDataRepository;
     
     @Autowired
-    private StateRepository stateRepository;
-    
-    @Autowired
     private ObjectMapper jsonObjectMapper;
     
-    @GetMapping("/quizScores")
-    public String quizScores(
-        Model model,
-        @RequestParam(name = "forCapitalsOfStatesQuizzes") boolean getCapitalsOfStatesQuizScores
-    ) throws JsonProcessingException {
-        String titleAndHeading =
-            QuizController.getQuizType(getCapitalsOfStatesQuizScores) + " Quiz Scores";
-        
-        var scoreDataList =
-            scoreDataRepository
-            .findByIsForCapitalsOfStatesQuizOrderByScoreDescDateTimeAsc(getCapitalsOfStatesQuizScores);
-        
-        List<String> dateTimeStrings =
-            scoreDataList
-            .stream()
-            .map(sd -> sd.getDateTime().toString())
-            .toList();
-        
-        String dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);;
-        
-        model
-        .addAttribute("titleAndHeading", titleAndHeading)
-        .addAttribute("scoreDataList", scoreDataList)
-        .addAttribute("dateTimeStringsJson", dateTimeStringsJson);
-        
-        return "scores";
+    
+    @PostMapping("/capitals-of-states-quiz-score")
+    public @ResponseBody String addCapitalsOfStatesScore(
+        @RequestParam int score,
+        @RequestParam String name
+    ) {
+        return addQuizScore(score, name, CapitalsOfStatesQuizManager.getInstance());
     }
     
-    @PostMapping("/quizScore")
-    public @ResponseBody String addQuizScore(
-        @RequestParam int score, @RequestParam String name, @RequestParam boolean isForCapitalsOfStatesQuiz
+    @PostMapping("/states-of-capitals-quiz-score")
+    public @ResponseBody String addStatesOfCapitalsScore(
+        @RequestParam int score,
+        @RequestParam String name
     ) {
+        return addQuizScore(score, name, StatesOfCapitalsQuizManager.getInstance());
+    }
+    
+    private String addQuizScore(int score, String name, QuizManager quizManager) {
         var dateTime = OffsetDateTime.now(ZoneOffset.UTC);
         ScoreData scoreData;
         
         try {
-            scoreData = new ScoreData(score, name, isForCapitalsOfStatesQuiz, dateTime);
+            scoreData = new ScoreData(score, name, quizManager, dateTime);
         } catch (IllegalArgumentException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, null, ex);
         }
@@ -78,9 +59,41 @@ public class ScoreDataController {
 //        return testRepository;
 //        scoreDataRepository.save(new ScoreData(1, "n", true, OffsetDateTime.now()));
 //        System.out.println(dateTime);
+    
+    @GetMapping("/capitals-of-states-quiz-scores")
+    public String getCapitalsOfStatesScores(Model model) {
+        return getScoresView(model, CapitalsOfStatesQuizManager.getInstance());
+    }
+    
+    @GetMapping("/states-of-capitals-quiz-scores")
+    public String getStatesOfCapitalsScores(Model model) {
+        return getScoresView(model, StatesOfCapitalsQuizManager.getInstance());
+    }
+    
+    private String getScoresView(Model model, QuizManager quizManager) {
+        var scoreDataList =
+            scoreDataRepository
+            .findByQuizTypeOrderByScoreDescDateTimeAsc(quizManager.getQuizTypeDbColValue());
         
-        stateRepository.save(new State("name", "capital", List.of("city")));
-        return stateRepository.findAll();
+        List<String> dateTimeStrings =
+            scoreDataList
+            .stream()
+            .map(data -> data.getDateTime().toString())
+            .toList();
+        
+        String dateTimeStringsJson;
+        try {
+            dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);
+        } catch (JsonProcessingException ex) {
+            throw new RuntimeException(ex);
+        }
+        
+        model
+        .addAttribute("titleAndHeading", quizManager.getScoresTitleAndHeading())
+        .addAttribute("scoreDataList", scoreDataList)
+        .addAttribute("dateTimeStringsJson", dateTimeStringsJson);
+        
+        return "scores";
     }
 }
 

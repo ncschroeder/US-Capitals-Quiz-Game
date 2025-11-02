@@ -1,15 +1,26 @@
-package com.uscapitalsquizgame.questions;
+package com.uscapitalsquizgame.quizzes;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
 
-public final class StatesOfCapitalsQuestion extends Question {
-    private final String capital;
+public final class StatesOfCapitalsQuizManager extends QuizManager {
+    private StatesOfCapitalsQuizManager() {
+        super("States of Capitals");
+    }
     
-    public StatesOfCapitalsQuestion(State state, RandomnessService randomnessService) {
-        capital = state.getCapital();
+    private static final StatesOfCapitalsQuizManager instance = new StatesOfCapitalsQuizManager();
+    
+    public static StatesOfCapitalsQuizManager getInstance() {
+        return instance;
+    }
+    
+    @Override
+    QuestionData createQuestionData(State state, RandomnessService randomnessService) {
+        var question = state.getCapital() + " is the capital of which state?";
+        int correctIndex;
         
         boolean noneOfTheAboveIsCorrectAnswer =
             randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
@@ -23,7 +34,7 @@ public final class StatesOfCapitalsQuestion extends Question {
             correctIndex = randomnessService.random.nextInt(4);
         }
         
-        choices =
+        List<String> choices =
             randomnessService
             .getStreamOfRandomStates()
             .filter(s -> !s.getId().equals(state.getId()))
@@ -34,17 +45,7 @@ public final class StatesOfCapitalsQuestion extends Question {
         if (!noneOfTheAboveIsCorrectAnswer) {
             choices.add(correctIndex, state.getName());
         }
-    }
-    
-    @Override
-    public String toString() {
-        return String.format(
-            "StateOfCapitalQuestion[capital=%s, choices=%s, correctIndex=%d]",
-            capital, choices, correctIndex
-        );
-    }
-    
-    public String getCapital() {
-        return capital;
+        
+        return new QuestionData(question, choices, correctIndex);
     }
 }

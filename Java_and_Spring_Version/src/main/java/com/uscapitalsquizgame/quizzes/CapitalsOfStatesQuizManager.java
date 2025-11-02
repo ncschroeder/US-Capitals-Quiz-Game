@@ -1,22 +1,39 @@
-package com.uscapitalsquizgame.questions;
+package com.uscapitalsquizgame.quizzes;
 
 import java.util.*;
 import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
 
-public final class CapitalsOfStatesQuestion extends Question {
-    private final String stateName;
+public final class CapitalsOfStatesQuizManager extends QuizManager {
+    private CapitalsOfStatesQuizManager() {
+        super("Capitals of States");
+    }
     
-    public CapitalsOfStatesQuestion(State state, RandomnessService randomnessService) {
-        stateName = state.getName();
+    private static final CapitalsOfStatesQuizManager instance = new CapitalsOfStatesQuizManager();
+    
+    public static CapitalsOfStatesQuizManager getInstance() {
+        return instance;
+    }
+    
+    @Override
+    QuestionData createQuestionData(State state, RandomnessService randomnessService) {
+        var question = String.format("What's the capital of %s?", state.getName());
+        var choices = new ArrayList<String>(4);
+        
+        /*
+        This'll be reassigned but I need to initialize it since the compiler doesn't know
+        that it'll be reassigned since that's done in different if-else statements.
+         */
+        int correctIndex = 0;
+        
         String paramStateCapital = state.getCapital();
-        choices = new ArrayList<>(4);
         List<String> paramStateCities = state.getCities();
         String randomParamStateCity1 = randomnessService.getRandomElement(paramStateCities);
         choices.add(randomParamStateCity1);
         
         boolean noneOfTheAboveIsCorrectAnswer =
             randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
+        
         if (!noneOfTheAboveIsCorrectAnswer) {
             choices.add(paramStateCapital);
         } else {
@@ -60,17 +77,7 @@ public final class CapitalsOfStatesQuestion extends Question {
         if (!noneOfTheAboveIsCorrectAnswer) {
             correctIndex = choices.indexOf(paramStateCapital);
         }
-    }
-    
-    @Override
-    public String toString() {
-        return String.format(
-            "CapitalOfStateQuestion[stateName=%s, choices=%s, correctIndex=%d]",
-            stateName, choices, correctIndex
-        );
-    }
-    
-    public String getStateName() {
-        return stateName;
+        
+        return new QuestionData(question, choices, correctIndex);
     }
 }

@@ -39,17 +39,13 @@
         
         <div id="quiz-over-links-div" class="small-text">
             <a href="/">Home</a>
-            <a href="quiz?overCapitalsOfStates=${isCapitalsOfStatesQuiz}">
-                Take another quiz over ${quizType}
-            </a>
-            <a href="quizScores?forCapitalsOfStatesQuizzes=${isCapitalsOfStatesQuiz}">
-                See scores for ${quizType} quizzes
-            </a>
+            <a href="${quizUrl}">${takeAnotherQuizText}</a>
+            <a href="${seeScoresUrl}">${seeScoresUrlText}</a>
         </div>
     </div>
 
     <script id="server-data-json-script" type="application/json">
-        { "questions": ${questionsJson}, "maxNameLength": ${maxNameLength} }
+        { "questionDataArr": ${questionDataArrJson}, "maxNameLength": ${maxNameLength}, "addScoreUrl": "${addScoreUrl}" }
     </script>
     <script src="quiz.js"></script>
 </body>
