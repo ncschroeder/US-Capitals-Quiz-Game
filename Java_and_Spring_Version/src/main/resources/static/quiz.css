@@ -13,15 +13,14 @@ h1 {
     row-gap: 10px;
 }
 
-#quiz-over-div {
-    row-gap: 15px;
-}
 
 #save-score-div {
-    row-gap: 6px;
+    margin-top: 15px;
+    row-gap: 7px;
 }
 
 #quiz-over-links-div {
+    margin-top: 25px;
     row-gap: 7px;
 }
 
@@ -50,11 +49,11 @@ input[type="radio"] {
 
 #name-input {
     text-align: center;
-    margin-top: 3px;
+    margin-top: 5px;
     width: 165px;
 }
 
 #save-score-status-div:empty {
     display: none;
 }
-    margin-top: 5px;
+

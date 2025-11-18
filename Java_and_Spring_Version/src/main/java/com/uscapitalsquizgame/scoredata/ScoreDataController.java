@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.stream.Collectors;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uscapitalsquizgame.quizzes.*;
 
@@ -45,26 +44,19 @@ public class ScoreDataController {
     }
     
     private String addQuizScore(int score, String name, QuizManager quizManager) {
-        var dateTime = OffsetDateTime.now(ZoneOffset.UTC);
+        var scoreSaveDateTime = OffsetDateTime.now(ZoneOffset.UTC);
         ScoreData scoreData;
         
         try {
-            scoreData = new ScoreData(score, name, quizManager, dateTime);
+            scoreData = new ScoreData(score, name, quizManager, scoreSaveDateTime);
         } catch (IllegalArgumentException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, null, ex);
         }
         
         scoreDataRepository.save(scoreData);
-        return dateTime.toString();
+        return scoreSaveDateTime.toString();
     }
     
-    @GetMapping("/statetest")
-//    public @ResponseBody String test(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)ZonedDateTime dateTime) throws JsonProcessingException {
-    public @ResponseBody List<State> test() {
-//        testRepository.save(new TestClass());
-//        return testRepository;
-//        scoreDataRepository.save(new ScoreData(1, "n", true, OffsetDateTime.now()));
-//        System.out.println(dateTime);
     
     @GetMapping(CapitalsOfStatesQuizManager.SCORES_URL_END)
     public String getCapitalsOfStatesScores(Model model) {
@@ -79,52 +71,24 @@ public class ScoreDataController {
     private String getScoresView(Model model, QuizManager quizManager) {
         var scoreDataList =
             scoreDataRepository
-            .findByQuizTypeOrderByScoreDescDateTimeAsc(quizManager.getQuizTypeDbColValue());
+            .findByQuizTypeOrderByScoreDescSaveDateTimeAsc(quizManager.getQuizTypeDbColValue());
         
-        List<String> dateTimeStrings =
+        /*
+        This is a JSON array that contains the numbers of milliseconds since
+        the epoch for all ScoreDatas.
+         */
+        String scoreEpochMillisecondsJson =
             scoreDataList
             .stream()
-            .map(data -> data.getDateTime().toString())
-            .toList();
-        
-        String dateTimeStringsJson;
-        try {
-            dateTimeStringsJson = jsonObjectMapper.writeValueAsString(dateTimeStrings);
-        } catch (JsonProcessingException ex) {
-            throw new RuntimeException(ex);
-        }
+            .mapToLong(data -> data.getSaveDateTime().toInstant().toEpochMilli())
+            .mapToObj(Long::toString)
+            .collect(Collectors.joining(",", "[", "]"));
         
         model
         .addAttribute("titleAndHeading", quizManager.getScoresTitleAndHeading())
         .addAttribute("scoreDataList", scoreDataList)
-        .addAttribute("dateTimeStringsJson", dateTimeStringsJson);
+        .addAttribute("scoreEpochMillisecondsJson", scoreEpochMillisecondsJson);
         
         return "scores";
     }
 }
-
-
-//    @GetMapping("/capitalsOfStatesQuizScores")
-//    public String getCapitalsOfStatesQuizScores(Model model) {
-//        return updateModelAndGetView(model, true);
-//    }
-//
-//    @GetMapping("/statesOfCapitalsQuizScores")
-//    public String getStatesOfCapitalsQuizScores(Model model) {
-//        return updateModelAndGetView(model, false);
-//    }
-
-//    @PostMapping("/capitalsOfStatesQuizScore")
-//    public @ResponseBody String addCapitalsOfStatesQuizScore(@RequestParam int score, @RequestParam String name) {
-////        System.out.println("got score: " + score + ' ' + name);
-//        return saveScoreAndGetDateTime(score, name, true);
-//    }
-
-//        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime dateTime
-
-
-//    @PostMapping("/statesOfCapitalsQuizScore")
-//    public @ResponseBody String addStatesOfCapitalsQuizScore(@RequestParam int score, @RequestParam String name) {
-//        return saveScoreAndGetDateTime(score, name, false);
-////        scoreDataRepository.save(new ScoreData(score, name, false));
-//    }

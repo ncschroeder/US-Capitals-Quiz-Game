@@ -40,8 +40,8 @@
         </tbody>
     </table>
 
-    <script id="date-time-strings-json-script" type="application/json">
-        ${dateTimeStringsJson}
+    <script id="score-epoch-milliseconds-json-script" type="application/json">
+        ${scoreEpochMillisecondsJson}
     </script>
     <script src="scores.js"></script>
 </body>

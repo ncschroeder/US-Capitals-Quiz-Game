@@ -10,8 +10,10 @@ public abstract sealed class QuizManager
     public static final int NUM_QUESTIONS = 10;
     
     /**
-     * This'll be used in a link to the quiz URL.
+     * The number of answer choices including "None of the above."
      */
+    static final int NUM_ANSWER_CHOICES = 5;
+    
     
     private final String lowercaseQuizTypeString;
     
@@ -36,7 +38,7 @@ public abstract sealed class QuizManager
     private final String scoresTitleAndHeading;
     
     /**
-     * The args for quizTypeStringWithUppercase are are "Capitals of States" and
+     * The args for quizTypeStringWithUppercase are "Capitals of States" and
      * "States of Capitals."
      */
     protected QuizManager(

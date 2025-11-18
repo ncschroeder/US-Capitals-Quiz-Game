@@ -20,18 +20,16 @@ public final class StatesOfCapitalsQuizManager extends QuizManager {
     @Override
     QuestionData createQuestionData(State state, RandomnessService randomnessService) {
         var question = state.getCapital() + " is the capital of which state?";
-        int correctIndex;
-        
         boolean noneOfTheAboveIsCorrectAnswer =
             randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
         int numRandomStatesToGet;
+        int correctIndex;
         
         if (noneOfTheAboveIsCorrectAnswer) {
-            numRandomStatesToGet = 4;
-            correctIndex = 4;
+            numRandomStatesToGet = correctIndex = NUM_ANSWER_CHOICES - 1;
         } else {
-            numRandomStatesToGet = 3;
-            correctIndex = randomnessService.random.nextInt(4);
+            numRandomStatesToGet = NUM_ANSWER_CHOICES - 2;
+            correctIndex = randomnessService.random.nextInt(NUM_ANSWER_CHOICES - 1);
         }
         
         List<String> choices =

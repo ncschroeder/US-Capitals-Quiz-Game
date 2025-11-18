@@ -33,6 +33,7 @@ table {
 code {
     background-color: #434343;
     color: white;
+    font-size: 0.9rem;
     display: block;
     text-align: left;
     text-indent: 10px;

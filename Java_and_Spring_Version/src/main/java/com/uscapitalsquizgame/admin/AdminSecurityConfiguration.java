@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class AdminSecurityConfig {
+public class AdminSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -19,7 +19,6 @@ public class AdminSecurityConfig {
             .requestMatchers("/admin.html", "/admin/**").hasRole("ADMIN")
             .anyRequest().permitAll()
         )
-        // If i have the login page be "/login.html", the whitelabel error page gets shown after trying to log in.
         .formLogin(form -> form.loginPage("/login").permitAll())
         .logout(logout -> logout.permitAll())
         .csrf(csrf -> csrf.disable());

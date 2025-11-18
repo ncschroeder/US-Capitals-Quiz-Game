@@ -68,7 +68,7 @@ function addOnclickForGetStatesBtn(getStatesFromDatabase) {
     const statesOrErrorDiv = div.querySelector('.states-or-error-div');
     
     div.querySelector('.get-states-btn').onclick = () => {
-        const requestEndpoint = 'statesFrom' + (getStatesFromDatabase ? 'Database' : 'RandomnessService');
+        const requestEndpoint = 'states-from-' + (getStatesFromDatabase ? 'database' : 'randomness-service');
         
         fetch('/admin/' + requestEndpoint)
         .then(async (response) => {
@@ -139,7 +139,7 @@ addOnclickForGetStatesBtn(false);
 getElementById('get-states-html-btn').onclick = () => {
     const htmlOrErrorDiv = getElementById('states-html-or-error-div');
 
-    fetch('admin/statesTableRowsHtml')
+    fetch('admin/states-table-rows-html')
     .then(async (response) => {
         let elementsToShow;
 
@@ -170,10 +170,10 @@ getElementById('get-states-html-btn').onclick = () => {
 
 
 /**
- * @param {string} quizTypeWithHyphens 
+ * @param {string} quizTypeWithHyphens
  */
 function addOnclickForDeleteScoresBtn(quizTypeWithHyphens) {
-    const divId = `delete-${quizTypeWithHyphens}-quiz-scores-div`;
+    const divId = `delete-${quizTypeWithHyphens}-scores-div`;
     const div = getElementById(divId);
     const deleteStatusDiv = div.querySelector('.delete-status-div');
     
@@ -190,3 +190,4 @@ function addOnclickForDeleteScoresBtn(quizTypeWithHyphens) {
 
 addOnclickForDeleteScoresBtn('capitals-of-states');
 addOnclickForDeleteScoresBtn('states-of-capitals');
+

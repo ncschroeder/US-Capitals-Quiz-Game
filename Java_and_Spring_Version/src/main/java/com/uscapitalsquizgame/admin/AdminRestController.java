@@ -19,10 +19,12 @@ public class AdminRestController {
     private AdminService adminService;
     
     @Autowired
+    private RandomnessService randomnessService;
+    
+    @Autowired
     private StateRepository stateRepository;
     
     @Autowired
-    private RandomnessService randomnessService;
     private CapitalsOfStatesQuizManager capitalsOfStatesQuizManager;
     
     @Autowired
@@ -50,17 +52,17 @@ public class AdminRestController {
         );
     
     
-    @GetMapping("/statesFromDatabase")
+    @GetMapping("/states-from-database")
     public List<State> getStatesFromDatabase() {
         return stateRepository.findAll();
     }
     
-    @GetMapping("/statesFromRandomnessService")
+    @GetMapping("/states-from-randomness-service")
     public List<State> getStatesFromRandomnessService() {
         return randomnessService.getStates();
     }
     
-    @GetMapping("/statesTableRowsHtml")
+    @GetMapping("/states-table-rows-html")
     public List<String> getStatesTableRowsHtml() {
         return adminService.getStatesTableRowsHtml();
     }

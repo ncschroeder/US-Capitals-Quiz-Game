@@ -10,15 +10,13 @@ public class State {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(length = 30, unique = true, nullable = false, updatable = false)
     private String name;
     
-    @Column(length = 30, nullable = false, updatable = false)
     private String capital;
     
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "city", joinColumns = @JoinColumn(name = "state_id", nullable = false))
-    @Column(name = "name", length = 30, nullable = false)
+    @CollectionTable(name = "city", joinColumns = @JoinColumn(name = "state_id"))
+    @Column(name = "name")
     private List<String> cities;
     
     protected State() {}

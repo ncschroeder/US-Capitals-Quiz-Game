@@ -5,7 +5,6 @@ import java.time.OffsetDateTime;
 import com.uscapitalsquizgame.quizzes.QuizManager;
 
 @Entity
-//@Table(name = "scoreData")
 public class ScoreData {
     public static final int MAX_NAME_LENGTH = 20;
     
@@ -13,20 +12,17 @@ public class ScoreData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-//    @Column(nullable = false, updatable = false)
     private int score;
     
-//    @Column(length = MAX_NAME_LENGTH, nullable = false, updatable = false)
     private String name;
     
     private String quizType;
     
-//    @Column(nullable = false, updatable = false)
-    private OffsetDateTime dateTime;
+    private OffsetDateTime saveDateTime;
     
     protected ScoreData() {}
     
-    public ScoreData(int score, String name, QuizManager quizManager, OffsetDateTime dateTime) {
+    public ScoreData(int score, String name, QuizManager quizManager, OffsetDateTime saveDateTime) {
         this.name = name.strip();
         
         if (
@@ -38,20 +34,20 @@ public class ScoreData {
         
         this.score = score;
         this.quizType = quizManager.getQuizTypeDbColValue();
-        this.dateTime = dateTime;
+        this.saveDateTime = saveDateTime;
     }
     
     @Override
     public String toString() {
         return String.format(
-            "ScoreData[id=%d, score=%d, name=%s, quizType=%s, dateTime=%s]",
-            id, score, name, quizType, dateTime
+            "ScoreData[id=%d, score=%d, name=%s, quizType=%s, saveDateTime=%s]",
+            id, score, name, quizType, saveDateTime
         );
     }
     
-//    public Integer getId() {
-//        return id;
-//    }
+    public Integer getId() {
+        return id;
+    }
     
     public int getScore() {
         return score;
@@ -65,7 +61,7 @@ public class ScoreData {
         return quizType;
     }
     
-    public OffsetDateTime getDateTime() {
-        return dateTime;
+    public OffsetDateTime getSaveDateTime() {
+        return saveDateTime;
     }
 }

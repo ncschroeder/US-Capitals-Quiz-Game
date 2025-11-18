@@ -99,7 +99,7 @@ getElementById('choice-submit-btn').onclick = () => {
 
     if (isLastQuestion) {
         getElementById('top-left-home-link').remove();
-        getElementById('final-score-div').textContent = `Your score is ${score} of ${questionDataArr.length}.`;
+        getElementById('final-score-div').textContent = `Your score is ${score} of ${questionDataArr.length}`;
         getElementById('quiz-content-div').remove();
         getElementById('quiz-over-div').style.display = 'flex';
     } else {
@@ -135,6 +135,7 @@ saveScoreBtn.onclick = () => {
             const dateString =
                 new Date(responseText)
                 .toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' });
+            
             saveScoreStatusDiv.innerHTML =
                 `Score successfully saved at: ${dateString}.
                 <br />
@@ -152,3 +153,4 @@ saveScoreBtn.onclick = () => {
         console.error(reason);
     });
 };
+

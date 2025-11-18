@@ -18,7 +18,8 @@ public final class CapitalsOfStatesQuizManager extends QuizManager {
     @Override
     QuestionData createQuestionData(State state, RandomnessService randomnessService) {
         var question = String.format("What's the capital of %s?", state.getName());
-        var choices = new ArrayList<String>(4);
+        // choices won't contain "None of the above."
+        var choices = new ArrayList<String>(NUM_ANSWER_CHOICES - 1);
         
         /*
         This'll be reassigned but I need to initialize it since the compiler doesn't know
@@ -37,7 +38,7 @@ public final class CapitalsOfStatesQuizManager extends QuizManager {
         if (!noneOfTheAboveIsCorrectAnswer) {
             choices.add(paramStateCapital);
         } else {
-            correctIndex = 4;
+            correctIndex = NUM_ANSWER_CHOICES - 1;
             
             String randomParamStateCity2;
             do {

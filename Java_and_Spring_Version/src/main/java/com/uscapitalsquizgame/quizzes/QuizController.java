@@ -60,14 +60,4 @@ public class QuizController {
         
         return "quiz";
     }
-    public String capitalsOfStatesQuiz(Model model) {
-//        System.out.println("test request received");
-//        return "test request received";
-//jsonObjectMapper.writeValueAsString(List.of(1));
-//    }
-
-//    private final Function<State, Question> createCapitalOfStateQuestion =
-//        state -> new CapitalOfStateQuestion(state, statesRepository, nonCapitalCitiesRepository);
-
-//    private final Function<State, Question> createStateOfCapitalQuestion =
-//        state -> new StateOfCapitalQuestion(state, statesRepository);
+}

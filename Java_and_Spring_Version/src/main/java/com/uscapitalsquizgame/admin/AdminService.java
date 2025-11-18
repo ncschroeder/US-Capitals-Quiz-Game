@@ -91,7 +91,6 @@ public class AdminService {
             .stream()
             .flatMap(state -> {
                 var citiesString = String.join(", ", state.getCities());
-                //state.getCities().replace(",", ", ");
                 return """
                     <tr>
                         <td>%s</td>
