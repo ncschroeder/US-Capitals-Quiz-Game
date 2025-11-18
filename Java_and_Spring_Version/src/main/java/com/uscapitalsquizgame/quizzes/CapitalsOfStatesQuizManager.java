@@ -5,14 +5,14 @@ import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
 
 public final class CapitalsOfStatesQuizManager extends QuizManager {
-    private CapitalsOfStatesQuizManager() {
-        super("Capitals of States");
-    }
+    public static final String QUIZ_URL_END = "/capitals-of-states-quiz";
     
-    private static final CapitalsOfStatesQuizManager instance = new CapitalsOfStatesQuizManager();
+    public static final String SCORE_URL_END = QUIZ_URL_END + "-score";
     
-    public static CapitalsOfStatesQuizManager getInstance() {
-        return instance;
+    public static final String SCORES_URL_END = SCORE_URL_END + 's';
+    
+    CapitalsOfStatesQuizManager() {
+        super("Capitals of States", QUIZ_URL_END, SCORE_URL_END, SCORES_URL_END);
     }
     
     @Override

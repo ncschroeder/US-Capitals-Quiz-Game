@@ -16,26 +16,32 @@ import com.uscapitalsquizgame.quizzes.*;
 @Controller
 public class ScoreDataController {
     @Autowired
+    private CapitalsOfStatesQuizManager capitalsOfStatesQuizManager;
+    
+    @Autowired
+    private StatesOfCapitalsQuizManager statesOfCapitalsQuizManager;
+    
+    @Autowired
     private ScoreDataRepository scoreDataRepository;
     
     @Autowired
     private ObjectMapper jsonObjectMapper;
     
     
-    @PostMapping("/capitals-of-states-quiz-score")
+    @PostMapping(CapitalsOfStatesQuizManager.SCORE_URL_END)
     public @ResponseBody String addCapitalsOfStatesScore(
         @RequestParam int score,
         @RequestParam String name
     ) {
-        return addQuizScore(score, name, CapitalsOfStatesQuizManager.getInstance());
+        return addQuizScore(score, name, capitalsOfStatesQuizManager);
     }
     
-    @PostMapping("/states-of-capitals-quiz-score")
+    @PostMapping(StatesOfCapitalsQuizManager.SCORE_URL_END)
     public @ResponseBody String addStatesOfCapitalsScore(
         @RequestParam int score,
         @RequestParam String name
     ) {
-        return addQuizScore(score, name, StatesOfCapitalsQuizManager.getInstance());
+        return addQuizScore(score, name, statesOfCapitalsQuizManager);
     }
     
     private String addQuizScore(int score, String name, QuizManager quizManager) {
@@ -60,14 +66,14 @@ public class ScoreDataController {
 //        scoreDataRepository.save(new ScoreData(1, "n", true, OffsetDateTime.now()));
 //        System.out.println(dateTime);
     
-    @GetMapping("/capitals-of-states-quiz-scores")
+    @GetMapping(CapitalsOfStatesQuizManager.SCORES_URL_END)
     public String getCapitalsOfStatesScores(Model model) {
-        return getScoresView(model, CapitalsOfStatesQuizManager.getInstance());
+        return getScoresView(model, capitalsOfStatesQuizManager);
     }
     
-    @GetMapping("/states-of-capitals-quiz-scores")
+    @GetMapping(StatesOfCapitalsQuizManager.SCORES_URL_END)
     public String getStatesOfCapitalsScores(Model model) {
-        return getScoresView(model, StatesOfCapitalsQuizManager.getInstance());
+        return getScoresView(model, statesOfCapitalsQuizManager);
     }
     
     private String getScoresView(Model model, QuizManager quizManager) {

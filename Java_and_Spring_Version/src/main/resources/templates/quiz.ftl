@@ -39,13 +39,13 @@
         
         <div id="quiz-over-links-div" class="small-text">
             <a href="/">Home</a>
-            <a href="${quizUrl}">${takeAnotherQuizText}</a>
-            <a href="${seeScoresUrl}">${seeScoresUrlText}</a>
+            <a href="${quizUrlEnd}">${takeAnotherQuizText}</a>
+            <a href="${seeScoresUrlEnd}">${seeScoresText}</a>
         </div>
     </div>
 
     <script id="server-data-json-script" type="application/json">
-        { "questionDataArr": ${questionDataArrJson}, "maxNameLength": ${maxNameLength}, "addScoreUrl": "${addScoreUrl}" }
+        { "questionDataArr": ${questionDataArrJson}, "maxNameLength": ${maxNameLength}, "addScoreUrlEnd": "${addScoreUrlEnd}" }
     </script>
     <script src="quiz.js"></script>
 </body>

@@ -13,19 +13,26 @@ import com.uscapitalsquizgame.RandomnessService;
 @Controller
 public class QuizController {
     @Autowired
+    private CapitalsOfStatesQuizManager capitalsOfStatesQuizManager;
+    
+    @Autowired
+    private StatesOfCapitalsQuizManager statesOfCapitalsQuizManager;
+    
+    @Autowired
     private RandomnessService randomnessService;
     
     @Autowired
     private ObjectMapper jsonObjectMapper;
     
-    @GetMapping("/capitals-of-states-quiz")
-    public String capitalsOfStatesQuiz(Model model) {
-        return getQuizView(model, CapitalsOfStatesQuizManager.getInstance());
+    
+    @GetMapping(CapitalsOfStatesQuizManager.QUIZ_URL_END)
+    public String getCapitalsOfStatesQuizView(Model model) {
+        return getQuizView(model, capitalsOfStatesQuizManager);
     }
     
-    @GetMapping("/states-of-capitals-quiz")
-    public String statesOfCapitalsQuiz(Model model) {
-        return getQuizView(model, StatesOfCapitalsQuizManager.getInstance());
+    @GetMapping(StatesOfCapitalsQuizManager.QUIZ_URL_END)
+    public String getStatesOfCapitalsQuizView(Model model) {
+        return getQuizView(model, statesOfCapitalsQuizManager);
     }
     
     private String getQuizView(Model model, QuizManager quizManager) {
@@ -42,12 +49,12 @@ public class QuizController {
             Map.of(
                 "titleAndHeading", quizManager.getQuizTitleAndHeading(),
                 "questionDataArrJson", questionDataArrJson,
-                "quizUrl", quizManager.getQuizUrl(),
-                "takeAnotherQuizText", quizManager.getTakeAnotherQuizText(),
                 "maxNameLength", ScoreData.MAX_NAME_LENGTH,
-                "addScoreUrl", quizManager.getAddScoreUrl(),
-                "seeScoresUrl", quizManager.getSeeScoresUrl(),
-                "seeScoresUrlText", quizManager.getSeeScoresUrlText()
+                "addScoreUrlEnd", quizManager.getAddScoreUrlEnd(),
+                "takeAnotherQuizText", quizManager.getTakeAnotherQuizText(),
+                "quizUrlEnd", quizManager.getQuizUrlEnd(),
+                "seeScoresText", quizManager.getSeeScoresText(),
+                "seeScoresUrlEnd", quizManager.getSeeScoresUrlEnd()
             )
         );
         

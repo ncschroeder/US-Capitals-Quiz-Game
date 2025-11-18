@@ -111,7 +111,7 @@ getElementById('choice-submit-btn').onclick = () => {
 const nameInput = getElementById('name-input');
 const saveScoreBtn = getElementById('save-score-btn');
 const saveScoreStatusDiv = getElementById('save-score-status-div');
-const { maxNameLength, addScoreUrl } = serverData;
+const { maxNameLength, addScoreUrlEnd } = serverData;
 
 saveScoreBtn.onclick = () => {
     const nameInputText = nameInput.value.trim();
@@ -124,7 +124,7 @@ saveScoreBtn.onclick = () => {
         return;
     }
     
-    const requestUrl = `${addScoreUrl}?score=${score}&name=${nameInputText}`;
+    const requestUrl = `${addScoreUrlEnd}?score=${score}&name=${nameInputText}`;
     const errorMessage = 'Error saving score.';
         
     fetch(requestUrl, { method: 'POST' })

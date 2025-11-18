@@ -23,6 +23,10 @@ public class AdminRestController {
     
     @Autowired
     private RandomnessService randomnessService;
+    private CapitalsOfStatesQuizManager capitalsOfStatesQuizManager;
+    
+    @Autowired
+    private StatesOfCapitalsQuizManager statesOfCapitalsQuizManager;
     
     @Autowired
     private ScoreDataRepository scoreDataRepository;
@@ -62,14 +66,14 @@ public class AdminRestController {
     }
     
     
-    @DeleteMapping("/capitals-of-states-quiz-scores")
+    @DeleteMapping(CapitalsOfStatesQuizManager.SCORES_URL_END)
     public @ResponseBody String deleteCapitalsOfStatesScores() {
-        return deleteScores(CapitalsOfStatesQuizManager.getInstance());
+        return deleteScores(capitalsOfStatesQuizManager);
     }
     
-    @DeleteMapping("/states-of-capitals-quiz-scores")
+    @DeleteMapping(StatesOfCapitalsQuizManager.SCORES_URL_END)
     public @ResponseBody String deleteStatesOfCapitalsScores() {
-        return deleteScores(StatesOfCapitalsQuizManager.getInstance());
+        return deleteScores(statesOfCapitalsQuizManager);
     }
     
     private String deleteScores(QuizManager quizManager) {

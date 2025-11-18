@@ -7,14 +7,14 @@ import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
 
 public final class StatesOfCapitalsQuizManager extends QuizManager {
-    private StatesOfCapitalsQuizManager() {
-        super("States of Capitals");
-    }
+    public static final String QUIZ_URL_END = "/states-of-capitals-quiz";
     
-    private static final StatesOfCapitalsQuizManager instance = new StatesOfCapitalsQuizManager();
+    public static final String SCORE_URL_END = QUIZ_URL_END + "-score";
     
-    public static StatesOfCapitalsQuizManager getInstance() {
-        return instance;
+    public static final String SCORES_URL_END = SCORE_URL_END + 's';
+    
+    StatesOfCapitalsQuizManager() {
+        super("States of Capitals", QUIZ_URL_END, SCORE_URL_END, SCORES_URL_END);
     }
     
     @Override
