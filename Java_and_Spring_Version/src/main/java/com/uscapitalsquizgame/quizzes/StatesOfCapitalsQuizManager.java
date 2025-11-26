@@ -3,8 +3,9 @@ package com.uscapitalsquizgame.quizzes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
+
+import static com.uscapitalsquizgame.quizzes.QuizCreation.*;
 
 public final class StatesOfCapitalsQuizManager extends QuizManager {
     public static final String QUIZ_URL_END = "/states-of-capitals-quiz";
@@ -18,10 +19,8 @@ public final class StatesOfCapitalsQuizManager extends QuizManager {
     }
     
     @Override
-    QuestionData createQuestionData(State state, RandomnessService randomnessService) {
+    QuestionData createQuestionData(State state, boolean noneOfTheAboveIsCorrectAnswer) {
         var question = state.getCapital() + " is the capital of which state?";
-        boolean noneOfTheAboveIsCorrectAnswer =
-            randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
         int numRandomStatesToGet;
         int correctIndex;
         
@@ -29,21 +28,20 @@ public final class StatesOfCapitalsQuizManager extends QuizManager {
             numRandomStatesToGet = correctIndex = NUM_ANSWER_CHOICES - 1;
         } else {
             numRandomStatesToGet = NUM_ANSWER_CHOICES - 2;
-            correctIndex = randomnessService.random.nextInt(NUM_ANSWER_CHOICES - 1);
+            correctIndex = random.nextInt(NUM_ANSWER_CHOICES - 1);
         }
         
-        List<String> choices =
-            randomnessService
-            .getStreamOfRandomStates()
+        List<String> answerChoices =
+            getStreamOfRandomStates()
             .filter(s -> !s.getId().equals(state.getId()))
             .limit(numRandomStatesToGet)
             .map(State::getName)
             .collect(Collectors.toCollection(ArrayList::new));
         
         if (!noneOfTheAboveIsCorrectAnswer) {
-            choices.add(correctIndex, state.getName());
+            answerChoices.add(correctIndex, state.getName());
         }
         
-        return new QuestionData(question, choices, correctIndex);
+        return new QuestionData(question, answerChoices, correctIndex);
     }
 }

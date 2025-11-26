@@ -63,14 +63,14 @@ getElementById('states-submit-btn').onclick = () => {
  * @param {boolean} getStatesFromDatabase
  */
 function addOnclickForGetStatesBtn(getStatesFromDatabase) {
-    const divId = `get-states-from-${getStatesFromDatabase ? 'database' : 'randomness-service'}-div`;
+    const divId = `get-states-from-${getStatesFromDatabase ? 'database' : 'quiz-creation-class'}-div`;
     const div = getElementById(divId);
     const statesOrErrorDiv = div.querySelector('.states-or-error-div');
     
     div.querySelector('.get-states-btn').onclick = () => {
-        const requestEndpoint = 'states-from-' + (getStatesFromDatabase ? 'database' : 'randomness-service');
+        const endpointEnd = 'states-from-' + (getStatesFromDatabase ? 'database' : 'quiz-creation-class');
         
-        fetch('/admin/' + requestEndpoint)
+        fetch('/admin/' + endpointEnd)
         .then(async (response) => {
             let elementsToShow;
             
@@ -105,7 +105,7 @@ function createStatesTable(states, statesAreFromDatabase) {
     const table = createElement('table');
     
     const captionText =
-        `There are ${states.length} states in the ${statesAreFromDatabase ? 'database' : 'randomness service'}`;
+        `There are ${states.length} states in the ${statesAreFromDatabase ? 'database' : 'QuizCreation class'}`;
     const caption = createElement('caption', captionText);
     caption.className = 'medium-text';
     table.appendChild(caption);

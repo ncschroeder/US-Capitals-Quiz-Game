@@ -1,8 +1,9 @@
 package com.uscapitalsquizgame.quizzes;
 
 import java.util.*;
-import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
+
+import static com.uscapitalsquizgame.quizzes.QuizCreation.*;
 
 public final class CapitalsOfStatesQuizManager extends QuizManager {
     public static final String QUIZ_URL_END = "/capitals-of-states-quiz";
@@ -16,10 +17,11 @@ public final class CapitalsOfStatesQuizManager extends QuizManager {
     }
     
     @Override
-    QuestionData createQuestionData(State state, RandomnessService randomnessService) {
+    QuestionData createQuestionData(State state, boolean noneOfTheAboveIsCorrectAnswer) {
         var question = String.format("What's the capital of %s?", state.getName());
-        // choices won't contain "None of the above."
-        var choices = new ArrayList<String>(NUM_ANSWER_CHOICES - 1);
+        
+        // This won't contain "None of the above."
+        var answerChoices = new ArrayList<String>(NUM_ANSWER_CHOICES - 1);
         
         /*
         This'll be reassigned but I need to initialize it since the compiler doesn't know
@@ -29,22 +31,19 @@ public final class CapitalsOfStatesQuizManager extends QuizManager {
         
         String paramStateCapital = state.getCapital();
         List<String> paramStateCities = state.getCities();
-        String randomParamStateCity1 = randomnessService.getRandomElement(paramStateCities);
-        choices.add(randomParamStateCity1);
-        
-        boolean noneOfTheAboveIsCorrectAnswer =
-            randomnessService.thisHasApproximatelyAOneInFiveChanceOfReturningTrue();
+        String randomParamStateCity1 = getRandomElement(paramStateCities);
+        answerChoices.add(randomParamStateCity1);
         
         if (!noneOfTheAboveIsCorrectAnswer) {
-            choices.add(paramStateCapital);
+            answerChoices.add(paramStateCapital);
         } else {
             correctIndex = NUM_ANSWER_CHOICES - 1;
             
             String randomParamStateCity2;
             do {
-                randomParamStateCity2 = randomnessService.getRandomElement(paramStateCities);
+                randomParamStateCity2 = getRandomElement(paramStateCities);
             } while (randomParamStateCity2 == randomParamStateCity1);
-            choices.add(randomParamStateCity2);
+            answerChoices.add(randomParamStateCity2);
         }
         
         /*
@@ -57,28 +56,28 @@ public final class CapitalsOfStatesQuizManager extends QuizManager {
         
         String randomCityFromAnotherState;
         do {
-            randomCityFromAnotherState = randomnessService.getRandomCity();
+            randomCityFromAnotherState = getRandomCity();
         } while (
             randomCityFromAnotherState.equals(paramStateCapital) ||
             paramStateCities.contains(randomCityFromAnotherState)
         );
-        choices.add(randomCityFromAnotherState);
+        answerChoices.add(randomCityFromAnotherState);
         
         String otherStateCapital;
         do {
-            otherStateCapital = randomnessService.getRandomCapital();
+            otherStateCapital = getRandomCapital();
         } while (
             otherStateCapital.equals(paramStateCapital) ||
             otherStateCapital.equals(randomCityFromAnotherState) ||
             paramStateCities.contains(otherStateCapital)
         );
-        choices.add(otherStateCapital);
+        answerChoices.add(otherStateCapital);
         
-        Collections.shuffle(choices, randomnessService.random);
+        Collections.shuffle(answerChoices, random);
         if (!noneOfTheAboveIsCorrectAnswer) {
-            correctIndex = choices.indexOf(paramStateCapital);
+            correctIndex = answerChoices.indexOf(paramStateCapital);
         }
         
-        return new QuestionData(question, choices, correctIndex);
+        return new QuestionData(question, answerChoices, correctIndex);
     }
 }

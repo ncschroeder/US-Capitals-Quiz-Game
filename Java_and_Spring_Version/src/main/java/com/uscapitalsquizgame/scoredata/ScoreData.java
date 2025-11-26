@@ -1,5 +1,6 @@
 package com.uscapitalsquizgame.scoredata;
 
+import com.uscapitalsquizgame.quizzes.QuizCreation;
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import com.uscapitalsquizgame.quizzes.QuizManager;
@@ -26,7 +27,7 @@ public class ScoreData {
         this.name = name.strip();
         
         if (
-            score < 0 || score > QuizManager.NUM_QUESTIONS ||
+            score < 0 || score > QuizCreation.NUM_QUESTIONS ||
             this.name.isEmpty() || this.name.length() > MAX_NAME_LENGTH
         ) {
             throw new IllegalArgumentException();

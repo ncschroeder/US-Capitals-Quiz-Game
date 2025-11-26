@@ -8,7 +8,6 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uscapitalsquizgame.scoredata.ScoreData;
-import com.uscapitalsquizgame.RandomnessService;
 
 @Controller
 public class QuizController {
@@ -17,9 +16,6 @@ public class QuizController {
     
     @Autowired
     private StatesOfCapitalsQuizManager statesOfCapitalsQuizManager;
-    
-    @Autowired
-    private RandomnessService randomnessService;
     
     @Autowired
     private ObjectMapper jsonObjectMapper;
@@ -36,7 +32,7 @@ public class QuizController {
     }
     
     private String getQuizView(Model model, QuizManager quizManager) {
-        var questionDataList = quizManager.createQuestionDataListForQuiz(randomnessService);
+        var questionDataList = quizManager.createQuestionDataListForQuiz();
         
         String questionDataArrJson;
         try {

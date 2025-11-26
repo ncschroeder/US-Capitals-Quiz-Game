@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
-import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.quizzes.*;
 import com.uscapitalsquizgame.scoredata.ScoreData;
 import com.uscapitalsquizgame.scoredata.ScoreDataRepository;
@@ -17,9 +16,6 @@ import com.uscapitalsquizgame.states.StateRepository;
 public class AdminRestController {
     @Autowired
     private AdminService adminService;
-    
-    @Autowired
-    private RandomnessService randomnessService;
     
     @Autowired
     private StateRepository stateRepository;
@@ -46,7 +42,7 @@ public class AdminRestController {
         List<State> states = adminService.createStates(file);
         stateRepository.deleteAll();
         stateRepository.saveAll(states);
-        randomnessService.updateStates();
+        QuizCreation.setStates(stateRepository);
         return String.format(
             "Update successful. There are now %d states in the database.", states.size()
         );
@@ -57,9 +53,9 @@ public class AdminRestController {
         return stateRepository.findAll();
     }
     
-    @GetMapping("/states-from-randomness-service")
-    public List<State> getStatesFromRandomnessService() {
-        return randomnessService.getStates();
+    @GetMapping("/states-from-quiz-creation-class")
+    public List<State> getStatesFromQuizCreationClass() {
+        return QuizCreation.getStates();
     }
     
     @GetMapping("/states-table-rows-html")

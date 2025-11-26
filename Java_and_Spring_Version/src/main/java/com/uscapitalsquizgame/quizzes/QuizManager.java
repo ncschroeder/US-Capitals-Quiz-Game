@@ -1,19 +1,12 @@
 package com.uscapitalsquizgame.quizzes;
 
 import java.util.List;
-import com.uscapitalsquizgame.RandomnessService;
 import com.uscapitalsquizgame.states.State;
+
+import static com.uscapitalsquizgame.quizzes.QuizCreation.*;
 
 public abstract sealed class QuizManager
     permits CapitalsOfStatesQuizManager, StatesOfCapitalsQuizManager {
-    
-    public static final int NUM_QUESTIONS = 10;
-    
-    /**
-     * The number of answer choices including "None of the above."
-     */
-    static final int NUM_ANSWER_CHOICES = 5;
-    
     
     private final String lowercaseQuizTypeString;
     
@@ -59,14 +52,16 @@ public abstract sealed class QuizManager
         seeScoresText = String.format("See scores for %s quizzes", lowercaseQuizTypeString);
     }
     
-    abstract QuestionData createQuestionData(State state, RandomnessService randomnessService);
+    abstract QuestionData createQuestionData(State state, boolean noneOfTheAboveIsCorrectAnswer);
     
-    final List<QuestionData> createQuestionDataListForQuiz(RandomnessService randomnessService) {
+    final List<QuestionData> createQuestionDataListForQuiz() {
         return
-            randomnessService
-            .getStreamOfRandomStates()
+            getStreamOfRandomStates()
             .limit(NUM_QUESTIONS)
-            .map(state -> createQuestionData(state, randomnessService))
+            .map(state -> {
+                boolean noneOfTheAboveIsCorrectAnswer = random.nextInt(NUM_ANSWER_CHOICES) == 0;
+                return createQuestionData(state, noneOfTheAboveIsCorrectAnswer);
+            })
             .toList();
     }
     

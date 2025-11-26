@@ -2,4 +2,4 @@ package com.uscapitalsquizgame.quizzes;
 
 import java.util.List;
 
-record QuestionData(String question, List<String> choices, int correctIndex) {}
+record QuestionData(String question, List<String> answerChoices, int correctIndex) {}
