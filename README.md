@@ -1,15 +1,33 @@
 # United States Capitals Quiz Game
 
-This is an app with 2 versions: a command line Python version and a Java and Spring website version. The Python version was briefly worked on in 2020 and the Java and Spring version was worked on in 2024 and 2025. There aren't many notable things to say about the Python version, so the rest of this README, except for the project history part, focuses on the Java and Spring version.
+This is an app with 2 versions: a command line Python version and a Java and Spring website version. The Python version was briefly worked on in 2020 and the Java and Spring version was worked on in 2024 and 2025. There aren't many notable things to say about the Python version, so the rest of this README, except for the ["Project History" section](#project-history), focuses on the Java and Spring version.
+
+
+## Collapsible Sections
+
+There are plenty of collapsible sections throughout this README. Each one has a summary and there's a triangle to the left of it. Collapsible sections can be opened by clicking on the triangle or summary. Most of the time, the summary is "Info." Here's an example:
+
+<details>
+<summary>Example Summary</summary>
+<br/>
+
+Example text.
+
+</details>
 
 
 ## Website Overview
 
-This section doesn't contain any app design or implementation info. The ["Some Design and Implementation Info" section](#some-design-and-implementation-info) has that.
+This section doesn't have any software design or implementation info but the ["Some Design and Implementation Info" section](#some-design-and-implementation-info) has that.
+
+<details>
+<summary>Overview</summary>
 
 ### Home Page
 
 ![Home page](/Java_and_Spring_Version/screenshots/home-page.jpg)
+
+The background color is Old Glory Blue. As can be seen, that's the blue used on the American flag.
 
 ### Study States and Capitals
 
@@ -27,6 +45,7 @@ As can be seen in this screenshot, the question format is "What's the capital of
 
 <details>
 <summary>How answer choices are generated</summary>
+<br/>
 
 For each question, whether or not the correct answer is "None of the above," the answer choices will consist of a random non-capital city from the state that's in the question, a random non-capital city from a different random state, and a capital from a different random state. More info about non-capital cities can be found in the ["Non-Capital Cities" section](#non-capital-cities) below. If the correct answer is **not** "None of the above," then the other answer choice will, of course, be the capital of the state in the question. If the correct answer is "None of the above," then the other answer choice will be a random non-capital city from the state in the question that's different from the first random non-capital city from that state. The choices will be in a random order.
 
@@ -40,6 +59,7 @@ As can be seen in this screenshot, the question format is "\_ is the capital of 
 
 <details>
 <summary>How answer choices are generated</summary>
+<br/>
 
 If the correct answer is **not** "None of the above," then the state whose capital is in the question will, of course, be one of the answer choices. The other choices will be 3 different random states. If the correct answer is "None of the above," then the answer choices will be 4 random states that are, of course, different from the state whose capital is in the question. The choices will be in a random order.
 
@@ -53,6 +73,8 @@ After entering a valid name and clicking "Submit":
 
 ![Quiz over content after submitting score](/Java_and_Spring_Version/screenshots/quiz-over-content-after-submitting-score.jpg)
 
+Note that leading and trailing whitespace will be ignored in the entered name.
+
 
 ### Seeing Scores
 
@@ -60,12 +82,23 @@ On the pages for seeing scores, a table like this gets shown:
 
 ![English scores page](/Java_and_Spring_Version/screenshots/english-scores-page.jpg)
 
+The rows are first ordered by score in descending order, so the highest score is at the top. Rows that have the same score are ordered by date and time in ascending order, so the score that was acquired the earliest is the first.
+
+The values for the date and time are based on the user's language and time zone. My language is English (United States) and my time zone is U.S. Central Time. At the time of this writing, it's November 2025 and the U.S. is using standard time so the offset for U.S. Central Time is UTC-6:00. The values in the screenshot above are based on those.
+
 If I change the display language for my browser to Spanish (Spain); change the time zone on my computer to UTC+1:00, the time zone for Madrid, Spain; and go to the same scores page, this is what gets shown:
 
 ![Spanish scores page](/Java_and_Spring_Version/screenshots/spanish-scores-page.jpg)
 
+<br/>
+</details>
 
 ## States and Cities
+
+This section doesn't have any design or implementation info about states data but the ["Some Design and Implementation Info" -> "States Data" section](#states-data) has that.
+
+<details>
+<summary>Info</summary>
 
 ### Non-Capital Cities
 
@@ -79,10 +112,11 @@ Capitals of states quiz questions should never have one of these cities be two a
 
 ### All States and Cities
 
-In this table, there are 2 links to music videos on YouTube.
+In this table, there are 2 links to music videos on YouTube. The HTML for the rows of this table was generated by the [admin API](#admin-page-and-api).
 
 <details>
 <summary>Table</summary>
+<br/>
 
 <table>
     <thead>
@@ -347,29 +381,15 @@ In this table, there are 2 links to music videos on YouTube.
 </table>
 
 </details>
-
-
-## Deployment to the Internet
-
-I used GoDaddy as my registrar for the domain `uscapitalsquizgame.com` and used [Microsoft Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/overview) to deploy this app to the internet. I created a container image for this app by first creating a `jar` file and then using the Docker CLI and a `Dockerfile` in the `Java_and_Spring_Version` directory with this code:
-
-```dockerfile
-FROM mcr.microsoft.com/openjdk/jdk:21-mariner
-COPY target/us-capitals-quiz-game-1.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
-```
-
-I then pushed my image to this [repository of mine on Docker Hub](https://hub.docker.com/repository/docker/nschroeder131/us-capitals-quiz-game/general). The container app pulls the image from this repo.
-
-<details>
-<summary>Info about mcr.microsoft.com/openjdk/jdk:21-mariner</summary>
-
-This is a container image for the [Microsoft Build of OpenJDK](https://learn.microsoft.com/en-us/java/openjdk/overview) for Java 21 for [Mariner, AKA Azure Linux](https://learn.microsoft.com/en-us/azure/azure-linux/faq). I decided to use this JDK image as my base image simply because there's a [sample app for Azure Container Apps](https://github.com/Azure-Samples/containerapps-albumapi-java) that used it as its base image and the [plain OpenJDK Docker image](https://hub.docker.com/_/openjdk) is deprecated.
-
+<br/>
 </details>
 
 
 ## Admin Page and API
+
+<details>
+<summary>Info</summary>
+<br/>
 
 The link for the admin page is <https://uscapitalsquizgame.com/admin> or [that link followed by `.html`](https://uscapitalsquizgame.com/admin.html). You have to log in to get the response of any HTTP request to an endpoint that starts with `https://uscapitalsquizgame.com/admin`. If you make an HTTP request to one of those endpoints without being logged in, the server will respond with HTML for the login page. If you try going to the admin page in a browser, that HTML will be shown:
 
@@ -377,8 +397,9 @@ The link for the admin page is <https://uscapitalsquizgame.com/admin> or [that l
 
 <details>
 <summary>Password Info</summary>
+<br/>
 
-There's one set of admin credentials and the password for it was hashed with [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt), so if you look at the source code for the credentials, you'll see this:
+There's one set of admin credentials and the password for it was hashed with [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt), so if you look at the source code for the credentials in [`AdminSecurityConfiguration.java`](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/src/main/java/com/uscapitalsquizgame/admin/AdminSecurityConfiguration.java), you'll see this:
 
 ```java
 UserDetails admin =
@@ -397,7 +418,11 @@ After logging in, this is the admin page:
 
 ### Updating States and Cities
 
-The states and cities used for quizzes are updated via the admin page. A file containing state and city names separated by commas must be submitted. Each line in the file should contain values for a state name, that state's capital, and non-capital cities in that state. The [file I used, states_and_cities.txt](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/states_and_cities.txt) is in the `Java_and_Spring_Version` folder and here are the first 5 lines of it:
+<details>
+<summary>Info</summary>
+<br/>
+
+The states and cities used for quizzes are updated via the admin page. A file containing state and city names separated by commas must be submitted. Each line in the file should contain values for a state name, that state's capital, and non-capital cities in that state. The file I used, [states_and_cities.txt](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/states_and_cities.txt) is in the `Java_and_Spring_Version` folder and here are the first 5 lines of it:
 
 ```
 Alaska,Juneau,Anchorage,North Pole,Fairbanks,Sitka,Dillingham
@@ -418,15 +443,18 @@ There are some rules that must be followed for states and cities to get updated:
 
 There's no checking for how many lines/states are in the file. It's possible that Washington D.C. and Puerto Rico could become states in the future so it seems forward-thinking of me to not require there to be 50 states in the file. To make it clear how many states were in the file, a message will be shown after updating and this can be seen in the image below.
 
-If all goes well, state names and cities will have leading and trailing whitespace removed and internal whitespace will be replaced by a single space. The `state` and `city` tables in the database will be cleared. States and their capitals will be added to the `state` table in alphabetical order by state. Non-capital cities will be added to the `city` table in alphabetical order after their state is added to the `state` table. The `RandomnessService` will be updated.
+If all goes well, state names and cities will have leading and trailing whitespace removed and internal whitespace replaced by a single space. The `state` and `city` tables in the database will be cleared. States and their capitals will be added to the `state` table in alphabetical order by state. Non-capital cities will be added to the `city` table in alphabetical order after their state is added to the `state` table. The states data used by the `QuizCreation` class will be updated. More info about states data and the `QuizCreation` class can be found in the ["Some Design and Implementation Info" -> "States Data" section](#states-data).
 
 Message after updating:
 
 ![Message after updating states and cities](/Java_and_Spring_Version/screenshots/after-states-and-cities-update.jpg)
 
+<br/>
+</details>
+
 ### Getting States Data
 
-Getting states data from the database or randomness service will result in a table being shown like this:
+Getting states data from the database or `QuizCreation` class will result in a table being shown like this:
 
 ![States data from database HTML table](/Java_and_Spring_Version/screenshots/states-data-html-table.jpg)
 
@@ -434,53 +462,118 @@ Getting states data table rows HTML will result in this being shown:
 
 ![States data table rows HTML](/Java_and_Spring_Version/screenshots/states-data-table-rows-html.jpg)
 
+This is how the HTML used for the table in the ["All States and Cities" section](#all-states-and-cities) was generated.
+
 ### Deleting Scores
 
 ![Delete scores message](/Java_and_Spring_Version/screenshots/delete-scores-message.jpg)
 
+<br/>
+</details>
+
+
+## Deployment to the Internet
+
+I used GoDaddy as my registrar for the domain `uscapitalsquizgame.com` and used [Microsoft Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/overview) to deploy this app to the internet. I created a container image for this app by first creating a `jar` file and then using the Docker CLI and a `Dockerfile` in the `Java_and_Spring_Version` directory with this code:
+
+```dockerfile
+FROM mcr.microsoft.com/openjdk/jdk:21-mariner
+COPY target/us-capitals-quiz-game-1.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+```
+
+I then pushed my image to this [repository of mine on Docker Hub](https://hub.docker.com/repository/docker/nschroeder131/us-capitals-quiz-game/general). The container app pulls the image from this repo.
+
+<details>
+<summary>Info about mcr.microsoft.com/openjdk/jdk:21-mariner</summary>
+<br/>
+
+This is a container image for the [Microsoft Build of OpenJDK](https://learn.microsoft.com/en-us/java/openjdk/overview) for Java 21 for [Mariner, AKA Azure Linux](https://learn.microsoft.com/en-us/azure/azure-linux/faq). I decided to use this JDK image as my base image simply because there's a [sample app for Azure Container Apps](https://github.com/Azure-Samples/containerapps-albumapi-java) that used it as its base image and the [plain OpenJDK Docker image](https://hub.docker.com/_/openjdk) is deprecated.
+
+</details>
+
 
 ## Some Design and Implementation Info
 
+<details>
+<summary>Info</summary>
+
+
 ### Views
 
-The home, study, admin, and error pages use static HTML. The quiz, scores, and admin login pages use the template engine [Apache FreeMarker](https://freemarker.apache.org/index.html). Another template engine, Thymeleaf, seems to be more popular for Spring applications but I chose FreeMarker since it seemed to be much simpler and Spring has built-in support for it along with Thymeleaf and a few other templates engines.
+The home, study, admin, and error pages use static HTML. The quiz, scores, and admin login pages use the template engine [Apache FreeMarker](https://freemarker.apache.org/index.html). The template engine [Thymeleaf](https://www.thymeleaf.org/) seems to be more popular for Spring applications but I chose FreeMarker since it seemed to be much simpler and Spring has built-in support for it along with Thymeleaf and a few other template engines.
 
 The quiz and scores pages have scripts that use data from the server. This is implemented by having the server render this data as JSON inside a `<script>` element and then having the other script parse that JSON.
 
-The error page gets shown when an unexpected error happens when trying to show another view. I consider this to be pretty unlikely so the error page just has a heading that says "Error" and a link to the home page.
+The [error page](https://www.numbertheoryplayground.com/error.html) gets shown when an unexpected error happens when trying to show another view. I consider this to be pretty unlikely so the error page just has a "United States Capitals Quiz Game" heading, a message that just says "Error," and a link to the home page.
 
-### `QuizManager` Objects
 
-There's a `QuizManager` singleton object for each type of quiz, `CapitalsOfStatesQuizManager` and `StatesOfCapitalsQuizManager`. These store data for text and links used on the front end and create data for questions. The methods for creating question data have a `RandomnessService` as a param and use it to get random state and cities.
+### Database Service Used: [Microsoft Azure Database for MySQL](https://learn.microsoft.com/en-us/azure/mysql/).
 
-### `RandomnessService`
 
-The `RandomnessService` stores a list of `State` objects in memory and some of its methods access this list. The data that the `State` objects have is also stored in the `state` and `city` database tables. This is so that if the server gets restarted, the `RandomnessService` can get that data from the database and create new `State` objects.
+### States Data
 
-### Creation of Scores Pages
+There are 2 database tables, `state` and `city`, and 1 Java class, [`State`](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/src/main/java/com/uscapitalsquizgame/states/State.java), for states data. There's also the Java interface [`StateRepository`](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/src/main/java/com/uscapitalsquizgame/states/StateRepository.java).
 
-The database has a `score_data` table and one of its columns is `date_time` and its type is `DATETIME` and this is for when the score was acquired. The corresponding Java class is `ScoreData` and has a field `dateTime`, which is an `OffsetDateTime`. When one of the scores pages is visited, the server gets the appropriate rows of the `score_data` table, puts the data into `ScoreData` objects. The name and score fields of these are rendered into an HTML table on the server. The server gets the epoch milliseconds of the `dateTime` fields and puts these into a script on the same HTML document. This HTML document gets sent to the front end and then a different script for this HTML document has JavaScript that accesses the epoch milliseconds and creates date and time strings that are based on the user's language and time zone.
 
-### Database Tables and Columns
+#### `state` Columns
+- `id` (`SMALLINT UNSIGNED NOT NULL`)
+- `name` (`VARCHAR(30) NOT NULL`)
+- `capital` (`VARCHAR(30) NOT NULL`)
 
-I'm using [Microsoft Azure Database for MySQL](https://learn.microsoft.com/en-us/azure/mysql/).
+#### `city` Columns
+- `id` (`SMALLINT UNSIGNED NOT NULL`)
+- `state_id` (`SMALLINT UNSIGNED NOT NULL`)
+- `name` (`VARCHAR(30) NOT NULL`)
 
-#### `state` 
-- `id` (`SMALLINT UNSIGNED`)
-- `name` (`VARCHAR(30)`)
-- `capital` (`VARCHAR(30)`)
+The `state_id` column of `city` is a foreign key that references the `id` column of `state` with cascading on delete.
 
-#### `city`
-- `id` (`SMALLINT UNSIGNED`)
-- `state_id` (`SMALLINT UNSIGNED`)
-- `name` (`VARCHAR(30)`)
 
-#### `score_data`
-- `id` (`SMALLINT UNSIGNED`)
-- `score` (`TINYINT UNSIGNED`)
-- `name` (`VARCHAR(20)`)
-- `quiz_type` (`VARCHAR(30)`)
-- `date_time` (`DATETIME`)
+#### `State` Fields
+- `id` (`Integer`)
+- `name` (`String`)
+- `capital` (`String`)
+- `cities` (`List<String>`)
+
+Here's the code for the `cities` field:
+
+```java
+@ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+@CollectionTable(name = "city", joinColumns = @JoinColumn(name = "state_id"))
+@Column(name = "name")
+private List<String> cities;
+```
+
+
+The ["Admin Page and API" -> "Updating States and Cities" section](#updating-states-and-cities) mentioned some info about how the `state` and `city` database tables and the `QuizCreation` class get updated. The `QuizCreation` class is what's used to generate questions and answer choices for quizzes. One of its fields is `ArrayList<State> states` and this is where the states data is for generating questions and answer choices. The `updateStates` method of the `AdminRestController` updates the database tables and calls `QuizCreation.setStates`, which then accesses the states data in the database and puts it into the `states` list. It seems like a good idea to have this data be in a list because accessing data from a list lots of times when a user wants to take a quiz is probably a lot quicker than querying the database lots of times. The states data is in the database in addition to being in a list in case the server restarts for some reason. The `QuizCreation` class has a `CommandLineRunner` bean which makes the `states` list get filled with data from the database when the server is started.
+
+
+### Scores
+
+After a quiz, a user has the option to enter a name and submit their score. To store score data, there's a `score_data` table in the database and the corresponding Java class is `ScoreData`.
+
+#### `score_data` Columns
+- `id` (`SMALLINT UNSIGNED NOT NULL`)
+- `score` (`TINYINT UNSIGNED NOT NULL`)
+- `name` (`VARCHAR(25) NOT NULL`)
+- `quiz_type` (`VARCHAR(30) NOT NULL`)
+- `save_date_time` (`DATETIME NOT NULL`)
+
+#### `ScoreData` Fields
+- `id` (`Integer`)
+- `score` (`int`)
+- `name` (`String`)
+- `quizType` (`String`)
+- `saveDateTime` (`OffsetDateTime`)
+
+#### Submitting a Score
+
+When enters a name and tries to submit their score, the name will have its leading and trailing whitespace removed and then its length will be checked. If it's > 0 and ≤ 20, then the name and score will be sent from the front end to the back end. Each quiz type has an endpoint for adding a score. There's some back end validation for the name and score but these should pass if the front end validation passed. The back end name validation is the same as on the front end. The score is validated to be ≥ 0 and ≤ 10, the number of quiz questions. The score that gets sent to the back end should be in that range. A `ScoreData` gets created and a row gets added to the `score_data` table based on that. The `quizType` of the `ScoreData` is the return value of the `getQuizTypeDbColValue` of the appropriate `QuizManager`. The `saveDateTime` of the `ScoreData` is the UTC time when the request was made. UTC time doesn't have to be used. Any time offset can be used but I decided to use UTC time.
+
+#### Visiting a Scores Page
+
+There's a scores page for each quiz type. When one of the scores pages is visited, the server uses the `getQuizTypeDbColValue` method of the appropriate `QuizManager` to gets rows of the `score_data` table with the appropriate quiz type and puts the data into `ScoreData` objects. The `name` and `score` fields of these are rendered into an HTML table in an HTML document on the server. I'm going to use the term *epoch milliseconds* to refer to the number of milliseconds since the Unix epoch, which is midnight in UTC time on January 1<sup>st</sup>, 1970. The server gets the epoch milliseconds of the `saveDateTime` fields of the `ScoreData`s and puts these into a script on the same HTML document. This HTML document gets sent to the front end and then a different script for this HTML document has JavaScript that accesses the epoch milliseconds and creates date and time strings that are based on the user's language and time zone. These strings are created by using the `format` method of an `Intl.DateTimeFormat`.
+
 
 ### How to update this app if a state or states get added or removed
 
@@ -490,9 +583,13 @@ The study states and capitals page uses static HTML. The process for updating th
 
 As mentioned in the ["Admin Page and API" -> "Updating States and Cities" section](#updating-states-and-cities), to update states and cities, there doesn't have to be 50 states in the file that gets uploaded, so a state or states can be added or removed by just updating the file used and uploading that file. 
 
+<br/>
+</details>
+
 
 ## Project History
 
 I think I downloaded MySQL in late 2019, when I was in my last year at Missouri State University. In MySQL, there was a pre-filled sample database called "world" that had tables called "city," "country," and others. In October 2020, I wanted to become more familiar with databases so I studied them and decided I would do a project that involved them. I think one of my ideas was that I would make a game that accesses the "country" table in the "world" database to get countries and their capitals and then quiz the user about these. However, the "country" table doesn't store the capitals of countries, though it gives other info about countries. I think I then came up with the idea of just using U.S. states and their capitals and making a quiz game.
 
 I first made the Python command line version. At some point after this, I came up with the idea of making a website version, though didn't do this until years later, in December 2024. I thought that Spring would be a good tool to learn, since Java and Kotlin were and, at the time of this writing, still are the languages I have the most experience with. I decided to make a website version of this game and use Spring on the back end.
+
