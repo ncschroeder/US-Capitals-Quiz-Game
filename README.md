@@ -5,7 +5,7 @@ This is an app with 2 versions: a command line Python version and a Java and Spr
 
 ## Collapsible Sections
 
-There are plenty of collapsible sections throughout this README. Each one has a summary and there's a triangle to the left of it. Collapsible sections can be opened by clicking on the triangle or summary. Most of the time, the summary is "Info." Here's an example:
+There are plenty of collapsible sections throughout this README. Each one has a summary and there's a triangle to the left of the summary. Collapsible sections can be opened by clicking on the triangle or summary. Most of the time, the summary is "Info." Here's an example:
 
 <details>
 <summary>Example Summary</summary>
@@ -13,7 +13,10 @@ There are plenty of collapsible sections throughout this README. Each one has a 
 
 Example text.
 
+<br/>
 </details>
+
+Throughout this README, there are links to sections that are outside of collapsible sections but no links to sections in a collapsible section.
 
 
 ## Website Overview
@@ -25,13 +28,13 @@ This section doesn't have any software design or implementation info but the ["S
 
 ### Home Page
 
-![Home page](/Java_and_Spring_Version/screenshots/home-page.jpg)
+![Home page](/Java_and_Spring_Version/screenshots/home_page.jpg)
 
 The background color is Old Glory Blue. As can be seen, that's the blue used on the American flag.
 
 ### Study States and Capitals
 
-![Study states and capitals page](/Java_and_Spring_Version/screenshots/study-states-and-capitals-page.jpg)
+![Study states and capitals page](/Java_and_Spring_Version/screenshots/study_states_and_capitals_page.jpg)
 
 ### Taking a Quiz
 
@@ -39,7 +42,7 @@ The quizzes have 10 questions. Each question is multiple choice and there are 5 
 
 #### Capitals of States Quiz
 
-![Capitals of states quiz question](/Java_and_Spring_Version/screenshots/capitals-of-states-quiz-question.jpg)
+![Capitals of states quiz question](/Java_and_Spring_Version/screenshots/capitals_of_states_quiz_question.jpg)
 
 As can be seen in this screenshot, the question format is "What's the capital of \_?" 10 random states are generated for each quiz. These are the states that'll fill in that blank in the questions.
 
@@ -47,13 +50,13 @@ As can be seen in this screenshot, the question format is "What's the capital of
 <summary>How answer choices are generated</summary>
 <br/>
 
-For each question, whether or not the correct answer is "None of the above," the answer choices will consist of a random non-capital city from the state that's in the question, a random non-capital city from a different random state, and a capital from a different random state. More info about non-capital cities can be found in the ["Non-Capital Cities" section](#non-capital-cities) below. If the correct answer is **not** "None of the above," then the other answer choice will, of course, be the capital of the state in the question. If the correct answer is "None of the above," then the other answer choice will be a random non-capital city from the state in the question that's different from the first random non-capital city from that state. The choices will be in a random order.
+For each question, whether or not the correct answer is "None of the above," the answer choices will consist of a random non-capital city from the state that's in the question, a random non-capital city from a different random state, and a capital from a different random state. More info about non-capital cities can be found in the "States and Cities" -> "Non-Capital Cities" section. If the correct answer is **not** "None of the above," then the other answer choice will, of course, be the capital of the state in the question. If the correct answer is "None of the above," then the other answer choice will be a random non-capital city from the state in the question that's different from the first random non-capital city from that state. The choices will be in a random order.
 
 </details>
 
 #### States of Capitals Quiz
 
-![States of capitals quiz question](/Java_and_Spring_Version/screenshots/states-of-capitals-quiz-question.jpg)
+![States of capitals quiz question](/Java_and_Spring_Version/screenshots/states_of_capitals_quiz_question.jpg)
 
 As can be seen in this screenshot, the question format is "\_ is the capital of what state?" 10 random capitals are generated for each quiz. These are the capitals that'll fill in that blank in the questions.
 
@@ -67,11 +70,11 @@ If the correct answer is **not** "None of the above," then the state whose capit
 
 #### Quiz Over
 
-![Quiz over content](/Java_and_Spring_Version/screenshots/quiz-over-content.jpg)
+![Quiz over content](/Java_and_Spring_Version/screenshots/quiz_over_content.jpg)
 
 After entering a valid name and clicking "Submit":
 
-![Quiz over content after submitting score](/Java_and_Spring_Version/screenshots/quiz-over-content-after-submitting-score.jpg)
+![Quiz over content after submitting score](/Java_and_Spring_Version/screenshots/quiz_over_content_after_submitting_score.jpg)
 
 Note that leading and trailing whitespace will be ignored in the entered name.
 
@@ -80,22 +83,34 @@ Note that leading and trailing whitespace will be ignored in the entered name.
 
 On the pages for seeing scores, a table like this gets shown:
 
-![English scores page](/Java_and_Spring_Version/screenshots/english-scores-page.jpg)
+![English scores page](/Java_and_Spring_Version/screenshots/english_scores_page.jpg)
 
-The rows are first ordered by score in descending order, so the highest score is at the top. Rows that have the same score are ordered by date and time in ascending order, so the score that was acquired the earliest is the first.
+The rows are first ordered by score in descending order, so the highest score is at the top. Rows that have the same score are ordered by date and time in ascending order, so the score with the earliest date and time is the first.
 
 The values for the date and time are based on the user's language and time zone. My language is English (United States) and my time zone is U.S. Central Time. At the time of this writing, it's November 2025 and the U.S. is using standard time so the offset for U.S. Central Time is UTC-6:00. The values in the screenshot above are based on those.
 
 If I change the display language for my browser to Spanish (Spain); change the time zone on my computer to UTC+1:00, the time zone for Madrid, Spain; and go to the same scores page, this is what gets shown:
 
-![Spanish scores page](/Java_and_Spring_Version/screenshots/spanish-scores-page.jpg)
+![Spanish scores page](/Java_and_Spring_Version/screenshots/spanish_scores_page.jpg)
+
+CET stands for Central European Time, which is even used by the western European country of Spain.
+
+<details>
+<summary>Why aren't initials that stand for something in Spanish being used?</summary>
+<br/>
+
+First, I didn't decide how the date and time values get shown. I used a tool that does that. See the ["Some Design and Implementation Info"](#some-design-and-implementation-info) -> "Visiting a Scores Page" section for more info on that.
+
+I went to the [Wikipedia article for Central European Time](https://en.wikipedia.org/wiki/Central_European_Time) and then [changed the language for that article to Spanish](https://es.wikipedia.org/wiki/Hora_central_europea) and the beginning of that article is "Hora central europea u hora de Europa Central (HEC) o CET (Central European Time)." Apparently in Spain, the initials for Central European Time are either HEC or CET.
+
+</details>
 
 <br/>
 </details>
 
 ## States and Cities
 
-This section doesn't have any design or implementation info about states data but the ["Some Design and Implementation Info" -> "States Data" section](#states-data) has that.
+This section doesn't have any design or implementation info about states data but the ["Some Design and Implementation Info"](#some-design-and-implementation-info) -> "States Data" section has that.
 
 <details>
 <summary>Info</summary>
@@ -393,7 +408,7 @@ In this table, there are 2 links to music videos on YouTube. The HTML for the ro
 
 The link for the admin page is <https://uscapitalsquizgame.com/admin> or [that link followed by `.html`](https://uscapitalsquizgame.com/admin.html). You have to log in to get the response of any HTTP request to an endpoint that starts with `https://uscapitalsquizgame.com/admin`. If you make an HTTP request to one of those endpoints without being logged in, the server will respond with HTML for the login page. If you try going to the admin page in a browser, that HTML will be shown:
 
-![Admin login page](/Java_and_Spring_Version/screenshots/admin-login-page.jpg)
+![Admin login page](/Java_and_Spring_Version/screenshots/admin_login_page.jpg)
 
 <details>
 <summary>Password Info</summary>
@@ -414,7 +429,7 @@ Currently, in order for me to change this password, I'll have to generate a hash
 
 After logging in, this is the admin page:
 
-![Admin page](/Java_and_Spring_Version/screenshots/admin-page.jpg)
+![Admin page](/Java_and_Spring_Version/screenshots/admin_page.jpg)
 
 ### Updating States and Cities
 
@@ -443,11 +458,11 @@ There are some rules that must be followed for states and cities to get updated:
 
 There's no checking for how many lines/states are in the file. It's possible that Washington D.C. and Puerto Rico could become states in the future so it seems forward-thinking of me to not require there to be 50 states in the file. To make it clear how many states were in the file, a message will be shown after updating and this can be seen in the image below.
 
-If all goes well, state names and cities will have leading and trailing whitespace removed and internal whitespace replaced by a single space. The `state` and `city` tables in the database will be cleared. States and their capitals will be added to the `state` table in alphabetical order by state. Non-capital cities will be added to the `city` table in alphabetical order after their state is added to the `state` table. The states data used by the `QuizCreation` class will be updated. More info about states data and the `QuizCreation` class can be found in the ["Some Design and Implementation Info" -> "States Data" section](#states-data).
+If all goes well, state names and cities will have leading and trailing whitespace removed and internal whitespace replaced by a single space. The `state` and `city` tables in the database will be cleared. States and their capitals will be added to the `state` table in alphabetical order by state. Non-capital cities will be added to the `city` table in alphabetical order after their state is added to the `state` table. The states data used by the `QuizCreation` class will be updated. More info about states data and the `QuizCreation` class can be found in the ["Some Design and Implementation Info"](#some-design-and-implementation-info) -> "States Data" section.
 
 Message after updating:
 
-![Message after updating states and cities](/Java_and_Spring_Version/screenshots/after-states-and-cities-update.jpg)
+![Message after updating states and cities](/Java_and_Spring_Version/screenshots/message_after_updating_states_and_cities.jpg)
 
 <br/>
 </details>
@@ -456,17 +471,17 @@ Message after updating:
 
 Getting states data from the database or `QuizCreation` class will result in a table being shown like this:
 
-![States data from database HTML table](/Java_and_Spring_Version/screenshots/states-data-html-table.jpg)
+![Table with states data from database](/Java_and_Spring_Version/screenshots/table_with_states_data_from_database.jpg)
 
 Getting states data table rows HTML will result in this being shown:
 
-![States data table rows HTML](/Java_and_Spring_Version/screenshots/states-data-table-rows-html.jpg)
+![States data table rows HTML](/Java_and_Spring_Version/screenshots/states_data_table_rows_html.jpg)
 
-This is how the HTML used for the table in the ["All States and Cities" section](#all-states-and-cities) was generated.
+This is how the HTML used for the table in the ["States and Cities"](#states-and-cities) -> "All States and Cities" section was generated.
 
 ### Deleting Scores
 
-![Delete scores message](/Java_and_Spring_Version/screenshots/delete-scores-message.jpg)
+![Delete scores message](/Java_and_Spring_Version/screenshots/delete_scores_message.jpg)
 
 <br/>
 </details>
@@ -545,7 +560,7 @@ private List<String> cities;
 ```
 
 
-The ["Admin Page and API" -> "Updating States and Cities" section](#updating-states-and-cities) mentioned some info about how the `state` and `city` database tables and the `QuizCreation` class get updated. The `QuizCreation` class is what's used to generate questions and answer choices for quizzes. One of its fields is `ArrayList<State> states` and this is where the states data is for generating questions and answer choices. The `updateStates` method of the `AdminRestController` updates the database tables and calls `QuizCreation.setStates`, which then accesses the states data in the database and puts it into the `states` list. It seems like a good idea to have this data be in a list because accessing data from a list lots of times when a user wants to take a quiz is probably a lot quicker than querying the database lots of times. The states data is in the database in addition to being in a list in case the server restarts for some reason. The `QuizCreation` class has a `CommandLineRunner` bean which makes the `states` list get filled with data from the database when the server is started.
+The ["Admin Page and API"](#admin-page-and-api) -> "Updating States and Cities" section mentioned some info about how the `state` and `city` database tables and the `QuizCreation` class get updated. The `QuizCreation` class is what's used to generate questions and answer choices for quizzes. One of its fields is `ArrayList<State> states` and this is where the states data is for generating questions and answer choices. The `updateStates` method of the `AdminRestController` updates the database tables and calls `QuizCreation.setStates`, which then accesses the states data in the database and puts it into the `states` list. It seems like a good idea to have this data be in a list because accessing data from a list lots of times when a user wants to take a quiz is probably a lot quicker than querying the database lots of times. The states data is in the database in addition to being in a list in case the server restarts for some reason. The `QuizCreation` class has a `CommandLineRunner` bean which makes the `states` list get filled with data from the database when the server is started.
 
 
 ### Scores
@@ -572,7 +587,7 @@ When enters a name and tries to submit their score, the name will have its leadi
 
 #### Visiting a Scores Page
 
-There's a scores page for each quiz type. When one of the scores pages is visited, the server uses the `getQuizTypeDbColValue` method of the appropriate `QuizManager` to gets rows of the `score_data` table with the appropriate quiz type and puts the data into `ScoreData` objects. The `name` and `score` fields of these are rendered into an HTML table in an HTML document on the server. I'm going to use the term *epoch milliseconds* to refer to the number of milliseconds since the Unix epoch, which is midnight in UTC time on January 1<sup>st</sup>, 1970. The server gets the epoch milliseconds of the `saveDateTime` fields of the `ScoreData`s and puts these into a script on the same HTML document. This HTML document gets sent to the front end and then a different script for this HTML document has JavaScript that accesses the epoch milliseconds and creates date and time strings that are based on the user's language and time zone. These strings are created by using the `format` method of an `Intl.DateTimeFormat`.
+There's a scores page for each quiz type. When one of the scores pages is visited, the server uses the `getQuizTypeDbColValue` method of the appropriate `QuizManager` to gets rows of the `score_data` table with the appropriate quiz type and puts the data into `ScoreData` objects. The `name` and `score` fields of these are rendered into an HTML table in an HTML document on the server. I'm going to use the term *epoch milliseconds* to refer to the number of milliseconds since the Unix epoch, which is midnight in UTC time on January 1<sup>st</sup>, 1970. The server gets the epoch milliseconds of the `saveDateTime` fields of the `ScoreData`s and puts these into a script on the same HTML document. This HTML document gets sent to the front end and then a different script for this HTML document has JavaScript that accesses the epoch milliseconds and creates date and time strings that are based on the user's language and time zone. These strings are created by using the `format` method of an [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). This `Intl.DateTimeFormat` is the tool I was referring to in the collapsible section of the ["Website Overview"](#website-overview) -> "Seeing Scores" section.
 
 
 ### How to update this app if a state or states get added or removed
@@ -581,7 +596,7 @@ The home page has a link to the GitHub repo and in this README is the table of a
 
 The study states and capitals page uses static HTML. The process for updating that is almost the same as the process for changing the admin password: I would have to update the HTML file, create a new `jar` file for the app, create a new container image using that `jar`, upload that image to Docker Hub, and make the Azure container app use the new image. Optionally, I could push the source code change to GitHub and delete the old image.
 
-As mentioned in the ["Admin Page and API" -> "Updating States and Cities" section](#updating-states-and-cities), to update states and cities, there doesn't have to be 50 states in the file that gets uploaded, so a state or states can be added or removed by just updating the file used and uploading that file. 
+As mentioned in the ["Admin Page and API"](#admin-page-and-api) -> "Updating States and Cities" section, to update states and cities, there doesn't have to be 50 states in the file that gets uploaded, so a state or states can be added or removed by just updating the file used and uploading that file. 
 
 <br/>
 </details>
