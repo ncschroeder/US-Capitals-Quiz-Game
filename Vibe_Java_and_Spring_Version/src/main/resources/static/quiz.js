@@ -1,10 +1,14 @@
 (function () {
     const questions = JSON.parse(document.getElementById('questions-data').textContent);
+    const quizType = JSON.parse(document.getElementById('quiz-type').textContent);
     const questionEl = document.getElementById('question');
     const choicesEl = document.getElementById('choices-form');
     const submitBtn = document.getElementById('submit-btn');
     const scoreEl = document.getElementById('score');
     const resultEl = document.getElementById('result');
+    const submitScoreForm = document.getElementById('submit-score-form');
+    const nameInput = document.getElementById('name-input');
+    const submitStatusEl = document.getElementById('submit-status');
 
     let currentIndex = 0;
     let score = 0;
@@ -15,6 +19,7 @@
             choicesEl.innerHTML = '';
             submitBtn.style.display = 'none';
             resultEl.textContent = 'quiz over';
+            submitScoreForm.style.display = '';
             return;
         }
 
@@ -52,6 +57,28 @@
         }
         currentIndex++;
         renderQuestion();
+    });
+
+    submitScoreForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const name = nameInput.value.trim();
+
+        const response = await fetch('/scores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, score, quizType }),
+        });
+
+        if (response.ok) {
+            const body = await response.json();
+            submitScoreForm.style.display = 'none';
+            const dateString =
+                new Date(body.submittedAt)
+                .toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' });
+            submitStatusEl.textContent = 'Score submitted at ' + dateString;
+        } else {
+            submitStatusEl.textContent = 'Failed to submit score.';
+        }
     });
 
     renderQuestion();

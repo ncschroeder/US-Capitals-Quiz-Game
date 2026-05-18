@@ -12,7 +12,15 @@
     <button id="submit-btn" type="button">Submit</button>
     <div id="result"></div>
 
+    <form id="submit-score-form" style="display: none;">
+        <label for="name-input">Enter your name (${minNameLength} to ${maxNameLength} characters):</label>
+        <input type="text" id="name-input" required maxlength="${maxNameLength}">
+        <button type="submit">Submit score</button>
+    </form>
+    <div id="submit-status"></div>
+
     <script id="questions-data" type="application/json">${questionsJson?no_esc}</script>
+    <script id="quiz-type" type="application/json">"${quizType}"</script>
     <script src="/quiz.js"></script>
 </body>
 </html>

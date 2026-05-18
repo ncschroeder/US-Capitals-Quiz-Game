@@ -1,8 +1,8 @@
 package com.vibeuscapitalsquizgame.states;
 
 import jakarta.persistence.*;
-
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class State {
@@ -41,5 +41,19 @@ public class State {
 
     public List<String> getCities() {
         return cities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof State other)) return false;
+        return Objects.equals(name, other.name)
+            && Objects.equals(capital, other.capital)
+            && Objects.equals(cities, other.cities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, capital, cities);
     }
 }
