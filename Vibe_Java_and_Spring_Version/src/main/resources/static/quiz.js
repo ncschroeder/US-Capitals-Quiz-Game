@@ -11,6 +11,7 @@
     const submitStatusEl = document.getElementById('submit-status');
 
     let currentIndex = 0;
+    const postQuizEl = getElementById('post-quiz');
     let score = 0;
 
     function renderQuestion() {
@@ -19,7 +20,7 @@
             choicesEl.innerHTML = '';
             submitBtn.style.display = 'none';
             resultEl.textContent = 'quiz over';
-            submitScoreForm.style.display = '';
+            postQuizEl.style.display = '';
             return;
         }
 

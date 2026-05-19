@@ -30,18 +30,31 @@ public class QuizController {
 
     @GetMapping("/quiz/capitals")
     public String capitalsQuiz(Model model) throws JacksonException {
-        return renderQuiz(model, this::generateCapitalsQuestion, "Quiz over capitals of states", QuizType.CAPITALS);
+        return renderQuiz(
+            model,
+            "Quiz over capitals of states",
+            ScoreController.CAPITALS_ENDPOINT,
+            this::generateCapitalsQuestion,
+            QuizType.CAPITALS
+        );
     }
 
     @GetMapping("/quiz/states")
     public String statesQuiz(Model model) throws JacksonException {
-        return renderQuiz(model, this::generateStatesQuestion, "Quiz over states of capitals", QuizType.STATES);
+        return renderQuiz(
+            model,
+            "Quiz over states of capitals",
+            ScoreController.STATES_ENDPOINT,
+            this::generateStatesQuestion,
+            QuizType.STATES
+        );
     }
 
     private String renderQuiz(
         Model model,
-        BiFunction<State, List<State>, Question> generator,
         String heading,
+        String scoresEndpoint,
+        BiFunction<State, List<State>, Question> generator,
         QuizType quizType
     ) throws JacksonException {
         List<State> allStates = stateService.getStates();
@@ -52,11 +65,12 @@ public class QuizController {
 
         model.addAllAttributes(
             Map.of(
-                "questionsJson", objectMapper.writeValueAsString(questions),
                 "heading", heading,
-                "quizType", quizType.name(),
                 "minNameLength", ScoreController.MIN_NAME_LENGTH,
-                "maxNameLength", ScoreController.MAX_NAME_LENGTH
+                "maxNameLength", ScoreController.MAX_NAME_LENGTH,
+                "scoresEndpoint", scoresEndpoint,
+                "questionsJson", objectMapper.writeValueAsString(questions),
+                "quizType", quizType.name()
             )
         );
         
