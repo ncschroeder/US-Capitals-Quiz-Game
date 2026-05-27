@@ -22,11 +22,11 @@ h2 {
     row-gap: 10px;
 }
 
-table {
+table, code {
     margin: 10px auto;
 }
  
-#states-html-or-error-div > h2 {
+#states-markdown-or-error-div > h2 {
     margin-top: 10px;
 }
 
@@ -36,5 +36,4 @@ code {
     font-size: 0.9rem;
     display: block;
     text-align: left;
-    text-indent: 10px;
 }

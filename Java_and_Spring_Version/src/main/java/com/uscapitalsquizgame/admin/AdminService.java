@@ -1,18 +1,13 @@
 package com.uscapitalsquizgame.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.*;
 import com.uscapitalsquizgame.states.State;
-import com.uscapitalsquizgame.states.StateRepository;
 
 @Service
 public class AdminService {
-    @Autowired
-    private StateRepository stateRepository;
-    
     List<State> createStates(MultipartFile file) {
         var states = new ArrayList<State>();
         
@@ -82,24 +77,5 @@ public class AdminService {
         
         return new State(stateName, capital, cities);
     }
-    
-    
-    List<String> getStatesTableRowsHtml() {
-        return
-            stateRepository
-            .findAll()
-            .stream()
-            .flatMap(state -> {
-                var citiesString = String.join(", ", state.getCities());
-                return """
-                    <tr>
-                        <td>%s</td>
-                        <td>%s</td>
-                        <td>%s</td>
-                    </tr>"""
-                .formatted(state.getName(), state.getCapital(), citiesString)
-                .lines();
-            })
-            .toList();
     }
 }

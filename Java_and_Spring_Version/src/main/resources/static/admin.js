@@ -136,34 +136,39 @@ function createStatesTable(states, statesAreFromDatabase) {
 addOnclickForGetStatesBtn(true);
 addOnclickForGetStatesBtn(false);
 
-getElementById('get-states-html-btn').onclick = () => {
-    const htmlOrErrorDiv = getElementById('states-html-or-error-div');
-
-    fetch('admin/states-table-rows-html')
+getElementById('get-states-markdown-btn').onclick = () => {
+    const markdownOrErrorDiv = getElementById('states-markdown-or-error-div');
+    
+    fetch('/admin/states-from-database')
     .then(async (response) => {
         let elementsToShow;
 
         if (!response.ok) {
             elementsToShow = [createDiv(await response.text())];
         } else {
-            const heading = createElement('h2', 'States Data Table Rows HTML');
+            const heading = createElement('h2', 'States Data Table Rows Markdown');
             heading.className = 'medium-text';
             
-            const pre = createElement('pre');
-            for (const codeLine of await response.json()) {
-                pre.appendChild(createElement('code', codeLine));
+            const codeElement = createElement('code');
+            /** @type {State[]} */
+            const states = await response.json();
+            for (const { name, capital, cities } of states) {
+                codeElement.append(
+                    codeElement.firstChild ? createElement('br') : '',
+                    `| ${name} | ${capital} | ${cities.join(', ')} |`
+                );
             }
             
-            const removeBtn = createBtn('Remove HTML');
-            removeBtn.onclick = () => htmlOrErrorDiv.innerHTML = '';
+            const removeBtn = createBtn('Remove Markdown');
+            removeBtn.onclick = () => markdownOrErrorDiv.innerHTML = '';
             
-            elementsToShow = [heading, pre, removeBtn];
+            elementsToShow = [heading, codeElement, removeBtn];
         }
         
-        htmlOrErrorDiv.replaceChildren(...elementsToShow);
+        markdownOrErrorDiv.replaceChildren(...elementsToShow);
     })
     .catch(reason => {
-        htmlOrErrorDiv.replaceChildren(createDiv('Error getting HTML. See console.'));
+        markdownOrErrorDiv.replaceChildren(createDiv('Error getting Markdown. See console.'));
         console.error(reason);
     });
 };

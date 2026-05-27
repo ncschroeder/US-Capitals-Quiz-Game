@@ -58,11 +58,6 @@ public class AdminRestController {
         return QuizCreation.getStates();
     }
     
-    @GetMapping("/states-table-rows-html")
-    public List<String> getStatesTableRowsHtml() {
-        return adminService.getStatesTableRowsHtml();
-    }
-    
     
     @DeleteMapping(CapitalsOfStatesQuizManager.SCORES_URL_END)
     public @ResponseBody String deleteCapitalsOfStatesScores() {
