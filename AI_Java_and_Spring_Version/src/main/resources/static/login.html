@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/login.css">
+    <script src="/login.js" defer></script>
+</head>
+<body>
+    <a id="home-link" href="/">Back to the home page</a>
+
+    <h1>Log in</h1>
+    <div id="message"></div>
+    <form id="login-form" method="post" action="/login">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required autofocus>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Log in</button>
+    </form>
+</body>
+</html>

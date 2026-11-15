@@ -1,0 +1,50 @@
+Alabama,Montgomery,Birmingham,Huntsville,Mobile,Tuscaloosa,Smut Eye
+Alaska,Juneau,Anchorage,Fairbanks,Sitka,Wasilla,Chicken
+Arizona,Phoenix,Tucson,Mesa,Chandler,Flagstaff,Why
+Arkansas,Little Rock,Fort Smith,Fayetteville,Springdale,Jonesboro,Toad Suck
+California,Sacramento,Los Angeles,San Diego,San Francisco,San Jose,Weed
+Colorado,Denver,Colorado Springs,Aurora,Boulder,Fort Collins,No Name
+Connecticut,Hartford,Bridgeport,New Haven,Stamford,Waterbury,Hazardville
+Delaware,Dover,Wilmington,Newark,Middletown,Smyrna,Slaughter Beach
+Florida,Tallahassee,Jacksonville,Miami,Tampa,Orlando,Two Egg
+Georgia,Atlanta,Augusta,Savannah,Athens,Macon,Hopeulikit
+Hawaii,Honolulu,Hilo,Kailua,Kaneohe,Waipahu,Volcano
+Idaho,Boise,Meridian,Nampa,Idaho Falls,Pocatello,Bliss
+Illinois,Springfield,Chicago,Aurora,Naperville,Peoria,Normal
+Indiana,Indianapolis,Fort Wayne,Evansville,South Bend,Carmel,Santa Claus
+Iowa,Des Moines,Cedar Rapids,Davenport,Sioux City,Iowa City,What Cheer
+Kansas,Topeka,Wichita,Overland Park,Kansas City,Olathe,Gas
+Kentucky,Frankfort,Louisville,Lexington,Bowling Green,Owensboro,Monkeys Eyebrow
+Louisiana,Baton Rouge,New Orleans,Shreveport,Lafayette,Lake Charles,Waterproof
+Maine,Augusta,Portland,Lewiston,Bangor,South Portland,Mexico
+Maryland,Annapolis,Baltimore,Frederick,Rockville,Gaithersburg,Boring
+Massachusetts,Boston,Worcester,Springfield,Cambridge,Lowell,Belchertown
+Michigan,Lansing,Detroit,Grand Rapids,Warren,Sterling Heights,Hell
+Minnesota,Saint Paul,Minneapolis,Rochester,Duluth,Bloomington,Climax
+Mississippi,Jackson,Gulfport,Southaven,Hattiesburg,Biloxi,Hot Coffee
+Missouri,Jefferson City,Kansas City,St. Louis,Springfield,Columbia,Tightwad
+Montana,Helena,Billings,Missoula,Great Falls,Bozeman,Hungry Horse
+Nebraska,Lincoln,Omaha,Bellevue,Grand Island,Kearney,Worms
+Nevada,Carson City,Las Vegas,Henderson,Reno,North Las Vegas,Jackpot
+New Hampshire,Concord,Manchester,Nashua,Derry,Dover,Sandwich
+New Jersey,Trenton,Newark,Jersey City,Paterson,Elizabeth,Ho-Ho-Kus
+New Mexico,Santa Fe,Albuquerque,Las Cruces,Rio Rancho,Roswell,Pie Town
+New York,Albany,New York City,Buffalo,Rochester,Yonkers,Horseheads
+North Carolina,Raleigh,Charlotte,Greensboro,Durham,Winston-Salem,Whynot
+North Dakota,Bismarck,Fargo,Grand Forks,Minot,West Fargo,Zap
+Ohio,Columbus,Cleveland,Cincinnati,Toledo,Akron,Knockemstiff
+Oklahoma,Oklahoma City,Tulsa,Norman,Broken Arrow,Lawton,Hooker
+Oregon,Salem,Portland,Eugene,Gresham,Hillsboro,Boring
+Pennsylvania,Harrisburg,Philadelphia,Pittsburgh,Allentown,Erie,Intercourse
+Rhode Island,Providence,Warwick,Cranston,Pawtucket,East Providence,Quonochontaug
+South Carolina,Columbia,Charleston,North Charleston,Mount Pleasant,Rock Hill,Ninety Six
+South Dakota,Pierre,Sioux Falls,Rapid City,Aberdeen,Brookings,Tea
+Tennessee,Nashville,Memphis,Knoxville,Chattanooga,Clarksville,Bucksnort
+Texas,Austin,Houston,San Antonio,Dallas,Fort Worth,Ding Dong
+Utah,Salt Lake City,West Valley City,Provo,West Jordan,Orem,Mexican Hat
+Vermont,Montpelier,Burlington,South Burlington,Rutland,Barre,Mosquitoville
+Virginia,Richmond,Virginia Beach,Norfolk,Chesapeake,Newport News,Tightsqueeze
+Washington,Olympia,Seattle,Spokane,Tacoma,Vancouver,Humptulips
+West Virginia,Charleston,Huntington,Morgantown,Parkersburg,Wheeling,Big Ugly
+Wisconsin,Madison,Milwaukee,Green Bay,Kenosha,Racine,Spread Eagle
+Wyoming,Cheyenne,Casper,Laramie,Gillette,Rock Springs,Chugwater

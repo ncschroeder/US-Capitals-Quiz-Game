@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+h1 {
+    text-align: center;
+}
+
+#flag {
+    max-width: 12rem;
+    height: auto;
+    border: 1px solid var(--silver);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+nav li {
+    text-align: center;
+}
+
+.description {
+    margin-top: 0.5rem;
+}
+
+nav a {
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
