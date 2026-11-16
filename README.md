@@ -392,10 +392,52 @@ As mentioned in the ["Admin Page and API"](#admin-page-and-api) -> "Updating Sta
 <br/>
 </details>
 
+## AI Java and Spring Website Version
 
 ## Project History
+I used Claude to make another Java and Spring version and a couple JUnit tests for it. I had it generate most of the code and documentation.
+
+<details>
+<summary>Screenshots</summary>
+
+Home page
+
+![Home page](/AI_Java_and_Spring_Version/screenshots/home_page.JPG)
+
+Study page
 
 I think I downloaded MySQL in late 2019, when I was in my last year at Missouri State University. In MySQL, there was a pre-filled sample database called "world" that had tables called "city," "country," and others. In October 2020, I wanted to become more familiar with databases so I studied them and decided I would do a project that involved them. I think one of my ideas was that I would make a game that accesses the "country" table in the "world" database to get countries and their capitals and then quiz the user about these. However, the "country" table doesn't store the capitals of countries, though it gives other info about countries. I think I then came up with the idea of just using U.S. states and their capitals and making a quiz game.
+![Study page](/AI_Java_and_Spring_Version/screenshots/study_page.JPG)
 
 I first made the Python command line version. At some point after this, I came up with the idea of making a website version, though didn't do this until years later, in December 2024. I thought that Spring would be a good tool to learn, since Java and Kotlin were and, at the time of this writing, still are the languages I have the most experience with. I decided to make a website version of this game and use Spring on the back end.
+Capitals of states quiz question
+
+![Capitals of states quiz question](/AI_Java_and_Spring_Version/screenshots/capitals_of_states_quiz_question.JPG)
+
+States of capitals quiz question
+
+![States of capitals quiz question](/AI_Java_and_Spring_Version/screenshots/states_of_capitals_quiz_question.JPG)
+
+Quiz over content
+
+![Quiz over content](/AI_Java_and_Spring_Version/screenshots/quiz_over_content.JPG)
+
+Scores page
+
+![Scores page](/AI_Java_and_Spring_Version/screenshots/scores_page.JPG)
+
+Admin login page
+
+![Admin login page](/AI_Java_and_Spring_Version/screenshots/admin_login_page.JPG)
+
+Admin page
+
+![Admin page](/AI_Java_and_Spring_Version/screenshots/admin_page.JPG)
+
+</details>
+
+I also had Claude create a states and cities file, the same kind mentioned in the ["Admin Page and API"](#admin-page-and-api) -> "Updating States and Cities" section. The prompt I used was `create some csv data for states that can be uploaded to the state service. for each state, choose 5 cities that have various population sizes and have 1 of these cities be one with a funny or silly name`. Many of the funny names it generated are ones that I used. My favorite one Claude came up with is Knockemstiff, Ohio. This [states and cities file](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/AI_Java_and_Spring_Version/states_and_cities.txt) is in the AI version folder.
+
+I also asked Claude about some ideas for a favicon and it came up with 7, including the one I used for the version I made myself, which is just the text "US" on a color background. For this version, I ended up picking a white star on a blue background. Claude made an [SVG file for it](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/AI_Java_and_Spring_Version/src/main/resources/static/favicon.svg).
+
 
