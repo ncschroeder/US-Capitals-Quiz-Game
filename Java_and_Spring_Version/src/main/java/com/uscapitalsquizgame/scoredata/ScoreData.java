@@ -7,7 +7,7 @@ import com.uscapitalsquizgame.quizzes.QuizManager;
 
 @Entity
 public class ScoreData {
-    public static final int MAX_NAME_LENGTH = 20;
+    public static final int MAX_NAME_LENGTH = 25;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

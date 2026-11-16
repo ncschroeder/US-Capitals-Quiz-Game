@@ -7,9 +7,7 @@ import static com.uscapitalsquizgame.quizzes.QuizCreation.*;
 
 public final class CapitalsOfStatesQuizManager extends QuizManager {
     public static final String QUIZ_URL_END = "/capitals-of-states-quiz";
-    
     public static final String SCORE_URL_END = QUIZ_URL_END + "-score";
-    
     public static final String SCORES_URL_END = SCORE_URL_END + 's';
     
     CapitalsOfStatesQuizManager() {
@@ -20,7 +18,7 @@ public final class CapitalsOfStatesQuizManager extends QuizManager {
     QuestionData createQuestionData(State state, boolean noneOfTheAboveIsCorrectAnswer) {
         var question = String.format("What's the capital of %s?", state.getName());
         
-        // This won't contain "None of the above."
+        // This won't contain "None of the above".
         var answerChoices = new ArrayList<String>(NUM_ANSWER_CHOICES - 1);
         
         /*

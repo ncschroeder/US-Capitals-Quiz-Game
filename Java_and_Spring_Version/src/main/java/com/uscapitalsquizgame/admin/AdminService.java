@@ -17,8 +17,8 @@ public class AdminService {
         ) {
             String line1 = br.readLine();
             List<String> line1Values = getValues(line1);
-            if (line1Values.size() < 3) {
-                throw new CsvException(String.format("Line 1 (\"%s\") has < 3 values.", line1));
+            if (line1Values.size() < 4) {
+                throw new CsvException(String.format("Line 1 (\"%s\") has < 4 values.", line1));
             }
             
             states.add(createState(line1, line1Values));
@@ -44,8 +44,8 @@ public class AdminService {
                 }
                 states.add(state);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
         
         states.sort(Comparator.comparing(State::getName));
@@ -72,8 +72,7 @@ public class AdminService {
         if (cities.stream().distinct().count() != cities.size()) {
             throw new CsvException(csvLine, "has duplicate city");
         }
-        cities = new ArrayList<>(cities);
-        Collections.sort(cities);
+        cities = cities.stream().sorted().toList();
         
         return new State(stateName, capital, cities);
     }

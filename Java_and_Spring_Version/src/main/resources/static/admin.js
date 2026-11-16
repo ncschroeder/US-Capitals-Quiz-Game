@@ -33,9 +33,7 @@ const createBtn = (textContent) => createElement('button', textContent);
 
 
 getElementById('states-submit-btn').onclick = () => {
-    /**
-     * @type {FileList}
-     */
+    /** @type {FileList} */
     const files = getElementById('states-file-input').files;
     if (files.length === 0) return;
     
@@ -59,9 +57,7 @@ getElementById('states-submit-btn').onclick = () => {
  * @type {{ name: string, capital: string, cities: string[] }}
  */
 
-/**
- * @param {boolean} getStatesFromDatabase
- */
+/** @param {boolean} getStatesFromDatabase */
 function addOnclickForGetStatesBtn(getStatesFromDatabase) {
     const divId = `get-states-from-${getStatesFromDatabase ? 'database' : 'quiz-creation-class'}-div`;
     const div = getElementById(divId);
@@ -77,9 +73,7 @@ function addOnclickForGetStatesBtn(getStatesFromDatabase) {
             if (!response.ok) {
                 elementsToShow = [createDiv(await response.text())];
             } else {
-                /**
-                 * @type {State[]}
-                 */
+                /** @type {State[]} */
                 const states = await response.json();
                 const table = createStatesTable(states, getStatesFromDatabase);
                 const removeBtn = createBtn('Remove Table');
@@ -121,9 +115,9 @@ function createStatesTable(states, statesAreFromDatabase) {
     table.appendChild(tHead);
     const tBody = createElement('tbody');
 
-    for (const state of states) {
+    for (const { name, capital, cities } of states) {
         tr = createElement('tr');
-        for (const text of [state.name, state.capital, state.cities.join(', ')]) {
+        for (const text of [name, capital, cities.join(', ')]) {
             tr.appendChild(createElement('td', text));
         }
         tBody.appendChild(tr);
@@ -174,9 +168,7 @@ getElementById('get-states-markdown-btn').onclick = () => {
 };
 
 
-/**
- * @param {string} quizTypeWithHyphens
- */
+/** @param {string} quizTypeWithHyphens */
 function addOnclickForDeleteScoresBtn(quizTypeWithHyphens) {
     const divId = `delete-${quizTypeWithHyphens}-scores-div`;
     const div = getElementById(divId);

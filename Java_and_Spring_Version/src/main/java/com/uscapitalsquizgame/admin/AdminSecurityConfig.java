@@ -10,13 +10,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class AdminSecurityConfiguration {
+public class AdminSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         .authorizeHttpRequests(requests ->
             requests
-            .requestMatchers("/admin.html", "/admin/**").hasRole("ADMIN")
+            .requestMatchers("/admin.html", "/admin/**").authenticated()
             .anyRequest().permitAll()
         )
         .formLogin(form -> form.loginPage("/login").permitAll())
@@ -31,7 +31,6 @@ public class AdminSecurityConfiguration {
         UserDetails admin =
             User.withUsername("admin")
             .password("{bcrypt}$2a$10$ZJ9pQ1bTRzNhuWQ2UwxxL.lirdtUfS/8krzVHeS9UrmSxfvEPFN5K")
-            .roles("ADMIN")
             .build();
         
         return new InMemoryUserDetailsManager(admin);

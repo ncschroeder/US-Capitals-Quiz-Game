@@ -44,7 +44,8 @@ public class AdminRestController {
         stateRepository.saveAll(states);
         QuizCreation.setStates(stateRepository);
         return String.format(
-            "Update successful. There are now %d states in the database.", states.size()
+            "Update successful. There are now %d states in the database.",
+            states.size()
         );
     
     

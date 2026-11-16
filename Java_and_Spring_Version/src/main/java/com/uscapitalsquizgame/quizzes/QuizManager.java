@@ -31,8 +31,7 @@ public abstract sealed class QuizManager
     private final String scoresTitleAndHeading;
     
     /**
-     * The args for quizTypeStringWithUppercase are "Capitals of States" and
-     * "States of Capitals."
+     * The args for quizTypeStringWithUppercase are "Capitals of States" and "States of Capitals".
      */
     protected QuizManager(
         String quizTypeStringWithUppercase,

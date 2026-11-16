@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.stream.Collectors;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uscapitalsquizgame.quizzes.*;
 
 @Controller
@@ -22,9 +21,6 @@ public class ScoreDataController {
     
     @Autowired
     private ScoreDataRepository scoreDataRepository;
-    
-    @Autowired
-    private ObjectMapper jsonObjectMapper;
     
     
     @PostMapping(CapitalsOfStatesQuizManager.SCORE_URL_END)

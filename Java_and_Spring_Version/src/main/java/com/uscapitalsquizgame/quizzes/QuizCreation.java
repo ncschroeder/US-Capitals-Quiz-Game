@@ -37,7 +37,7 @@ public class QuizCreation {
     }
     
     @Configuration
-    public static class CommandLineRunnerConfiguration {
+    public static class CommandLineRunnerConfig {
         /**
          * This bean makes the code in the lambda below run on startup.
          */

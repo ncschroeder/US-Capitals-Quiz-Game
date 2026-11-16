@@ -9,9 +9,7 @@ import static com.uscapitalsquizgame.quizzes.QuizCreation.*;
 
 public final class StatesOfCapitalsQuizManager extends QuizManager {
     public static final String QUIZ_URL_END = "/states-of-capitals-quiz";
-    
     public static final String SCORE_URL_END = QUIZ_URL_END + "-score";
-    
     public static final String SCORES_URL_END = SCORE_URL_END + 's';
     
     StatesOfCapitalsQuizManager() {

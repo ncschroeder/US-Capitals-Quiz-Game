@@ -6,9 +6,7 @@
  */
 const getElementById = (id) => document.getElementById(id);
     
-/**
- * @type {HTMLDivElement[]}
- */
+/** @type {HTMLDivElement[]} */
 const choiceBtnAndLabelDivs = [];
 
 for (let i = 1; i <= 5; i++) {
@@ -32,8 +30,7 @@ getElementById('choice-btn-and-label-divs-div').append(...choiceBtnAndLabelDivs)
 
 
 /**
- * @typedef QuestionData
- * @type {{ question: string, choices: string[], correctIndex: number }}
+ * @typedef {{ question: string, answerChoices: string[], correctIndex: number }} QuestionData
  */
 
 const serverDataJsonScript = getElementById('server-data-json-script');
@@ -73,7 +70,7 @@ function showQuestion() {
         That's the only one that doesn't need its label updated.
         */
         if (i < choiceBtnAndLabelDivs.length - 1) {
-            choiceDiv.querySelector('label').textContent = questionData.choices[i];
+            choiceDiv.querySelector('label').textContent = questionData.answerChoices[i];
         }
     }
 }
@@ -124,6 +121,7 @@ saveScoreBtn.onclick = () => {
         return;
     }
     
+    saveScoreBtn.disabled = true;
     const requestUrl = `${addScoreUrlEnd}?score=${score}&name=${nameInputText}`;
     const errorMessage = 'Error saving score.';
         
@@ -146,11 +144,13 @@ saveScoreBtn.onclick = () => {
         } else {
             saveScoreStatusDiv.textContent = errorMessage;
             console.error(responseText);
+            saveScoreBtn.disabled = false;
         }
     })
     .catch(reason => {
         saveScoreStatusDiv.textContent = errorMessage;
         console.error(reason);
+        saveScoreBtn.disabled = false;
     });
 };
 
