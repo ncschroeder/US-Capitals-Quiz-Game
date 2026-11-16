@@ -1,27 +1,18 @@
 # United States Capitals Quiz Game
 
-This is an app with 2 versions: a command line Python version and a Java and Spring website version. The Python version was briefly worked on in 2020 and the Java and Spring version was worked on in 2024 and 2025. There aren't many notable things to say about the Python version, so the rest of this README, except for the ["Project History" section](#project-history), focuses on the Java and Spring version.
+[uscapitalsquizgame.com](https://uscapitalsquizgame.com)
+
+This is an application that allows a user to take multiple choice quizzes and save scores. One type of quiz is over capitals of states. The user is given a state and must guess the capital of that state. The other type of quiz is over states of capitals. The user is given a capital and must guess the state with that capital.
+
+There are 3 versions of this app. 2 of them were made entirely by me: a Python command line version and a Java and Spring website version, which is the one that can be visited at [uscapitalsquizgame.com](https://uscapitalsquizgame.com). I used AI to make another Java and Spring website version. More info about that is in the ["AI Java and Spring Website Version" section](#ai-java-and-spring-website-version). There aren't many notable things to say about the Python version, so it's only talked about in the "Project History" section. The rest of this README, except for the 2 sections just mentioned, focuses on the Java and Spring version that I made myself.
 
 
 ## Collapsible Sections
 
-There are plenty of collapsible sections throughout this README. Each one has a summary and there's a triangle to the left of the summary. Collapsible sections can be opened by clicking on the triangle or summary. Most of the time, the summary is "Info." Here's an example:
-
-<details>
-<summary>Example Summary</summary>
-<br/>
-
-Example text.
-
-<br/>
-</details>
-
-Throughout this README, there are links to sections that are outside of collapsible sections but no links to sections in a collapsible section.
+In case it's not obvious, the black triangles or play buttons below are where collapsible sections are and they can be expanded and collapsed by clicking on the triangle or to the right of it.
 
 
-## Website Overview
-
-This section doesn't have any software design or implementation info but the ["Some Design and Implementation Info" section](#some-design-and-implementation-info) has that.
+## Website Overview for a User
 
 <details>
 <summary>Overview</summary>
@@ -38,7 +29,7 @@ The background color is Old Glory Blue. As can be seen, that's the blue used on 
 
 ### Taking a Quiz
 
-The quizzes have 10 questions. Each question is multiple choice and there are 5 choices, the last of which is "None of the above." There's approximately a 1 in 5 chance that the correct answer is "None of the above." After a choice is submitted and it's correct, the score will increment.
+The quizzes have 10 questions. Each question is multiple choice and there are 5 choices, the last of which is "None of the above". There's approximately a 1 in 5 chance that the correct answer is "None of the above". After a choice is submitted and it's correct, the score will increment.
 
 #### Capitals of States Quiz
 
@@ -50,7 +41,7 @@ As can be seen in this screenshot, the question format is "What's the capital of
 <summary>How answer choices are generated</summary>
 <br/>
 
-For each question, whether or not the correct answer is "None of the above," the answer choices will consist of a random non-capital city from the state that's in the question, a random non-capital city from a different random state, and a capital from a different random state. More info about non-capital cities can be found in the "States and Cities" -> "Non-Capital Cities" section. If the correct answer is **not** "None of the above," then the other answer choice will, of course, be the capital of the state in the question. If the correct answer is "None of the above," then the other answer choice will be a random non-capital city from the state in the question that's different from the first random non-capital city from that state. The choices will be in a random order.
+For each question, whether or not the correct answer is "None of the above", the answer choices will consist of a random non-capital city from the state that's in the question, a random non-capital city from a different random state, and a capital from a different random state. More info about non-capital cities can be found in the ["States and Cities"](#states-and-cities) -> "Non-Capital Cities" section. If the correct answer is **not** "None of the above", then the other answer choice will, of course, be the capital of the state in the question. If the correct answer is "None of the above", then the other answer choice will be a random non-capital city from the state in the question that's different from the first random non-capital city from that state. The choices will be in a random order.
 
 </details>
 
@@ -64,7 +55,7 @@ As can be seen in this screenshot, the question format is "\_ is the capital of 
 <summary>How answer choices are generated</summary>
 <br/>
 
-If the correct answer is **not** "None of the above," then the state whose capital is in the question will, of course, be one of the answer choices. The other choices will be 3 different random states. If the correct answer is "None of the above," then the answer choices will be 4 random states that are, of course, different from the state whose capital is in the question. The choices will be in a random order.
+If the correct answer is **not** "None of the above", then the state whose capital is in the question will, of course, be one of the answer choices. The other choices will be 3 different random states. If the correct answer is "None of the above", then the answer choices will be 4 random states that are, of course, different from the state whose capital is in the question. The choices will be in a random order.
 
 </details>
 
@@ -127,7 +118,7 @@ Capitals of states quiz questions should never have one of these cities be two a
 
 ### All States and Cities
 
-In this table, there are 2 links to music videos on YouTube. The Markdown for the rows of this table was generated by the [admin API](#admin-page-and-api).
+In this table, there are 2 links to music videos on YouTube. The Markdown for the rows of this table was generated by the [admin page](#admin-page-and-api).
 
 <details>
 <summary>Table</summary>
@@ -197,7 +188,7 @@ In this table, there are 2 links to music videos on YouTube. The Markdown for th
 <summary>Info</summary>
 <br/>
 
-The link for the admin page is <https://uscapitalsquizgame.com/admin> or [that link followed by `.html`](https://uscapitalsquizgame.com/admin.html). You have to log in to get the response of any HTTP request to an endpoint that starts with `https://uscapitalsquizgame.com/admin`. If you make an HTTP request to one of those endpoints without being logged in, the server will respond with HTML for the login page. If you try going to the admin page in a browser, that HTML will be shown:
+The link for the admin page is [uscapitalsquizgame.com/admin](https://uscapitalsquizgame.com/admin) or [that link followed by `.html`](https://uscapitalsquizgame.com/admin.html). You have to log in to get the response of any HTTP request to an endpoint that starts with `uscapitalsquizgame.com/admin`. If you make an HTTP request to one of those endpoints without being logged in, the server will respond with HTML for the login page. If you try going to the admin page in a browser, that HTML will be shown:
 
 ![Admin login page](/Java_and_Spring_Version/screenshots/admin_login_page.jpg)
 
@@ -228,7 +219,7 @@ After logging in, this is the admin page:
 <summary>Info</summary>
 <br/>
 
-The states and cities used for quizzes are updated via the admin page. A file containing state and city names separated by commas must be submitted. Each line in the file should contain values for a state name, that state's capital, and non-capital cities in that state. The file I used, [states_and_cities.txt](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/states_and_cities.txt) is in the `Java_and_Spring_Version` folder and here are the first 5 lines of it:
+The states and cities used for quizzes are updated via the admin page. This is the only feature of the website that has unit testing. A file containing state and city names separated by commas must be submitted. Each line in the file should contain values for a state name, that state's capital, and non-capital cities in that state. The file I used, [states_and_cities.txt](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/Java_and_Spring_Version/states_and_cities.txt) is in the `Java_and_Spring_Version` folder and here are the first 5 lines of it:
 
 ```
 Alaska,Juneau,Anchorage,North Pole,Fairbanks,Sitka,Dillingham
@@ -243,7 +234,7 @@ I decided to have that file be a plain text file and have the file input HTML el
 There are some rules that must be followed for states and cities to get updated:
 
 - The file must be no bigger than 10 KB.
-- The 1<sup>st</sup> line must contain at least 3 values.
+- The 1<sup>st</sup> line must contain at least 4 values.
 - All the other lines must contain the same amount of values as the 1<sup>st</sup> line.
 - There must be no blank values, duplicate state names, nor duplicate non-capital cities for the same state.
 
@@ -280,7 +271,7 @@ This is how the Markdown used for the table in the ["States and Cities"](#states
 
 ## Deployment to the Internet
 
-I used GoDaddy as my registrar for the domain `uscapitalsquizgame.com` and used [Microsoft Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/overview) to deploy this app to the internet. I created a container image for this app by first creating a `jar` file and then using the Docker CLI and a `Dockerfile` in the `Java_and_Spring_Version` directory with this code:
+I'm using [Microsoft Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/overview) to have this app be on the internet and I'm using GoDaddy as my registrar for the domain `uscapitalsquizgame.com`. I created a container image for this app by first creating a `jar` file and then using the Docker CLI and a `Dockerfile` in the `Java_and_Spring_Version` directory with this code:
 
 ```dockerfile
 FROM mcr.microsoft.com/openjdk/jdk:21-mariner
@@ -291,10 +282,10 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 I then pushed my image to this [repository of mine on Docker Hub](https://hub.docker.com/repository/docker/nschroeder131/us-capitals-quiz-game/general). The container app pulls the image from this repo.
 
 <details>
-<summary>Info about mcr.microsoft.com/openjdk/jdk:21-mariner</summary>
+<summary>Info about <code>mcr.microsoft.com/openjdk/jdk:21-mariner</code></summary>
 <br/>
 
-This is a container image for the [Microsoft Build of OpenJDK](https://learn.microsoft.com/en-us/java/openjdk/overview) for Java 21 for [Mariner, AKA Azure Linux](https://learn.microsoft.com/en-us/azure/azure-linux/faq). I decided to use this JDK image as my base image simply because there's a [sample app for Azure Container Apps](https://github.com/Azure-Samples/containerapps-albumapi-java) that used it as its base image and the [plain OpenJDK Docker image](https://hub.docker.com/_/openjdk) is deprecated.
+This is a container image for the [Microsoft Build of OpenJDK](https://learn.microsoft.com/en-us/java/openjdk/overview) for Java 21 for [Mariner, AKA Azure Linux](https://learn.microsoft.com/en-us/azure/azure-linux/faq). I decided to use this JDK image as my base image simply because there's a [sample app for Azure Container Apps](https://github.com/Azure-Samples/containerapps-albumapi-java) that uses it as its base image and the [plain OpenJDK Docker image](https://hub.docker.com/_/openjdk) is deprecated.
 
 </details>
 
@@ -311,7 +302,7 @@ The home, study, admin, and error pages use static HTML. The quiz, scores, and a
 
 The quiz and scores pages have scripts that use data from the server. This is implemented by having the server render this data as JSON inside a `<script>` element and then having the other script parse that JSON.
 
-The [error page](https://www.numbertheoryplayground.com/error.html) gets shown when an unexpected error happens when trying to show another view. I consider this to be pretty unlikely so the error page just has a "United States Capitals Quiz Game" heading, a message that just says "Error," and a link to the home page.
+The [error page](https://www.uscapitalsquizgame.com/error.html) gets shown when an unexpected error happens when trying to show another view. I consider this to be pretty unlikely so the error page just has a "United States Capitals Quiz Game" heading, a message that just says "Error", and a link to the home page.
 
 
 ### Database Service Used: [Microsoft Azure Database for MySQL](https://learn.microsoft.com/en-us/azure/mysql/).
@@ -374,11 +365,11 @@ After a quiz, a user has the option to enter a name and submit their score. To s
 
 #### Submitting a Score
 
-When enters a name and tries to submit their score, the name will have its leading and trailing whitespace removed and then its length will be checked. If it's > 0 and ≤ 20, then the name and score will be sent from the front end to the back end. Each quiz type has an endpoint for adding a score. There's some back end validation for the name and score but these should pass if the front end validation passed. The back end name validation is the same as on the front end. The score is validated to be ≥ 0 and ≤ 10, the number of quiz questions. The score that gets sent to the back end should be in that range. A `ScoreData` gets created and a row gets added to the `score_data` table based on that. The `quizType` of the `ScoreData` is the return value of the `getQuizTypeDbColValue` of the appropriate `QuizManager`. The `saveDateTime` of the `ScoreData` is the UTC time when the request was made. UTC time doesn't have to be used. Any time offset can be used but I decided to use UTC time.
+When enters a name and tries to submit their score, the name will have its leading and trailing whitespace removed and then its length will be checked. If it's > 0 and ≤ 25, then the name and score will be sent from the front end to the back end. Each quiz type has an endpoint for adding a score. There's some back-end validation for the name and score but these should pass if the front-end validation passed. The back-end name validation is the same as on the front end. The score is validated to be ≥ 0 and ≤ 10, the number of quiz questions. The score that gets sent to the back end should be in that range. A `ScoreData` gets created and a row gets added to the `score_data` table based on that. The `quizType` of the `ScoreData` is the return value of the `getQuizTypeDbColValue` of the appropriate `QuizManager`. The `saveDateTime` of the `ScoreData` is the UTC time when the request was made. UTC time doesn't have to be used. Any time offset can be used but I decided to use UTC time.
 
 #### Visiting a Scores Page
 
-There's a scores page for each quiz type. When one of the scores pages is visited, the server uses the `getQuizTypeDbColValue` method of the appropriate `QuizManager` to gets rows of the `score_data` table with the appropriate quiz type and puts the data into `ScoreData` objects. The `name` and `score` fields of these are rendered into an HTML table in an HTML document on the server. I'm going to use the term *epoch milliseconds* to refer to the number of milliseconds since the Unix epoch, which is midnight in UTC time on January 1<sup>st</sup>, 1970. The server gets the epoch milliseconds of the `saveDateTime` fields of the `ScoreData`s and puts these into a script on the same HTML document. This HTML document gets sent to the front end and then a different script for this HTML document has JavaScript that accesses the epoch milliseconds and creates date and time strings that are based on the user's language and time zone. These strings are created by using the `format` method of an [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). This `Intl.DateTimeFormat` is the tool I was referring to in the collapsible section of the ["Website Overview"](#website-overview) -> "Seeing Scores" section.
+There's a scores page for each quiz type. When one of the scores pages is visited, the server uses the `getQuizTypeDbColValue` method of the appropriate `QuizManager` to get rows of the `score_data` table with the appropriate quiz type and puts the data into `ScoreData` objects. The `name` and `score` fields of these are rendered into an HTML table in an HTML document on the server. I'm going to use the term *epoch milliseconds* to refer to the number of milliseconds since the Unix epoch, which is midnight in UTC time on January 1<sup>st</sup>, 1970. The server gets the epoch milliseconds of the `saveDateTime` fields of the `ScoreData`s and puts these into a script on the same HTML document. This HTML document gets sent to the front end and then a different script for this HTML document has JavaScript that accesses the epoch milliseconds and creates date and time strings that are based on the user's language and time zone. These strings are created by using the `format` method of an [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). This `Intl.DateTimeFormat` is the tool I was referring to in the collapsible section of the ["Website Overview for a User"](#website-overview-for-a-user) -> "Seeing Scores" section.
 
 
 ### How to update this app if a state or states get added or removed
@@ -394,11 +385,11 @@ As mentioned in the ["Admin Page and API"](#admin-page-and-api) -> "Updating Sta
 
 ## AI Java and Spring Website Version
 
-## Project History
 I used Claude to make another Java and Spring version and a couple JUnit tests for it. I had it generate most of the code and documentation.
 
 <details>
 <summary>Screenshots</summary>
+<br/>
 
 Home page
 
@@ -406,10 +397,8 @@ Home page
 
 Study page
 
-I think I downloaded MySQL in late 2019, when I was in my last year at Missouri State University. In MySQL, there was a pre-filled sample database called "world" that had tables called "city," "country," and others. In October 2020, I wanted to become more familiar with databases so I studied them and decided I would do a project that involved them. I think one of my ideas was that I would make a game that accesses the "country" table in the "world" database to get countries and their capitals and then quiz the user about these. However, the "country" table doesn't store the capitals of countries, though it gives other info about countries. I think I then came up with the idea of just using U.S. states and their capitals and making a quiz game.
 ![Study page](/AI_Java_and_Spring_Version/screenshots/study_page.JPG)
 
-I first made the Python command line version. At some point after this, I came up with the idea of making a website version, though didn't do this until years later, in December 2024. I thought that Spring would be a good tool to learn, since Java and Kotlin were and, at the time of this writing, still are the languages I have the most experience with. I decided to make a website version of this game and use Spring on the back end.
 Capitals of states quiz question
 
 ![Capitals of states quiz question](/AI_Java_and_Spring_Version/screenshots/capitals_of_states_quiz_question.JPG)
@@ -441,3 +430,10 @@ I also had Claude create a states and cities file, the same kind mentioned in th
 I also asked Claude about some ideas for a favicon and it came up with 7, including the one I used for the version I made myself, which is just the text "US" on a color background. For this version, I ended up picking a white star on a blue background. Claude made an [SVG file for it](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/AI_Java_and_Spring_Version/src/main/resources/static/favicon.svg).
 
 
+## Project History
+
+I think I downloaded MySQL in late 2019, when I was in my last year at Missouri State University. In MySQL, there was a pre-filled sample database called "world" that had tables called "city", "country", and others. In October 2020, I wanted to become more familiar with databases so I studied them and decided I would do a project that involves them. I think one of my ideas was a game that accesses the country table to get countries and their capitals and then quiz the user about these. However, the country table doesn't store the capitals of countries, though it gives other info. I think I then came up with the idea of just using U.S. states and their capitals and making a quiz game.
+
+I made the Python command line version. I mentioned at the beginning of this README that the user can take quizzes over capitals of states or over states of capitals, but that's for the website versions. The Python version only let the user take quizzes over capitals of states. They're given a capital and must guess the state with that capital.
+
+At some point after making the Python version, I came up with the idea of making a website version, though didn't do this until years later. In December 2024, I started working on the Java and Spring website version. I started working on my [Number Theory Playground](https://github.com/ncschroeder/Number-Theory-Playground) website around the same time and decided to use Spring for that too. I never used Spring before working on these and thought it would be a good website framework to learn since it's popular and Java and Kotlin, the languages I have the most experience with, can be used with it. In April 2026, I started working on the AI Java and Spring website version.
