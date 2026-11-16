@@ -6,11 +6,13 @@ This is an application that allows a user to take multiple choice quizzes and sa
 
 There are 3 versions of this app. 2 of them were made entirely by me: a Python command line version and a Java and Spring website version, which is the one that can be visited at [uscapitalsquizgame.com](https://uscapitalsquizgame.com). I used AI to make another Java and Spring website version. More info about that is in the ["AI Java and Spring Website Version" section](#ai-java-and-spring-website-version). There aren't many notable things to say about the Python version, so it's only talked about in the "Project History" section. The rest of this README, except for the 2 sections just mentioned, focuses on the Java and Spring version that I made myself.
 
+<br/>
 
 ## Collapsible Sections
 
 In case it's not obvious, the black triangles or play buttons below are where collapsible sections are and they can be expanded and collapsed by clicking on the triangle or to the right of it.
 
+<br/>
 
 ## Website Overview for a User
 
@@ -98,6 +100,7 @@ I went to the [Wikipedia article for Central European Time](https://en.wikipedia
 
 <br/>
 </details>
+<br/>
 
 ## States and Cities
 
@@ -180,6 +183,7 @@ In this table, there are 2 links to music videos on YouTube. The Markdown for th
 </details>
 <br/>
 </details>
+<br/>
 
 
 ## Admin Page and API
@@ -267,6 +271,7 @@ This is how the Markdown used for the table in the ["States and Cities"](#states
 
 <br/>
 </details>
+<br/>
 
 
 ## Deployment to the Internet
@@ -288,6 +293,7 @@ I then pushed my image to this [repository of mine on Docker Hub](https://hub.do
 This is a container image for the [Microsoft Build of OpenJDK](https://learn.microsoft.com/en-us/java/openjdk/overview) for Java 21 for [Mariner, AKA Azure Linux](https://learn.microsoft.com/en-us/azure/azure-linux/faq). I decided to use this JDK image as my base image simply because there's a [sample app for Azure Container Apps](https://github.com/Azure-Samples/containerapps-albumapi-java) that uses it as its base image and the [plain OpenJDK Docker image](https://hub.docker.com/_/openjdk) is deprecated.
 
 </details>
+<br/>
 
 
 ## Some Design and Implementation Info
@@ -382,6 +388,7 @@ As mentioned in the ["Admin Page and API"](#admin-page-and-api) -> "Updating Sta
 
 <br/>
 </details>
+<br/>
 
 ## AI Java and Spring Website Version
 
@@ -428,6 +435,8 @@ Admin page
 I also had Claude create a states and cities file, the same kind mentioned in the ["Admin Page and API"](#admin-page-and-api) -> "Updating States and Cities" section. The prompt I used was `create some csv data for states that can be uploaded to the state service. for each state, choose 5 cities that have various population sizes and have 1 of these cities be one with a funny or silly name`. Many of the funny names it generated are ones that I used. My favorite one Claude came up with is Knockemstiff, Ohio. This [states and cities file](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/AI_Java_and_Spring_Version/states_and_cities.txt) is in the AI version folder.
 
 I also asked Claude about some ideas for a favicon and it came up with 7, including the one I used for the version I made myself, which is just the text "US" on a color background. For this version, I ended up picking a white star on a blue background. Claude made an [SVG file for it](https://github.com/ncschroeder/US-Capitals-Quiz-Game/blob/main/AI_Java_and_Spring_Version/src/main/resources/static/favicon.svg).
+
+<br/>
 
 
 ## Project History
