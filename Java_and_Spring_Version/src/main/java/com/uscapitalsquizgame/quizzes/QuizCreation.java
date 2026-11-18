@@ -17,7 +17,7 @@ public class QuizCreation {
     public static final int NUM_QUESTIONS = 10;
     
     /**
-     * The number of answer choices including "None of the above."
+     * The number of answer choices including "None of the above".
      */
     static final int NUM_ANSWER_CHOICES = 5;
     

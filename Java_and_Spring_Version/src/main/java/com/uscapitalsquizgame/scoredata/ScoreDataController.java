@@ -14,13 +14,13 @@ import com.uscapitalsquizgame.quizzes.*;
 @Controller
 public class ScoreDataController {
     @Autowired
+    private ScoreDataRepository scoreDataRepository;
+    
+    @Autowired
     private CapitalsOfStatesQuizManager capitalsOfStatesQuizManager;
     
     @Autowired
     private StatesOfCapitalsQuizManager statesOfCapitalsQuizManager;
-    
-    @Autowired
-    private ScoreDataRepository scoreDataRepository;
     
     
     @PostMapping(CapitalsOfStatesQuizManager.SCORE_URL_END)

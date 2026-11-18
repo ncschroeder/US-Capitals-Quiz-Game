@@ -8,13 +8,15 @@ import com.uscapitalsquizgame.states.State;
 
 @Service
 public class AdminService {
+    /**
+     * The file should have lines with comma-separated values. Each line should have a state, capital,
+     * and non-capital cities. This method reads the file and returns a list of States sorted
+     * alphabetically by state names. The cities for each State will also be sorted alphabetically.
+     */
     List<State> createStates(MultipartFile file) {
         var states = new ArrayList<State>();
         
-        try (
-            var isr = new InputStreamReader(file.getInputStream());
-            var br = new BufferedReader(isr)
-        ) {
+        try (var br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line1 = br.readLine();
             List<String> line1Values = getValues(line1);
             if (line1Values.size() < 4) {
@@ -30,17 +32,13 @@ public class AdminService {
                 List<String> curLineValues = getValues(curLine);
                 if (curLineValues.size() != line1Values.size()) {
                     String exceptionMessageEnd =
-                        String.format(
-                            "doesn't have the same number of values as line 1 (\"%s\")", line1
-                        );
+                        String.format("doesn't have the same number of values as line 1 (\"%s\")", line1);
                     throw new CsvException(curLine, exceptionMessageEnd);
                 }
                 
                 var state = createState(curLine, curLineValues);
                 if (!stateNames.add(state.getName())) {
-                    throw new CsvException(
-                        String.format("Duplicate state name: %s.", state.getName())
-                    );
+                    throw new CsvException(String.format("Duplicate state name: %s.", state.getName()));
                 }
                 states.add(state);
             }

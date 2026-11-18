@@ -31,6 +31,20 @@ public class StateService {
         loadStates();
     }
 
+    /**
+     * Parses an uploaded CSV file into a list of states.
+     *
+     * Each non-blank line has the form {state,capital,city1,city2,...}. Blank
+     * lines are skipped and every value is trimmed. The first line sets how many values
+     * each line must have, and it must have at least 4 (a state, a capital and at least
+     * two cities).
+     *
+     * Each state's cities are sorted alphabetically, and the returned states are
+     * sorted by name.
+     *
+     * Throws an InvalidStateFileException in various situations and throws an IOException
+     * if the file cannot be read
+     */
     List<State> parseFile(MultipartFile file) throws IOException {
         List<String> lines;
         try (var reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
@@ -68,6 +82,15 @@ public class StateService {
         return parsed;
     }
 
+    /**
+     * Parses one line of the CSV file into a state.
+     *
+     * The line has the form {state,capital,city1,city2,...} and must have exactly
+     * expectedCount values. Every value is trimmed, and the cities are sorted
+     * alphabetically.
+     *
+     * Throws an InvalidStateFileException in various situations.
+     */
     private State parseLine(String line, int expectedCount) {
         String[] parts = line.split(",");
         if (parts.length != expectedCount) {

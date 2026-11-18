@@ -6,9 +6,8 @@ const scoreEpochMilliseconds = JSON.parse(scoreEpochMillisecondsJson);
 const dateTimeCells = document.getElementsByClassName('date-time-cell');
 const dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'long', timeStyle: 'long' });
 
-for (let i = 0; i < scoreEpochMilliseconds.length; i++) {
-    const dateTimeString = dateTimeFormat.format(new Date(scoreEpochMilliseconds[i]));
-    dateTimeCells[i].textContent = dateTimeString;
-}
+scoreEpochMilliseconds.forEach((millisecond, i) =>
+    dateTimeCells[i].textContent = dateTimeFormat.format(new Date(millisecond))
+);
 
 document.getElementById('scores-table').style.visibility = 'visible';

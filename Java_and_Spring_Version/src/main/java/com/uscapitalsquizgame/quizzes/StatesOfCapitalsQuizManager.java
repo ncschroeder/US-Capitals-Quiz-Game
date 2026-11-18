@@ -31,7 +31,7 @@ public final class StatesOfCapitalsQuizManager extends QuizManager {
         
         List<String> answerChoices =
             getStreamOfRandomStates()
-            .filter(s -> !s.getId().equals(state.getId()))
+            .filter(s -> s != state)
             .limit(numRandomStatesToGet)
             .map(State::getName)
             .collect(Collectors.toCollection(ArrayList::new));

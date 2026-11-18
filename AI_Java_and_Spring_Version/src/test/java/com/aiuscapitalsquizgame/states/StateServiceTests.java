@@ -40,19 +40,19 @@ public class StateServiceTests {
                 )
             ),
             arguments(
-                "  Alabama  ,  Montgomery  ,  Birmingham  ",
-                List.of(new State("Alabama", "Montgomery", List.of("Birmingham")))
+                "  Alabama  ,  Montgomery  ,  Birmingham  ,  Huntsville  ",
+                List.of(new State("Alabama", "Montgomery", List.of("Birmingham", "Huntsville")))
             ),
             arguments(
                 """
 
-                Alabama,Montgomery,Birmingham
+                Alabama,Montgomery,Birmingham,Huntsville
 
-                Alaska,Juneau,Anchorage
+                Alaska,Juneau,Anchorage,Fairbanks
                 """,
                 List.of(
-                    new State("Alabama", "Montgomery", List.of("Birmingham")),
-                    new State("Alaska", "Juneau", List.of("Anchorage"))
+                    new State("Alabama", "Montgomery", List.of("Birmingham", "Huntsville")),
+                    new State("Alaska", "Juneau", List.of("Anchorage", "Fairbanks"))
                 )
             )
         );
@@ -61,17 +61,17 @@ public class StateServiceTests {
     @ValueSource(strings = {
         "",
         "\n\n   \n",
-        "Alabama,Montgomery",
+        "Alabama,Montgomery,Birmingham",
         """
-        Alabama,Montgomery,Birmingham
-        Alaska,Juneau,Anchorage,Fairbanks
+        Alabama,Montgomery,Birmingham,Huntsville
+        Alaska,Juneau,Anchorage,Fairbanks,Sitka
         """,
         """
-        Alabama,Montgomery,Birmingham
-        Alabama,Huntsville,Mobile
+        Alabama,Montgomery,Birmingham,Huntsville
+        Alabama,Huntsville,Mobile,Tuscaloosa
         """,
         "Alabama,Montgomery,Birmingham,Birmingham",
-        "Alabama, ,Birmingham"
+        "Alabama, ,Birmingham,Huntsville"
     })
     void rejectsInvalidFile(String contents) {
         assertThrows(InvalidStateFileException.class, () -> stateService.parseFile(file(contents)));

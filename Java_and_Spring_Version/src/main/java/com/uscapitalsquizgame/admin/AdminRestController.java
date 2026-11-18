@@ -43,10 +43,7 @@ public class AdminRestController {
         stateRepository.deleteAll();
         stateRepository.saveAll(states);
         QuizCreation.setStates(stateRepository);
-        return String.format(
-            "Update successful. There are now %d states in the database.",
-            states.size()
-        );
+        return String.format("Update successful. There are now %d states in the database.", states.size());
     
     
     @GetMapping("/states-from-database")
